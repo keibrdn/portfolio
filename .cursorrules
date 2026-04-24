@@ -1,0 +1,79 @@
+# Portfolio — Cursor Rules
+
+## Stack
+- Vite + React
+- Sanity.io for CMS (use GROQ queries, not GraphQL)
+- Mux for video via @mux/mux-player-react
+- sanity-plugin-mux-input in the Sanity studio
+- React Router v6 for client-side routing
+- Deployed on Vercel
+
+## Project structure
+- frontend/         → Vite + React app
+- studio/           → Sanity Studio
+- design/references/ → aesthetic reference images
+
+## Design system rules — the most important rules in this file
+- NEVER hardcode color values, font names, font sizes, spacing, or border-radius values directly in components or CSS files.
+- ALWAYS use CSS custom properties from frontend/src/styles/tokens.css
+- Colors:    use var(--color-accent), not #8B5CF6
+- Spacing:   use var(--space-md), not 16px
+- Typography: use var(--font-heading), not 'DM Serif Display'
+- Font sizes: use var(--size-lg), not 1.25rem
+- Radii:     use var(--radius-md), not 8px
+- When in doubt, add a new token to tokens.css rather than hardcoding a one-off value.
+
+## Code conventions
+- Functional components only, no class components
+- No TypeScript — plain JavaScript throughout
+- Custom hooks go in frontend/src/hooks/ and are prefixed with "use"
+- All Sanity GROQ queries go in frontend/src/lib/queries.js
+- Sanity client and image helpers go in frontend/src/lib/sanity.js
+- Components go in frontend/src/components/ and are PascalCase
+- Pages go in frontend/src/pages/ and are PascalCase
+- Each component gets its own .css file in the same folder, using only var() references
+
+## Sanity conventions
+- Document types: caseStudy, siteSettings
+- Content is modular — case studies use a contentBlocks array of typed block objects
+- Block types: textBlock, imageBlock, videoBlock, statsBlock, quoteBlock
+- BlockRenderer.jsx switches on block._type to render the correct component
+- Never fetch data directly in a component — always use a custom hook from src/hooks/
+
+## Mux conventions
+- Videos are uploaded via the Mux plugin in Sanity Studio
+- The Sanity videoBlock stores a Mux playback ID
+- The frontend VideoBlock.jsx component renders <MuxPlayer playbackId={...} />
+- Never embed video via a raw URL or iframe
+
+## Environment variables
+- Sanity project ID and dataset are in .env as VITE_SANITY_PROJECT_ID and VITE_SANITY_DATASET
+- Access via import.meta.env.VITE_* — never hardcode project IDs in source files
+- Never commit .env to git
+
+## When building components, always
+- Use token variables for all visual values
+- Keep components small and single-purpose
+- Use semantic HTML elements (article, section, nav, main, header, footer)
+- Write CSS in a co-located .css file, not inline styles
+- Make sure new components are wired into the router or a parent component before finishing
+
+## The /design route
+- frontend/src/pages/DesignSystem.jsx is a live style guide at /design
+- It renders all color tokens as swatches, the full type scale, spacing blocks, and radius examples
+- When making design changes, check /design first to preview before touching real pages
+- Do not remove or modify DesignSystem.jsx without being asked
+
+## Aesthetic
+- Overall vibe: minimalist, technical, yet soft (monospace accents, extreme white space, asymmetric grids, off-white)
+- Motion: snappy, instant feedback on interactions, zero lag feel, short sharp transitions 
+- Typography feel: high contrast with large weight and size variation. loose and airy (generous line height, easy readability)
+- Spacing: very airy with generous whitespace, large section gaps — lots of vertical breathing room between page sections
+- Layout personality: multi-column editorial — content shifts between 1, 2, and 3 column layouts
+- Color approach - warm neutrals
+- UI details: buttons are minimal — outlined or text-only, no filled pill buttons, underlines on links — classic web, not hiding that things are clickable, no borders anywhere — separation through spacing and color only
+
+## Git conventions
+- Commit messages use a prefix: init:, design:, feat:, fix:, content:, deploy:
+- Branch names use kebab-case: feature/hero-section, fix/nav-mobile
+- Commit after each meaningful unit of work, not at the end of a session
