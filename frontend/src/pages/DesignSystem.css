@@ -1,0 +1,185 @@
+.designSystem {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  min-height: 100vh;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+.designSystemHeader {
+  margin-bottom: var(--space-section);
+  padding-bottom: var(--space-xl);
+  border-bottom: none;
+  box-shadow: 0 var(--radius-sm) 0 0 var(--color-border);
+}
+
+.designSystemTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  font-size: var(--size-3xl);
+  letter-spacing: var(--letter-spacing-tight);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-heading);
+  margin: 0 0 var(--space-md);
+}
+
+.designSystemMeta {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-sm);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.section {
+  margin-bottom: var(--space-section);
+}
+
+.sectionLabel {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  font-size: var(--size-lg);
+  color: var(--color-text-heading);
+  margin: 0 0 var(--space-lg);
+  letter-spacing: var(--letter-spacing-ui);
+}
+
+.colorRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+.colorSwatch {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  min-width: var(--space-2xl);
+  flex: 1 1 var(--space-2xl);
+}
+
+.colorSwatchTile {
+  width: 100%;
+  min-height: var(--space-2xl);
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 0 var(--radius-sm) var(--color-border);
+}
+
+.colorSwatchLabel {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-sm);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-ui);
+}
+
+.colorSwatchVar {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  color: var(--color-text-muted);
+}
+
+.typeScale {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.typeScaleRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: stretch;
+}
+
+.typeScaleToken {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  color: var(--color-text-muted);
+  letter-spacing: var(--letter-spacing-ui);
+  padding-top: var(--space-xs);
+}
+
+.typeScaleSamples {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.typeSampleHeading {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  color: var(--color-text-heading);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  margin: 0;
+}
+
+.typeSampleBody {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-body);
+  margin: 0;
+}
+
+.spacingRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-xl);
+}
+
+.spacingItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.spacingSquare {
+  background-color: var(--color-accent);
+  border-radius: var(--radius-sm);
+}
+
+.spacingLabel {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  color: var(--color-text-muted);
+  letter-spacing: var(--letter-spacing-ui);
+  text-align: center;
+  max-width: var(--space-2xl);
+  word-break: break-word;
+}
+
+.radiusSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.radiusStrip {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.radiusStripBar {
+  width: 100%;
+  height: var(--space-lg);
+  background-color: var(--color-accent-plum);
+}
+
+.radiusStripMeta {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  color: var(--color-text-muted);
+  letter-spacing: var(--letter-spacing-ui);
+}

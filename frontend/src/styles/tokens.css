@@ -1,0 +1,97 @@
+/* IBM Plex Mono (400, 700) + Manrope Light (300) — load before :root tokens */
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Manrope:wght@300&display=swap");
+
+:root {
+  /* -------------------------------------------------------------------------
+     Colors
+     Warm neutrals; accents are plum + secondary hues for links, tags, etc.
+     ------------------------------------------------------------------------- */
+
+  /* Page canvas */
+  --color-bg: #fffcf4;
+  /* Slightly lifted planes (cards, sticky bars) — still warm, no harsh white */
+  --color-surface: #faf7ef;
+
+  /* Headings / strongest ink (#242424) — use with --font-heading */
+  --color-text-heading: #242424;
+  /* Primary reading color for paragraphs (#3F3F3F) */
+  --color-text-primary: #3f3f3f;
+  /* Captions, meta, de-emphasized UI copy */
+  --color-text-muted: #7a756d;
+
+  /* Default “brand” accent — plum */
+  --color-accent: #653651;
+  --color-accent-plum: #653651;
+  --color-accent-orange: #cc5b3f;
+  --color-accent-blue: #5055af;
+  --color-accent-green: #9e9a36;
+
+  /* Separation without heavy borders — soft warm hairline */
+  --color-border: #e8e4dc;
+
+  /* Focus rings / keyboard targets — visible but on-brand */
+  --color-focus-ring: var(--color-accent-blue);
+
+  /* -------------------------------------------------------------------------
+     Typography
+     Headings & UI chrome: IBM Plex Mono. Body: Manrope Light (300).
+     ------------------------------------------------------------------------- */
+
+  --font-heading: "IBM Plex Mono", ui-monospace, monospace;
+  --font-ui: "IBM Plex Mono", ui-monospace, monospace;
+  --font-body: "Manrope", system-ui, sans-serif;
+
+  --font-weight-heading: 700;
+  --font-weight-ui: 400;
+  --font-weight-body: 300;
+
+  --line-height-tight: 1.15;
+  --line-height-snug: 1.35;
+  --line-height-body: 1.65;
+  --line-height-loose: 1.85;
+
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-ui: 0.02em;
+
+  /* Type scale — large jumps for editorial / portfolio feel */
+  --size-xs: 0.75rem; /* 12px */
+  --size-sm: 0.875rem; /* 14px */
+  --size-base: 1rem; /* 16px */
+  --size-md: 1.125rem; /* 18px */
+  --size-lg: 1.375rem; /* 22px */
+  --size-xl: 1.75rem; /* 28px */
+  --size-2xl: 2.25rem; /* 36px */
+  --size-3xl: 3rem; /* 48px */
+  --size-4xl: clamp(2.75rem, 5vw + 1rem, 4.5rem);
+
+  /* -------------------------------------------------------------------------
+     Spacing
+     Airy scale — favor section gaps with --space-xl / --space-2xl
+     ------------------------------------------------------------------------- */
+
+  --space-xs: 0.25rem; /* 4px */
+  --space-sm: 0.5rem; /* 8px */
+  --space-md: 1rem; /* 16px */
+  --space-lg: 1.5rem; /* 24px */
+  --space-xl: 2.5rem; /* 40px */
+  --space-2xl: 4rem; /* 64px */
+
+  /* Section rhythm (optional — for big vertical gaps between bands) */
+  --space-section: clamp(3.5rem, 8vw, 7rem);
+
+  /* -------------------------------------------------------------------------
+     Radii & motion
+     Minimal radii; snappy transitions per .cursorrules
+     ------------------------------------------------------------------------- */
+
+  --radius-none: 0;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 999px;
+
+  /* Default interaction — short, crisp */
+  --transition-default: 140ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  --transition-color: color var(--transition-default);
+  --transition-opacity: opacity var(--transition-default);
+  --transition-transform: transform 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}

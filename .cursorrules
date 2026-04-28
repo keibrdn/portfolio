@@ -69,9 +69,9 @@
 - Motion: snappy, instant feedback on interactions, zero lag feel, short sharp transitions 
 - Typography feel: high contrast with large weight and size variation. loose and airy (generous line height, easy readability)
 - Spacing: very airy with generous whitespace, large section gaps — lots of vertical breathing room between page sections
-- Layout personality: multi-column editorial — content shifts between 1, 2, and 3 column layouts
-- Color approach - warm neutrals
-- UI details: buttons are minimal — outlined or text-only, no filled pill buttons, underlines on links — classic web, not hiding that things are clickable, no borders anywhere — separation through spacing and color only
+- Layout personality: multi-column editorial — content shifts between 1, 2, and 3 column layouts, thin line borders around sections for geometric-inspired layout
+- Color approach - warm neutrals, pops of muted jewel-toned colors
+- Buttons: rounded pill borders with animated accent color fill on hover
 
 ## Git conventions
 - Commit messages use a prefix: init:, design:, feat:, fix:, content:, deploy:

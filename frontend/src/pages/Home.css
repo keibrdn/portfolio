@@ -1,0 +1,37 @@
+.home {
+  min-height: var(--space-section);
+  padding: var(--space-xl);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+}
+
+.homeTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  font-size: var(--size-2xl);
+  color: var(--color-text-heading);
+  margin: 0 0 var(--space-md);
+}
+
+.homeIntro {
+  font-size: var(--size-base);
+  line-height: var(--line-height-body);
+  margin: 0;
+}
+
+.homeLink {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-sm);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: var(--space-xs);
+}
+
+.homeLink:hover {
+  color: var(--color-accent-orange);
+  transition: var(--transition-color);
+}
