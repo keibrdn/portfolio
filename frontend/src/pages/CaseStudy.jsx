@@ -180,12 +180,6 @@ export default function CaseStudy() {
                   ))}
                 </div>
               </div>
-
-              <footer className="caseStudyFooter">
-                <span className="caseStudyFooterNote">
-                  made with react &amp; lots of caffeine
-                </span>
-              </footer>
             </div>
           </div>
         </div>

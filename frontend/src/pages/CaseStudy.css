@@ -289,25 +289,6 @@
   text-align: left;
 }
 
-.caseStudyFooter {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  min-height: 3.25rem;
-  padding-block: var(--space-sm);
-  padding-inline: var(--space-sm);
-  box-sizing: border-box;
-}
-
-.caseStudyFooterNote {
-  font-family: var(--font-ui);
-  font-weight: var(--font-weight-ui);
-  font-size: var(--size-case-study-toc);
-  line-height: var(--line-height-snug);
-  color: var(--color-ink);
-  white-space: nowrap;
-}
-
 /* Portable text + blocks — Figma body (Manrope Light 16 / ~25px line, #2e2e2e) */
 .caseStudyPageMain .richTextBlock {
   margin-bottom: var(--space-md);
