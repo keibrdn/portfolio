@@ -9,8 +9,8 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-case-study-section-inner);
-  align-items: flex-end;
-  text-align: right;
+  align-items: flex-start;
+  text-align: left;
   width: 100%;
 }
 
