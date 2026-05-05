@@ -110,6 +110,9 @@
   --color-media-placeholder: #ababab;
   --space-landing-hero-gap: 0.625rem;
   --space-landing-content-gap: 0.625rem;
+  /* Landing sidebar flower — absolute offsets inside .homeFlower */
+  --home-flower-img-offset-x: -5.3125rem; /* -85px */
+  --home-flower-img-offset-y: -2.375rem; /* -38px */
 
   /* About page layout */
   --space-about-column-gap: 6.25rem;
@@ -177,6 +180,7 @@
   --space-case-study-toc-gap: 0.4375rem;
   --space-case-study-meta-gap: 0.625rem;
   --scroll-margin-case-study-anchor: 6rem;
+  --width-case-study-stack: 44.8125rem; /* 717px — hero + meta column measure */
 
   /* Layout — editorial measure + gutters (references: wide margins, readable line length) */
   --layout-measure: 70rem;
