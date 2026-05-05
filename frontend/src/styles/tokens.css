@@ -146,6 +146,9 @@
   --transition-color: color var(--transition-default);
   --transition-opacity: opacity var(--transition-default);
   --transition-transform: transform 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  /* Case study card — thumbnail slightly inset on link hover */
+  --transition-case-card-media: transform 300ms ease-in-out;
+  --scale-case-card-media-hover: 0.987;
 
   /* Layout — editorial measure + gutters (references: wide margins, readable line length) */
   --layout-measure: 70rem;

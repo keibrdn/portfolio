@@ -9,17 +9,11 @@
   gap: var(--space-card-stack);
   text-decoration: none;
   color: inherit;
-  border: 1px solid transparent;
-  border-radius: var(--radius-lg);
-  box-sizing: border-box;
-  transition:
-    var(--transition-opacity),
-    border-color var(--transition-default);
+  transition: var(--transition-opacity);
 }
 
 .caseStudyCardLink:hover {
   opacity: 0.92;
-  border-color: var(--color-ink);
 }
 
 .caseStudyCardTags {
@@ -55,12 +49,26 @@
   width: auto;
   max-width: 100%;
   height: auto;
+  transform: scale(1);
+  transform-origin: center center;
+  transition: var(--transition-case-card-media);
+}
+
+.caseStudyCardLink:hover .caseStudyCardImg {
+  transform: scale(var(--scale-case-card-media-hover));
 }
 
 .caseStudyCardPlaceholder {
   width: 100%;
   aspect-ratio: var(--aspect-case-media);
   background-color: var(--color-media-placeholder);
+  transform: scale(1);
+  transform-origin: center center;
+  transition: var(--transition-case-card-media);
+}
+
+.caseStudyCardLink:hover .caseStudyCardPlaceholder {
+  transform: scale(var(--scale-case-card-media-hover));
 }
 
 .caseStudyCardBody {
