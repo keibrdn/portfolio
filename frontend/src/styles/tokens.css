@@ -152,7 +152,7 @@
 
   /* About collage (Figma 29:329) — hover spread prototype */
   --transition-about-collage-hover: transform 300ms ease-in-out;
-  --about-collage-hover-spread: 0.375rem;
+  --about-collage-hover-spread: 2rem;
 
   /* Layout — editorial measure + gutters (references: wide margins, readable line length) */
   --layout-measure: 70rem;
