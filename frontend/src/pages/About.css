@@ -10,95 +10,16 @@
 .aboutBody {
   display: flex;
   flex: 1 1 auto;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: var(--space-about-column-gap);
+  flex-direction: column;
+  align-items: center;
   min-width: 0;
   min-height: min-content;
 }
 
-.aboutSidebar {
-  display: flex;
-  width: var(--width-landing-sidebar);
-  flex-shrink: 0;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-about-column-gap);
-  padding-block: var(--space-about-sidebar-pad-block);
-  box-sizing: border-box;
-}
-
-.aboutFlower {
-  position: relative;
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.aboutFlowerImg {
-  display: block;
-  width: 29.625rem;
-  max-width: none;
-  height: auto;
-}
-
-.aboutConnect {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-landing-hero-gap);
-  padding: var(--space-md);
-  box-sizing: border-box;
-  text-align: center;
-  color: var(--color-ink);
-}
-
-.aboutConnectTitle {
-  font-family: var(--font-heading);
-  font-weight: var(--font-weight-heading);
-  font-size: var(--size-base);
-  line-height: var(--line-height-snug);
-  margin: 0;
-}
-
-.aboutConnectLine {
-  font-family: var(--font-ui);
-  font-size: var(--size-base);
-  line-height: var(--line-height-snug);
-  margin: 0;
-  max-width: 18rem;
-}
-
-.aboutConnectLink {
-  color: inherit;
-  text-decoration: none;
-  transition: var(--transition-opacity);
-}
-
-.aboutConnectLink:hover {
-  opacity: 0.75;
-}
-
-.aboutConnectLink:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
-  outline-offset: var(--space-xs);
-}
-
-.aboutConnectSep {
-  font-family: var(--font-ui);
-  font-style: italic;
-  font-weight: var(--font-weight-ui);
-}
-
-.aboutConnectMuted {
-  opacity: 0.45;
-}
-
-/* Container queries — stack main column when squished horizontally */
+/* Container queries — stack grid when squished horizontally */
 .aboutMain {
   container: about / size;
+  width: 100%;
   flex: 1 1 auto;
   min-width: 0;
   padding-inline: var(--space-about-main-pad-inline);
@@ -127,6 +48,8 @@
   flex-direction: column;
   gap: var(--space-lg);
   justify-self: center;
+  /* Row 1: vertically center headline+meta with portrait+tapes as one unit */
+  align-self: center;
 }
 
 .aboutHeadline {
@@ -195,6 +118,8 @@
   gap: var(--space-2xl);
   max-width: 23.9375rem;
   justify-self: center;
+  /* Row 2: vertically center bio vs collage */
+  align-self: center;
 }
 
 .aboutBioBlock {
@@ -235,42 +160,56 @@
   width: min(100%, 21rem);
   justify-content: center;
   justify-self: center;
+  align-self: center;
 }
 
 .aboutPortraitStage {
-  position: relative;
+  display: flex;
   width: 100%;
   max-width: 21rem;
-  height: 20.90625rem;
+  justify-content: center;
+}
+
+/* Explicit aspect box + inset photo so tape % positions always match the visible photo */
+.aboutPortraitComposition {
+  position: relative;
+  display: block;
+  width: min(100%, var(--width-about-portrait-composition));
+  aspect-ratio: var(--about-portrait-photo-ref-w) / var(--about-portrait-photo-ref-h);
 }
 
 .aboutPortraitPhoto {
   position: absolute;
-  top: 4.14rem;
-  left: 3.47rem;
-  width: 12.23rem;
-  height: 16.46rem;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   border-radius: var(--radius-about-photo);
   object-fit: cover;
+  z-index: 0;
 }
 
 .aboutPortraitTape {
   position: absolute;
-  width: 7.5rem;
-  height: 7.5rem;
+  z-index: 1;
+  width: calc(100% * (var(--about-portrait-tape-ref-size) / var(--about-portrait-photo-ref-w)));
+  height: auto;
+  aspect-ratio: 1;
   object-fit: cover;
 }
 
+/* Anchors: tape box top-left at token coords vs 196×263 frame (scales with composition) */
 .aboutPortraitTape--one {
-  top: 0;
-  left: 0;
+  top: calc(100% * var(--about-portrait-tape-one-top) / var(--about-portrait-photo-ref-h));
+  left: calc(100% * var(--about-portrait-tape-one-left) / var(--about-portrait-photo-ref-w));
   transform: rotate(-50deg);
+  transform-origin: center center;
 }
 
 .aboutPortraitTape--two {
-  right: 0;
-  bottom: 0;
+  top: calc(100% * var(--about-portrait-tape-two-top) / var(--about-portrait-photo-ref-h));
+  left: calc(100% * var(--about-portrait-tape-two-left) / var(--about-portrait-photo-ref-w));
   transform: rotate(130deg);
+  transform-origin: center center;
 }
 
 .aboutCollage {
@@ -278,6 +217,7 @@
   box-sizing: border-box;
   width: min(100%, 31.125rem);
   justify-self: center;
+  align-self: center;
 }
 
 .aboutCollageStage {
@@ -285,7 +225,7 @@
   width: 100%;
   aspect-ratio: 498 / 404;
   margin-inline: auto;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .aboutCollageLayer {
@@ -369,7 +309,7 @@
 
 /* Stack order: intro → portrait → bio → collage */
 
-/* Narrow main column (sidebar still beside) */
+/* Narrow viewport: single-column grid */
 @container about (max-width: 42rem) {
   .aboutGrid {
     grid-template-columns: 1fr;
@@ -427,16 +367,6 @@
 
 /* Wide two-column layout */
 @media (min-width: 56.01rem) {
-  .aboutBody {
-    align-items: flex-start;
-    gap: clamp(var(--space-md), 4svh, var(--space-about-column-gap));
-  }
-
-  .aboutSidebar {
-    gap: clamp(var(--space-md), 3svh, var(--space-about-column-gap));
-    padding-block: clamp(var(--space-sm), 2svh, var(--space-about-sidebar-pad-block));
-  }
-
   .aboutMain {
     padding-inline: clamp(var(--space-md), 5vw, var(--space-about-main-pad-inline));
     padding-block: clamp(var(--space-sm), 2svh, var(--space-about-main-pad-block));
@@ -456,24 +386,6 @@
 }
 
 @media (max-width: 56rem) {
-  .aboutBody {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .aboutSidebar {
-    width: 100%;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-block: var(--space-lg);
-  }
-
-  .aboutFlowerImg {
-    width: min(100%, 29.625rem);
-    max-width: 100%;
-  }
-
   .aboutMain {
     padding-inline: 0;
     padding-block: var(--space-lg);

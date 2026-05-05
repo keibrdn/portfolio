@@ -20,27 +20,29 @@ function AboutPortrait() {
   return (
     <div className="aboutPortrait">
       <div className="aboutPortraitStage">
-        <img
-          className="aboutPortraitPhoto"
-          src={ABOUT_ASSETS.portrait}
-          alt="Portrait of Keila"
-          width={196}
-          height={263}
-        />
-        <img
-          className="aboutPortraitTape aboutPortraitTape--one"
-          src={ABOUT_ASSETS.tape}
-          alt=""
-          width={120}
-          height={120}
-        />
-        <img
-          className="aboutPortraitTape aboutPortraitTape--two"
-          src={ABOUT_ASSETS.tape}
-          alt=""
-          width={120}
-          height={120}
-        />
+        <div className="aboutPortraitComposition">
+          <img
+            className="aboutPortraitPhoto"
+            src={ABOUT_ASSETS.portrait}
+            alt="Portrait of Keila"
+            width={150}
+            height={201}
+          />
+          <img
+            className="aboutPortraitTape aboutPortraitTape--one"
+            src={ABOUT_ASSETS.tape}
+            alt=""
+            width={100}
+            height={100}
+          />
+          <img
+            className="aboutPortraitTape aboutPortraitTape--two"
+            src={ABOUT_ASSETS.tape}
+            alt=""
+            width={100}
+            height={100}
+          />
+        </div>
       </div>
     </div>
   )
@@ -80,61 +82,10 @@ function AboutCollage() {
 }
 
 export default function About() {
-  const mailto = import.meta.env.VITE_CONTACT_EMAIL
-    ? `mailto:${import.meta.env.VITE_CONTACT_EMAIL}`
-    : null
-  const linkedinUrl = import.meta.env.VITE_SOCIAL_LINKEDIN || ''
-  const xUrl = import.meta.env.VITE_SOCIAL_X || ''
-
   return (
     <AppShell fullBleed mainClassName="appShellMain--about">
       <div className="aboutPage">
         <div className="aboutBody">
-          <aside className="aboutSidebar" aria-label="Contact">
-            <div className="aboutFlower">
-              <img
-                className="aboutFlowerImg"
-                src="/landing-flower.svg"
-                alt=""
-                width={474}
-                height={325}
-              />
-            </div>
-            <div className="aboutConnect">
-              <p className="aboutConnectTitle">let&apos;s connect!</p>
-              <p className="aboutConnectLine">
-                {mailto ? (
-                  <a className="aboutConnectLink" href={mailto}>
-                    email
-                  </a>
-                ) : (
-                  <span className="aboutConnectMuted">email</span>
-                )}
-                <span className="aboutConnectSep"> * </span>
-                {linkedinUrl ? (
-                  <a
-                    className="aboutConnectLink"
-                    href={linkedinUrl}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    linkedin
-                  </a>
-                ) : (
-                  <span className="aboutConnectMuted">linkedin</span>
-                )}
-                <span className="aboutConnectSep"> * </span>
-                {xUrl ? (
-                  <a className="aboutConnectLink" href={xUrl} target="_blank" rel="noreferrer noopener">
-                    X
-                  </a>
-                ) : (
-                  <span className="aboutConnectMuted">X</span>
-                )}
-              </p>
-            </div>
-          </aside>
-
           <div className="aboutMain">
             <div className="aboutGrid">
               <header className="aboutIntro">

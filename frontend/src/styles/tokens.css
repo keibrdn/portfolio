@@ -118,6 +118,17 @@
   --space-about-main-pad-block: 3.125rem;
   --space-about-sidebar-pad-block: 3.125rem;
 
+  /* About portrait — ref dimensions for composition math (unitless, used in calc) */
+  --width-about-portrait-composition: 9.375rem; /* 150px — max frame width */
+  --about-portrait-photo-ref-w: 150;
+  --about-portrait-photo-ref-h: 201;
+  --about-portrait-tape-ref-size: 100;
+  /* Tape top-left anchors vs photo frame (unitless px at ref size; scaled in About.css) */
+  --about-portrait-tape-one-left: -28;
+  --about-portrait-tape-one-top: -33;
+  --about-portrait-tape-two-left: 86;
+  --about-portrait-tape-two-top: 126;
+
   /* -------------------------------------------------------------------------
      Radii & motion
      Minimal radii; snappy transitions per .cursorrules
