@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import './BackToTop.css'
 
+const CASE_STUDY_PATH = /^\/work\/[^/]+$/
+
 export default function BackToTop() {
+  const { pathname } = useLocation()
+  const alignWithToc = CASE_STUDY_PATH.test(pathname)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -26,7 +31,11 @@ export default function BackToTop() {
   return (
     <button
       type="button"
-      className={['backToTop', visible ? 'backToTop--visible' : null].filter(Boolean).join(' ')}
+      className={
+        ['backToTop', alignWithToc ? 'backToTop--alignToc' : null, visible ? 'backToTop--visible' : null]
+          .filter(Boolean)
+          .join(' ')
+      }
       onClick={handleClick}
       aria-label="Back to top"
     >

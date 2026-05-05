@@ -1,6 +1,7 @@
 .backToTop {
   position: fixed;
-  right: var(--space-lg);
+  left: var(--space-lg);
+  right: auto;
   bottom: var(--space-lg);
   z-index: var(--z-back-to-top);
   display: inline-flex;
@@ -8,10 +9,9 @@
   justify-content: center;
   margin: 0;
   padding: var(--space-md);
-  border: 1px solid var(--color-border);
+  border: var(--border-width-back-to-top) solid var(--color-border);
   border-radius: var(--radius-lg);
-  background-color: color-mix(in srgb, var(--color-surface) 92%, transparent);
-  backdrop-filter: blur(var(--layout-nav-blur));
+  background-color: transparent;
   color: var(--color-ink);
   cursor: pointer;
   opacity: 0;
@@ -25,10 +25,31 @@
     background-color var(--transition-default);
 }
 
+/* Case study: pin to the inner edge of the sticky TOC column (matches .caseStudyPageSidebar width) */
+.backToTop--alignToc {
+  left: var(--back-to-top-case-study-anchor-left);
+  transform: translateX(-100%) translateY(var(--space-xs));
+}
+
 .backToTop--visible {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
+}
+
+.backToTop--alignToc.backToTop--visible {
+  transform: translateX(-100%) translateY(0);
+}
+
+@media (max-width: 56rem) {
+  .backToTop--alignToc {
+    left: var(--space-landing-px);
+    transform: translateY(var(--space-xs));
+  }
+
+  .backToTop--alignToc.backToTop--visible {
+    transform: translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -37,7 +58,22 @@
   }
 
   .backToTop:not(.backToTop--visible) {
-    transform: none;
+    transform: translateY(0);
+  }
+
+  .backToTop--alignToc:not(.backToTop--visible) {
+    transform: translateX(-100%);
+  }
+
+  .backToTop--alignToc.backToTop--visible {
+    transform: translateX(-100%) translateY(0);
+  }
+
+  @media (max-width: 56rem) {
+    .backToTop--alignToc:not(.backToTop--visible),
+    .backToTop--alignToc.backToTop--visible {
+      transform: none;
+    }
   }
 }
 
@@ -48,7 +84,7 @@
 }
 
 .backToTop:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
+  outline: var(--border-width-back-to-top) solid var(--color-focus-ring);
   outline-offset: var(--space-xs);
 }
 
