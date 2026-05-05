@@ -39,15 +39,16 @@
 
 .caseStudyCardMedia {
   border-radius: var(--radius-none);
-  overflow: hidden;
+  overflow: visible;
   width: 100%;
 }
 
 .caseStudyCardImg {
   display: block;
-  width: 100%;
-  aspect-ratio: var(--aspect-case-media);
-  object-fit: cover;
+  box-sizing: content-box;
+  width: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 .caseStudyCardPlaceholder {

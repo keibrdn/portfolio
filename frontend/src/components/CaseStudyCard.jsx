@@ -26,7 +26,7 @@ export default function CaseStudyCard({
   const href = `/work/${slug}`
   const imgUrl =
     featuredImage &&
-    urlFor(featuredImage).width(900).height(560).fit('crop').auto('format').quality(85).url()
+    urlFor(featuredImage).width(1800).fit('max').auto('format').quality(85).url()
 
   const tagList = tagsFromProps(tags, skillsLine)
 

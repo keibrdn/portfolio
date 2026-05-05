@@ -201,19 +201,26 @@
   }
 
   .homeCaseStudies .caseStudyCardMedia {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     min-height: 0;
     min-width: 0;
     width: 100%;
   }
 
-  .homeCaseStudies .caseStudyCardImg,
-  .homeCaseStudies .caseStudyCardPlaceholder {
-    height: 100%;
-    width: 100%;
+  .homeCaseStudies .caseStudyCardImg {
+    box-sizing: content-box;
+    width: auto;
+    max-width: 100%;
+    height: auto;
     min-height: 0;
     aspect-ratio: unset;
-    object-fit: cover;
+    object-fit: unset;
+  }
+
+  .homeCaseStudies .caseStudyCardPlaceholder {
+    width: 100%;
+    aspect-ratio: var(--aspect-case-media);
+    min-height: 0;
   }
 
   .homeCaseStudies .caseStudyCardBody {
