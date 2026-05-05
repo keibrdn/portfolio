@@ -2,7 +2,7 @@
   position: fixed;
   left: var(--space-lg);
   right: auto;
-  bottom: var(--space-lg);
+  bottom: calc(var(--space-lg) + var(--space-back-to-top-lift));
   z-index: var(--z-back-to-top);
   display: inline-flex;
   align-items: center;
