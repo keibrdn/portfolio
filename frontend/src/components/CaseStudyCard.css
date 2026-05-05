@@ -9,11 +9,17 @@
   gap: var(--space-card-stack);
   text-decoration: none;
   color: inherit;
-  transition: var(--transition-opacity);
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  box-sizing: border-box;
+  transition:
+    var(--transition-opacity),
+    border-color var(--transition-default);
 }
 
 .caseStudyCardLink:hover {
   opacity: 0.92;
+  border-color: var(--color-ink);
 }
 
 .caseStudyCardTags {
