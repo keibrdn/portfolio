@@ -190,8 +190,9 @@
   --layout-nav-blur: 12px;
   /* Float UI above sticky nav (nav uses z-index 10) */
   --z-back-to-top: 20;
-  /* Back-to-top — 2px border at default root font size */
-  --border-width-back-to-top: 0.125rem;
+  /* Back-to-top — 1px border at default root font size */
+  --border-width-back-to-top: 0.0625rem;
+  --color-back-to-top-border: var(--color-about-label);
   /* Fixed control: right edge flush with case study TOC column (fullBleed px + sidebar width) */
   --back-to-top-case-study-anchor-left: calc(
     var(--space-landing-px) + var(--width-case-study-toc)
