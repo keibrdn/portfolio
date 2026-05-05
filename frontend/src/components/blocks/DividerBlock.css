@@ -1,0 +1,9 @@
+.dividerBlock {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin-block: var(--space-xl);
+}
+
+.dividerBlock_large {
+  margin-block: var(--space-section);
+}

@@ -1,0 +1,33 @@
+.quoteBlock {
+  margin: 0 0 var(--space-xl);
+}
+
+.quoteBlock_pullQuote {
+  padding: var(--space-lg);
+  border-left: 2px solid var(--color-accent-plum);
+}
+
+.quoteBlock_compact {
+  padding-block: var(--space-sm);
+}
+
+.quoteBlockText {
+  font-size: var(--size-lg);
+  line-height: var(--line-height-loose);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-sm);
+  font-style: italic;
+}
+
+.quoteBlock_compact .quoteBlockText {
+  font-size: var(--size-md);
+}
+
+.quoteBlockAttr {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-text-muted);
+  font-style: normal;
+}

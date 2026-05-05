@@ -1,0 +1,31 @@
+.mediaFigure {
+  margin: 0 0 var(--space-xl);
+}
+
+.mediaFigureImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+}
+
+.mediaFigureFallback {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    145deg,
+    var(--color-surface) 0%,
+    color-mix(in srgb, var(--color-accent-plum) 18%, var(--color-bg)) 100%
+  );
+}
+
+.mediaFigureCaption {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+  line-height: var(--line-height-snug);
+}

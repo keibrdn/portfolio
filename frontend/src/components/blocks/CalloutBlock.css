@@ -1,0 +1,37 @@
+.calloutBlock {
+  margin-bottom: var(--space-xl);
+  padding: var(--space-xl);
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--color-accent-blue) 35%, var(--color-border));
+  background-color: color-mix(in srgb, var(--color-surface) 92%, var(--color-accent-blue));
+}
+
+.calloutEyebrow {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-accent-blue);
+  margin: 0 0 var(--space-sm);
+}
+
+.calloutTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  font-size: var(--size-xl);
+  color: var(--color-text-heading);
+  margin: 0 0 var(--space-sm);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.calloutSubtitle {
+  font-family: var(--font-body);
+  font-size: var(--size-md);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-md);
+  line-height: var(--line-height-snug);
+}
+
+.calloutBody .ptP:first-of-type {
+  margin-top: 0;
+}

@@ -1,0 +1,60 @@
+/* Figma landing — inline text links (home active = bold + underline) */
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.nav--landing {
+  padding-block: var(--space-landing-py);
+}
+
+.nav:not(.nav--landing) {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  justify-content: space-between;
+  padding-block: var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+  background-color: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  backdrop-filter: blur(var(--layout-nav-blur));
+}
+
+.navLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.navLinks--text {
+  gap: var(--space-landing-nav-gap);
+}
+
+.navTextLink {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-base);
+  line-height: var(--line-height-snug);
+  color: var(--color-ink);
+  text-decoration: none;
+  padding-block: var(--space-xs);
+  transition: var(--transition-color), var(--transition-opacity);
+}
+
+.navTextLink:hover {
+  opacity: 0.75;
+}
+
+.navTextLink:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: var(--space-xs);
+}
+
+.navTextLinkActive {
+  font-weight: var(--font-weight-heading);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}

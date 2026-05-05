@@ -1,0 +1,30 @@
+.workHeader {
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.workTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  font-size: var(--size-3xl);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text-heading);
+  margin: 0 0 var(--space-md);
+  line-height: var(--line-height-tight);
+}
+
+.workLead {
+  font-family: var(--font-body);
+  font-size: var(--size-md);
+  line-height: var(--line-height-body);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.workLoading {
+  font-family: var(--font-ui);
+  font-size: var(--size-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+}

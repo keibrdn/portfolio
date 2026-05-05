@@ -1,0 +1,7 @@
+.richTextBlock {
+  margin-bottom: var(--space-lg);
+}
+
+.richTextBlock:last-child {
+  margin-bottom: 0;
+}

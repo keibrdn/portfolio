@@ -39,6 +39,7 @@
 - Block types: textBlock, imageBlock, videoBlock, statsBlock, quoteBlock
 - BlockRenderer.jsx switches on block._type to render the correct component
 - Never fetch data directly in a component — always use a custom hook from src/hooks/
+- Sanity studio uses plain JavaScript, no TypeScript
 
 ## Mux conventions
 - Videos are uploaded via the Mux plugin in Sanity Studio

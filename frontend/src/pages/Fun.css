@@ -1,0 +1,22 @@
+.funArticle {
+  max-width: 40rem;
+}
+
+.funTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  font-size: var(--size-2xl);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-text-heading);
+  margin: 0 0 var(--space-lg);
+  line-height: var(--line-height-tight);
+}
+
+.funLead {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: var(--size-md);
+  line-height: var(--line-height-body);
+  color: var(--color-text-primary);
+  margin: 0;
+}

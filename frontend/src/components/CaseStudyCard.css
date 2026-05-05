@@ -1,0 +1,85 @@
+.caseStudyCard {
+  margin: 0;
+}
+
+.caseStudyCardLink {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-card-stack);
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition-opacity);
+}
+
+.caseStudyCardLink:hover {
+  opacity: 0.92;
+}
+
+.caseStudyCardTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-tag-pill-gap);
+  align-items: flex-start;
+}
+
+.caseStudyCardTag {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-tag-pill);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-ink);
+  padding-block: var(--space-tag-pill-y);
+  padding-inline: var(--space-tag-pill-x);
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-lg);
+  white-space: nowrap;
+}
+
+.caseStudyCardMedia {
+  border-radius: var(--radius-none);
+  overflow: hidden;
+  width: 100%;
+}
+
+.caseStudyCardImg {
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--aspect-case-media);
+  object-fit: cover;
+}
+
+.caseStudyCardPlaceholder {
+  width: 100%;
+  aspect-ratio: var(--aspect-case-media);
+  background-color: var(--color-media-placeholder);
+}
+
+.caseStudyCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-card-info-gap);
+  width: 100%;
+  font-size: var(--size-base);
+  line-height: var(--line-height-body);
+}
+
+.caseStudyCardTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  font-size: var(--size-base);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-ink);
+  margin: 0;
+  line-height: var(--line-height-snug);
+}
+
+.caseStudyCardExcerpt {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: var(--size-base);
+  line-height: var(--line-height-body);
+  color: var(--color-ink);
+  margin: 0;
+}

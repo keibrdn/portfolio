@@ -1,0 +1,35 @@
+.videoFigure {
+  margin: 0 0 var(--space-xl);
+}
+
+.videoFigurePlayer {
+  width: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.videoFigurePlayer mux-player {
+  --media-accent-color: var(--color-accent-plum);
+  --media-border-radius: var(--radius-md);
+  width: 100%;
+  display: block;
+}
+
+.videoFigureMissing {
+  font-family: var(--font-ui);
+  font-size: var(--size-sm);
+  color: var(--color-text-muted);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--color-border);
+}
+
+.videoFigureCaption {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-text-muted);
+  margin-top: var(--space-sm);
+  line-height: var(--line-height-snug);
+}

@@ -1,0 +1,40 @@
+.caseStudySection {
+  margin-bottom: var(--space-section);
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.caseStudySection:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.caseStudySectionHeader {
+  margin-bottom: var(--space-xl);
+  max-width: var(--layout-max-width);
+}
+
+.caseStudySectionHeading {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  font-size: var(--size-2xl);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text-heading);
+  margin: 0 0 var(--space-sm);
+  line-height: var(--line-height-tight);
+}
+
+.caseStudySectionSub {
+  font-family: var(--font-body);
+  font-size: var(--size-lg);
+  font-weight: var(--font-weight-body);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.caseStudySectionBlocks {
+  display: flex;
+  flex-direction: column;
+}

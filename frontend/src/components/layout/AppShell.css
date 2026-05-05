@@ -1,0 +1,31 @@
+.appShellMain {
+  flex: 0 1 auto;
+  width: 100%;
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
+}
+
+.appShellMain--landing {
+  padding-top: 0;
+  padding-bottom: var(--space-xl);
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (max-width: 56rem) {
+  .appShellMain--landing {
+    overflow: visible;
+  }
+}
+
+.appShellMain--about {
+  padding-top: 0;
+  padding-bottom: var(--space-xl);
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: min-content;
+}

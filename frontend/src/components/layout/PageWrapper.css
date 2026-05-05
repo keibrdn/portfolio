@@ -1,0 +1,59 @@
+/* Default: shell height = content (nav + main + footer). No flex-grow — avoids footer pinned to viewport. */
+.pageWrapper {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  background-color: var(--color-bg);
+  min-height: min-content;
+}
+
+/* Home landing only — fill at least one viewport so the locked hero/grid can fill the screen */
+.pageWrapper--viewportLock {
+  flex: 1 1 auto;
+  min-height: max(var(--layout-viewport-min-height), min-content);
+}
+
+.pageWrapperInner {
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-xl);
+  min-height: 0;
+}
+
+/* Figma — full width with fixed horizontal padding (home, about, …) */
+.pageWrapperInner--fullBleed {
+  max-width: none;
+  margin-inline: 0;
+  padding-inline: var(--space-landing-px);
+  padding-block: var(--space-landing-py);
+  flex: 0 1 auto;
+  min-height: 0;
+}
+
+/* Scrollable full-bleed pages: inner grows with content (About). Landing viewport lock keeps min-height: 0 only. */
+.pageWrapperInner--fullBleed:not(.pageWrapperInner--fullBleedViewportLock) {
+  min-height: min-content;
+}
+
+/* Home landing only — one viewport, no page scroll (desktop) */
+.pageWrapperInner--fullBleedViewportLock {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 100vh;
+  max-height: var(--layout-viewport-min-height);
+  overflow: hidden;
+}
+
+@media (max-width: 56rem) {
+  .pageWrapperInner--fullBleedViewportLock {
+    max-height: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}

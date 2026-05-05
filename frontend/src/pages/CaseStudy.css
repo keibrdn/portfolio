@@ -1,0 +1,184 @@
+.caseStudyPageLoading {
+  font-family: var(--font-ui);
+  font-size: var(--size-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.caseStudyMissing {
+  max-width: var(--layout-max-width);
+}
+
+.caseStudyMissingTitle {
+  font-family: var(--font-heading);
+  font-size: var(--size-2xl);
+  color: var(--color-text-heading);
+  margin: 0 0 var(--space-md);
+}
+
+.caseStudyMissingText {
+  font-size: var(--size-md);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-lg);
+}
+
+.caseStudyMissingSlug {
+  font-family: var(--font-ui);
+  color: var(--color-text-primary);
+}
+
+.caseStudyMissingLink {
+  font-family: var(--font-ui);
+  font-size: var(--size-sm);
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: var(--space-xs);
+}
+
+.caseStudyMissingLink:hover {
+  color: var(--color-accent-orange);
+  transition: var(--transition-color);
+}
+
+.caseStudyMissingActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+  margin: 0;
+}
+
+.caseStudyMissingRetry {
+  font-family: var(--font-ui);
+  font-size: var(--size-sm);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-bg);
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-lg);
+  padding-block: var(--space-sm);
+  padding-inline: var(--space-md);
+  cursor: pointer;
+  transition:
+    color var(--transition-default),
+    background-color var(--transition-default),
+    border-color var(--transition-default);
+}
+
+.caseStudyMissingRetry:hover {
+  background-color: var(--color-accent-orange);
+  border-color: var(--color-accent-orange);
+}
+
+.caseStudyArticle {
+  width: 100%;
+}
+
+.caseStudyHero {
+  margin-bottom: var(--space-xl);
+}
+
+.caseStudyHeroMedia {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: var(--space-xl);
+}
+
+.caseStudyHeroImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+}
+
+.caseStudyHeroPlaceholder {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-xl);
+  background: linear-gradient(
+    120deg,
+    var(--color-surface),
+    color-mix(in srgb, var(--color-accent-plum) 25%, var(--color-bg))
+  );
+}
+
+.caseStudyHeroText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.caseStudyHeroTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  font-size: var(--size-4xl);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--color-text-heading);
+  margin: 0;
+  line-height: var(--line-height-tight);
+}
+
+.caseStudyHeroSubtitle {
+  font-family: var(--font-body);
+  font-size: var(--size-xl);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-muted);
+  margin: 0;
+  max-width: var(--layout-max-width);
+}
+
+.caseStudyMeta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-sm) var(--space-xl);
+  margin: 0 0 var(--space-section);
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.caseStudyMetaLabel {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.caseStudyMetaValue {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-sm);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.caseStudySections {
+  display: flex;
+  flex-direction: column;
+}
+
+.caseStudyFooter {
+  margin-top: var(--space-section);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.caseStudyFooterLink {
+  font-family: var(--font-ui);
+  font-size: var(--size-sm);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: var(--transition-color);
+}
+
+.caseStudyFooterLink:hover {
+  color: var(--color-accent-orange);
+  text-decoration: underline;
+  text-underline-offset: var(--space-xs);
+}

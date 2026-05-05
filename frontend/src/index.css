@@ -23,5 +23,24 @@ body {
 }
 
 #root {
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* At least one viewport; never shorter than scrollable content (About, etc.). */
+  min-height: max(var(--layout-viewport-min-height), min-content);
+}
+
+/* Flex bridge — min-content so tall pages (About) extend html/body height for outer scroll */
+.rootStretch {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: min-content;
+  width: 100%;
+}
+
+.rootStretchRouter {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: min-content;
 }
