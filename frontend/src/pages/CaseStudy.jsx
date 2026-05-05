@@ -1,7 +1,9 @@
+import { useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import AppShell from '../components/layout/AppShell.jsx'
 import CaseStudySection from '../components/CaseStudySection.jsx'
 import { useCaseStudy } from '../hooks/useCaseStudy.js'
+import { useCaseStudyTocActive } from '../hooks/useCaseStudyTocActive.js'
 import { urlFor } from '../lib/sanity.js'
 import './CaseStudy.css'
 
@@ -16,6 +18,13 @@ function skillsFromLine(line) {
 export default function CaseStudy() {
   const { slug } = useParams()
   const { doc, isLoading, error, retry } = useCaseStudy(slug)
+
+  const sections = Array.isArray(doc?.sections) ? doc.sections : []
+  const tocSections = useMemo(
+    () => sections.filter((s) => s?.heading && String(s.heading).trim()),
+    [sections],
+  )
+  const activeTocKey = useCaseStudyTocActive(tocSections)
 
   const heroImg =
     doc?.featuredImage &&
@@ -67,8 +76,6 @@ export default function CaseStudy() {
     )
   }
 
-  const sections = Array.isArray(doc.sections) ? doc.sections : []
-  const tocSections = sections.filter((s) => s?.heading && String(s.heading).trim())
   const skillsLines = skillsFromLine(doc.skillsLine)
 
   const heroHeadline = doc.subtitle?.trim() ? doc.subtitle.trim() : doc.title
@@ -95,10 +102,11 @@ export default function CaseStudy() {
                             <a
                               href={anchor}
                               className={
-                                index === 0
-                                  ? 'caseStudyTocLink caseStudyTocLink--primary'
+                                section._key === activeTocKey
+                                  ? 'caseStudyTocLink caseStudyTocLink--active'
                                   : 'caseStudyTocLink'
                               }
+                              aria-current={section._key === activeTocKey ? 'location' : undefined}
                             >
                               {title}
                             </a>

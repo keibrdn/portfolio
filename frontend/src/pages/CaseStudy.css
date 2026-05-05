@@ -166,7 +166,7 @@
   outline-offset: var(--space-xs);
 }
 
-.caseStudyTocLink--primary {
+.caseStudyTocLink--active {
   font-weight: var(--font-weight-heading);
   color: var(--color-ink);
 }
