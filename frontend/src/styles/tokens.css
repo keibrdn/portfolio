@@ -188,6 +188,8 @@
   /* Lock full-bleed landing to dynamic viewport height (above-the-fold) */
   --layout-viewport-min-height: 100dvh;
   --layout-nav-blur: 12px;
+  /* Float UI above sticky nav (nav uses z-index 10) */
+  --z-back-to-top: 20;
   /* When grid container is narrower than this, stack case study cards to one column */
   --layout-grid-2col-min: 32rem;
 

@@ -10,6 +10,7 @@ import About from './pages/About.jsx'
 import Resume from './pages/Resume.jsx'
 import Fun from './pages/Fun.jsx'
 import DesignSystem from './pages/DesignSystem.jsx'
+import BackToTop from './components/BackToTop.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/fun" element={<Fun />} />
             <Route path="/design" element={<DesignSystem />} />
           </Routes>
+          <BackToTop />
         </div>
       </BrowserRouter>
     </div>
