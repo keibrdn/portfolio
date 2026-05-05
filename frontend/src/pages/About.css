@@ -226,12 +226,14 @@
   aspect-ratio: 498 / 404;
   margin-inline: auto;
   overflow: visible;
+  pointer-events: auto;
 }
 
 .aboutCollageLayer {
   position: absolute;
   overflow: hidden;
   pointer-events: none;
+  transition: var(--transition-about-collage-hover);
 }
 
 .aboutCollageLayer img {
@@ -241,12 +243,14 @@
   object-fit: cover;
 }
 
-.aboutCollageLayer--book {
+/* Figma 29:329 — back → front; altoid stays fixed on hover */
+.aboutCollageLayer--altoid {
   z-index: 1;
-  top: 12.875rem;
-  right: 37.55%;
-  left: 27.51%;
-  aspect-ratio: 1 / 1;
+  transition: none;
+  top: 3.0625rem;
+  right: 30.92%;
+  left: 20.88%;
+  aspect-ratio: 375 / 430;
 }
 
 .aboutCollageLayer--matcha {
@@ -255,14 +259,27 @@
   right: 12.25%;
   left: 40.36%;
   aspect-ratio: 1510 / 1436;
+  transform: translate(0, 0);
 }
 
-.aboutCollageLayer--altoid {
+.aboutCollage:hover .aboutCollageLayer--matcha {
+  transform: translate(
+    var(--about-collage-hover-spread),
+    calc(var(--about-collage-hover-spread) * 0.4)
+  );
+}
+
+.aboutCollageLayer--book {
   z-index: 3;
-  top: 3.0625rem;
-  right: 30.92%;
-  left: 20.88%;
-  aspect-ratio: 375 / 430;
+  top: 12.875rem;
+  right: 37.55%;
+  left: 27.51%;
+  aspect-ratio: 1 / 1;
+  transform: translate(0, 0);
+}
+
+.aboutCollage:hover .aboutCollageLayer--book {
+  transform: translate(0, var(--about-collage-hover-spread));
 }
 
 .aboutCollageLayer--chromeOne {
@@ -271,6 +288,11 @@
   right: 59.44%;
   left: 17.47%;
   aspect-ratio: 1 / 1;
+  transform: translate(0, 0);
+}
+
+.aboutCollage:hover .aboutCollageLayer--chromeOne {
+  transform: translate(calc(-1 * var(--about-collage-hover-spread)), 0);
 }
 
 .aboutCollageLayer--chromeTwo {
@@ -282,12 +304,22 @@
   transform: rotate(180deg);
 }
 
+.aboutCollage:hover .aboutCollageLayer--chromeTwo {
+  transform: rotate(180deg)
+    translate(var(--about-collage-hover-spread), calc(-1 * var(--about-collage-hover-spread) * 0.35));
+}
+
 .aboutCollageLayer--earbuds {
   z-index: 6;
   top: 2.5rem;
   right: 41.37%;
   left: 36.95%;
   aspect-ratio: 964 / 954;
+  transform: translate(0, 0);
+}
+
+.aboutCollage:hover .aboutCollageLayer--earbuds {
+  transform: translate(0, calc(-1 * var(--about-collage-hover-spread)));
 }
 
 .aboutCollageLayer--nbr {
@@ -299,12 +331,47 @@
   transform: rotate(-21.22deg);
 }
 
+.aboutCollage:hover .aboutCollageLayer--nbr {
+  transform: rotate(-21.22deg)
+    translate(calc(-1 * var(--about-collage-hover-spread)), var(--about-collage-hover-spread));
+}
+
 .aboutCollageLayer--scrubjay {
   z-index: 8;
   top: 1rem;
   right: 55.02%;
   left: 10.04%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 980 / 980;
+  transform: translate(0, 0);
+}
+
+.aboutCollage:hover .aboutCollageLayer--scrubjay {
+  transform: translate(
+    calc(-1 * var(--about-collage-hover-spread)),
+    calc(-1 * var(--about-collage-hover-spread))
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aboutCollageLayer {
+    transition: none;
+  }
+
+  .aboutCollage:hover .aboutCollageLayer--matcha,
+  .aboutCollage:hover .aboutCollageLayer--book,
+  .aboutCollage:hover .aboutCollageLayer--chromeOne,
+  .aboutCollage:hover .aboutCollageLayer--earbuds,
+  .aboutCollage:hover .aboutCollageLayer--scrubjay {
+    transform: translate(0, 0);
+  }
+
+  .aboutCollage:hover .aboutCollageLayer--chromeTwo {
+    transform: rotate(180deg);
+  }
+
+  .aboutCollage:hover .aboutCollageLayer--nbr {
+    transform: rotate(-21.22deg);
+  }
 }
 
 /* Stack order: intro → portrait → bio → collage */

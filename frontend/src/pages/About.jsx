@@ -48,18 +48,19 @@ function AboutPortrait() {
   )
 }
 
+/** Collage matches Figma component node 29:329 — layer order = stacking order (back → front). */
 function AboutCollage() {
   return (
     <div className="aboutCollage" aria-hidden="true">
       <div className="aboutCollageStage">
-        <div className="aboutCollageLayer aboutCollageLayer--book">
-          <img src={ABOUT_ASSETS.book} alt="" />
+        <div className="aboutCollageLayer aboutCollageLayer--altoid">
+          <img src={ABOUT_ASSETS.altoid} alt="" />
         </div>
         <div className="aboutCollageLayer aboutCollageLayer--matcha">
           <img src={ABOUT_ASSETS.matcha} alt="" />
         </div>
-        <div className="aboutCollageLayer aboutCollageLayer--altoid">
-          <img src={ABOUT_ASSETS.altoid} alt="" />
+        <div className="aboutCollageLayer aboutCollageLayer--book">
+          <img src={ABOUT_ASSETS.book} alt="" />
         </div>
         <div className="aboutCollageLayer aboutCollageLayer--chromeOne">
           <img src={ABOUT_ASSETS.chrome} alt="" />
