@@ -120,7 +120,7 @@ export default function About() {
 
               <div className="aboutBio">
                 <section className="aboutBioBlock">
-                  <h2 className="aboutSectionLabel">philosophy</h2>
+                  <h2 className="aboutSectionLabel">philosophy:</h2>
                   <p className="aboutBodyText">
                     Design is rarely about one thing. That&apos;s why I use an{' '}
                     <strong className="aboutEmphasis">interdisciplinary lens</strong> to think about
