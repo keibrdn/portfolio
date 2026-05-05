@@ -17,45 +17,47 @@ export default function Home() {
       <div className="homeLanding">
         <div className="homeLandingRow">
           <aside className="homeSidebar" aria-label="Introduction">
-            <div className="homeHero">
-              <p className="homeHeroName">hello! my name is keila</p>
-              <p className="homeHeroLead">
-                i blend product thinking and engineering principles to create the right user
-                experiences
-              </p>
-            </div>
-            <div className="homeSocial">
-              {mailto ? (
-                <a className="homeSocialLink" href={mailto}>
-                  email
-                </a>
-              ) : (
-                <span className="homeSocialLink homeSocialLink--inactive">email</span>
-              )}
-              {linkedinUrl ? (
-                <a
-                  className="homeSocialLink"
-                  href={linkedinUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  linkedin
-                </a>
-              ) : (
-                <span className="homeSocialLink homeSocialLink--inactive">linkedin</span>
-              )}
-              {xUrl ? (
-                <a
-                  className="homeSocialLink"
-                  href={xUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  X
-                </a>
-              ) : (
-                <span className="homeSocialLink homeSocialLink--inactive">X</span>
-              )}
+            <div className="homeSidebarMiddle">
+              <div className="homeHero">
+                <p className="homeHeroName">hello! my name is keila</p>
+                <p className="homeHeroLead">
+                  i blend product thinking and engineering principles to create the right user
+                  experiences
+                </p>
+              </div>
+              <div className="homeSocial">
+                {mailto ? (
+                  <a className="homeSocialLink" href={mailto}>
+                    email
+                  </a>
+                ) : (
+                  <span className="homeSocialLink homeSocialLink--inactive">email</span>
+                )}
+                {linkedinUrl ? (
+                  <a
+                    className="homeSocialLink"
+                    href={linkedinUrl}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    linkedin
+                  </a>
+                ) : (
+                  <span className="homeSocialLink homeSocialLink--inactive">linkedin</span>
+                )}
+                {xUrl ? (
+                  <a
+                    className="homeSocialLink"
+                    href={xUrl}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                  >
+                    X
+                  </a>
+                ) : (
+                  <span className="homeSocialLink homeSocialLink--inactive">X</span>
+                )}
+              </div>
             </div>
             <div className="homeFlower" aria-hidden="true">
               <img

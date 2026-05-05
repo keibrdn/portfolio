@@ -26,6 +26,12 @@
   box-sizing: border-box;
 }
 
+.homeSidebarMiddle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
 .homeHero {
   display: flex;
   flex-direction: column;
@@ -147,10 +153,18 @@
     min-height: 0;
   }
 
-  .homeFlower {
+  .homeSidebarMiddle {
     flex: 1 1 auto;
     min-height: 0;
+    gap: clamp(var(--space-md), 5svh, var(--space-landing-sidebar-gap));
+    justify-content: center;
+  }
+
+  .homeFlower {
+    flex: 0 0 auto;
+    height: min(34vh, 21.375rem);
     max-height: min(34vh, 21.375rem);
+    min-height: 0;
   }
 
   .homeContent {
