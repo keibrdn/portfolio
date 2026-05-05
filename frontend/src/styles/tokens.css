@@ -154,6 +154,10 @@
   --transition-about-collage-hover: transform 300ms ease-in-out;
   --about-collage-hover-spread: 2rem;
 
+  /* About portrait — tilt photo + tapes together on hover */
+  --transition-about-portrait-hover: transform 300ms ease-in-out;
+  --rotate-about-portrait-hover: -20deg;
+
   /* Layout — editorial measure + gutters (references: wide margins, readable line length) */
   --layout-measure: 70rem;
   --layout-max-width: min(var(--layout-measure), calc(100vw - var(--space-xl) * 2));

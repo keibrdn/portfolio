@@ -161,6 +161,7 @@
   justify-content: center;
   justify-self: center;
   align-self: center;
+  overflow: visible;
 }
 
 .aboutPortraitStage {
@@ -168,6 +169,7 @@
   width: 100%;
   max-width: 21rem;
   justify-content: center;
+  overflow: visible;
 }
 
 /* Explicit aspect box + inset photo so tape % positions always match the visible photo */
@@ -176,6 +178,13 @@
   display: block;
   width: min(100%, var(--width-about-portrait-composition));
   aspect-ratio: var(--about-portrait-photo-ref-w) / var(--about-portrait-photo-ref-h);
+  transform: rotate(0deg);
+  transform-origin: center center;
+  transition: var(--transition-about-portrait-hover);
+}
+
+.aboutPortrait:hover .aboutPortraitComposition {
+  transform: rotate(var(--rotate-about-portrait-hover));
 }
 
 .aboutPortraitPhoto {
@@ -371,6 +380,14 @@
 
   .aboutCollage:hover .aboutCollageLayer--nbr {
     transform: rotate(-21.22deg);
+  }
+
+  .aboutPortraitComposition {
+    transition: none;
+  }
+
+  .aboutPortrait:hover .aboutPortraitComposition {
+    transform: rotate(0deg);
   }
 }
 
