@@ -14,15 +14,10 @@ export default function Home() {
             <div className="homeSidebarMiddle">
               <div className="homeHero">
                 <p className="homeHeroName">hello! my name is keila</p>
-                <div className="homeHeroLead">
-                  <p className="homeHeroLeadPrimary">
-                    Master of Human-Computer Interaction + design @ UW
-                  </p>
-                  <p className="homeHeroLeadSecondary">
-                    A product designer with engineering roots who always looks for the right
-                    problem to solve
-                  </p>
-                </div>
+                <p className="homeHeroLead">
+                  A product designer with engineering roots who always looks for the right
+                  problem to solve
+                </p>
               </div>
               <div className="homeSocial">
                 <a className="homeSocialLink" href="mailto:keilabraden@gmail.com">
