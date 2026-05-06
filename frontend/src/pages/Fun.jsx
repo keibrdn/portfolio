@@ -3,7 +3,7 @@ import './Fun.css'
 
 export default function Fun() {
   return (
-    <AppShell>
+    <AppShell fullBleed mainClassName="appShellMain--fullBleedSimple">
       <article className="funArticle">
         <h1 className="funTitle">Fun</h1>
         <p className="funLead">Play, experiments, and side quests — add your own content here.</p>

@@ -29,3 +29,13 @@
   flex-direction: column;
   min-height: min-content;
 }
+
+/* Full-bleed shell + landing-style nav; simple pages that aren’t the About grid */
+.appShellMain--fullBleedSimple {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  flex: 0 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: min-content;
+}

@@ -3,7 +3,7 @@ import './Resume.css'
 
 export default function Resume() {
   return (
-    <AppShell>
+    <AppShell fullBleed mainClassName="appShellMain--fullBleedSimple">
       <article className="resumeArticle">
         <h1 className="resumeTitle">Resume</h1>
         <p className="resumeLead">
