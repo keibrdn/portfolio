@@ -6,12 +6,6 @@ import './Home.css'
 export default function Home() {
   const { caseStudies, isLoading } = useCaseStudies()
 
-  const mailto = import.meta.env.VITE_CONTACT_EMAIL
-    ? `mailto:${import.meta.env.VITE_CONTACT_EMAIL}`
-    : null
-  const linkedinUrl = import.meta.env.VITE_SOCIAL_LINKEDIN || ''
-  const xUrl = import.meta.env.VITE_SOCIAL_X || ''
-
   return (
     <AppShell fullBleed fullBleedViewportLock mainClassName="appShellMain--landing">
       <div className="homeLanding">
@@ -31,37 +25,17 @@ export default function Home() {
                 </div>
               </div>
               <div className="homeSocial">
-                {mailto ? (
-                  <a className="homeSocialLink" href={mailto}>
-                    email
-                  </a>
-                ) : (
-                  <span className="homeSocialLink homeSocialLink--inactive">email</span>
-                )}
-                {linkedinUrl ? (
-                  <a
-                    className="homeSocialLink"
-                    href={linkedinUrl}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    linkedin
-                  </a>
-                ) : (
-                  <span className="homeSocialLink homeSocialLink--inactive">linkedin</span>
-                )}
-                {xUrl ? (
-                  <a
-                    className="homeSocialLink"
-                    href={xUrl}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    X
-                  </a>
-                ) : (
-                  <span className="homeSocialLink homeSocialLink--inactive">X</span>
-                )}
+                <a className="homeSocialLink" href="mailto:keilabraden@gmail.com">
+                  email
+                </a>
+                <a
+                  className="homeSocialLink"
+                  href="https://www.linkedin.com/in/keila-braden/"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  linkedin
+                </a>
               </div>
             </div>
             <div className="homeFlower" aria-hidden="true">
