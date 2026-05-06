@@ -1,6 +1,46 @@
 import BlockRenderer from './BlockRenderer.jsx'
 import './CaseStudySection.css'
 
+/** Consecutive `caseStudyMediaFigure` blocks render in one horizontal row (stacks on small viewports). */
+function renderGroupedSectionBlocks(blocks) {
+  if (!Array.isArray(blocks) || blocks.length === 0) return null
+
+  const nodes = []
+  let i = 0
+  while (i < blocks.length) {
+    const block = blocks[i]
+    if (block._type === 'caseStudyMediaFigure') {
+      const run = []
+      let j = i
+      while (j < blocks.length && blocks[j]._type === 'caseStudyMediaFigure') {
+        run.push(blocks[j])
+        j++
+      }
+      if (run.length >= 2) {
+        const rowKey = run.map((b) => b._key).join('-')
+        nodes.push(
+          <div
+            key={rowKey}
+            className="caseStudyMediaRow"
+            style={{ '--case-study-media-row-columns': run.length }}
+          >
+            {run.map((b) => (
+              <BlockRenderer key={b._key} block={b} />
+            ))}
+          </div>,
+        )
+      } else {
+        nodes.push(<BlockRenderer key={run[0]._key} block={run[0]} />)
+      }
+      i = j
+    } else {
+      nodes.push(<BlockRenderer key={block._key} block={block} />)
+      i++
+    }
+  }
+  return nodes
+}
+
 export default function CaseStudySection({ section }) {
   if (!section) return null
 
@@ -39,11 +79,7 @@ export default function CaseStudySection({ section }) {
           </h2>
         )}
       </header>
-      <div className="caseStudySectionBlocks">
-        {blocks.map((block) => (
-          <BlockRenderer key={block._key} block={block} />
-        ))}
-      </div>
+      <div className="caseStudySectionBlocks">{renderGroupedSectionBlocks(blocks)}</div>
     </section>
   )
 }

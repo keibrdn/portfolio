@@ -50,3 +50,26 @@
   flex-direction: column;
   width: 100%;
 }
+
+.caseStudyMediaRow {
+  --case-study-media-row-columns: 2;
+  display: grid;
+  grid-template-columns: repeat(
+    var(--case-study-media-row-columns),
+    minmax(0, 1fr)
+  );
+  gap: var(--space-case-study-section-inner);
+  width: 100%;
+  margin-bottom: var(--space-xl);
+  align-items: start;
+}
+
+.caseStudyMediaRow .mediaFigure {
+  margin-bottom: 0;
+}
+
+@media (max-width: var(--breakpoint-case-study-sm)) {
+  .caseStudyMediaRow {
+    grid-template-columns: 1fr;
+  }
+}

@@ -183,6 +183,8 @@
   /* TOC scroll spy: tolerate subpixel / smooth-scroll vs anchor offset */
   --scroll-case-study-toc-fudge: 0.75rem;
   --width-case-study-stack: 44.8125rem; /* 717px — hero + meta column measure */
+  /* Align with CaseStudy layout — stack TOC/main below this width */
+  --breakpoint-case-study-sm: 56rem;
 
   /* Layout — editorial measure + gutters (references: wide margins, readable line length) */
   --layout-measure: 70rem;
