@@ -1,9 +1,10 @@
-import { useMemo } from 'react'
+import { useLayoutEffect, useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import AppShell from '../components/layout/AppShell.jsx'
 import CaseStudySection from '../components/CaseStudySection.jsx'
 import { useCaseStudy } from '../hooks/useCaseStudy.js'
 import { useCaseStudyTocActive } from '../hooks/useCaseStudyTocActive.js'
+import { scrollToCaseStudySection } from '../lib/caseStudyScroll.js'
 import { urlFor } from '../lib/sanity.js'
 import './CaseStudy.css'
 
@@ -13,6 +14,13 @@ function skillsFromLine(line) {
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean)
+}
+
+function tocAnchorClick(e, sectionKey) {
+  if (sectionKey == null) return
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+  e.preventDefault()
+  scrollToCaseStudySection(sectionKey)
 }
 
 export default function CaseStudy() {
@@ -25,6 +33,17 @@ export default function CaseStudy() {
     [sections],
   )
   const activeTocKey = useCaseStudyTocActive(tocSections)
+
+  useLayoutEffect(() => {
+    if (isLoading || error || !doc) return
+    const m = window.location.hash.match(/^#section-(.+)$/)
+    if (!m) return
+    const id = `section-${m[1]}`
+    if (!document.getElementById(id)) return
+    requestAnimationFrame(() => {
+      scrollToCaseStudySection(m[1])
+    })
+  }, [doc, slug, isLoading, error])
 
   const heroImg =
     doc?.featuredImage &&
@@ -107,6 +126,7 @@ export default function CaseStudy() {
                                   : 'caseStudyTocLink'
                               }
                               aria-current={section._key === activeTocKey ? 'location' : undefined}
+                              onClick={(e) => tocAnchorClick(e, section._key)}
                             >
                               {title}
                             </a>

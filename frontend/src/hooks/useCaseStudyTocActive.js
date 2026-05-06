@@ -1,27 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
-
-function parseCssLengthToPx(value) {
-  const s = String(value || '').trim()
-  if (!s) return 96
-  const m = s.match(/^([\d.]+)(rem|px|em)$/)
-  if (!m) return 96
-  const n = parseFloat(m[1])
-  const root = parseFloat(getComputedStyle(document.documentElement).fontSize || '16')
-  if (m[2] === 'px') return n
-  if (m[2] === 'rem') return n * root
-  return n * root
-}
-
-function readScrollSpyLinePx() {
-  const raw = getComputedStyle(document.documentElement)
-    .getPropertyValue('--scroll-margin-case-study-anchor')
-    .trim()
-  return parseCssLengthToPx(raw)
-}
+import { getCaseStudyAnchorOffsetPx } from '../lib/caseStudyScroll.js'
 
 function getActiveSectionKey(tocSections) {
   if (!tocSections.length) return null
-  const line = readScrollSpyLinePx()
+  const line = getCaseStudyAnchorOffsetPx()
   let activeKey = tocSections[0]._key
   for (let i = 0; i < tocSections.length; i++) {
     const s = tocSections[i]
