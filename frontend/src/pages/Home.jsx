@@ -31,6 +31,14 @@ export default function Home() {
                 >
                   linkedin
                 </a>
+                <a
+                  className="homeSocialLink"
+                  href="https://github.com/keibrdn"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  github
+                </a>
               </div>
             </div>
             <div className="homeFlower" aria-hidden="true">
