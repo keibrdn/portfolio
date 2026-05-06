@@ -1,0 +1,36 @@
+.textTripletBlock {
+  margin-bottom: var(--space-xl);
+}
+
+.textTripletGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.textTripletTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  font-size: var(--size-base);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-ink);
+  margin: 0 0 var(--space-sm);
+}
+
+.textTripletBody {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body);
+  font-size: var(--size-sm);
+  line-height: var(--line-height-body);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+@media (max-width: 56rem) {
+  .textTripletGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-lg);
+  }
+}

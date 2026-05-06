@@ -9,6 +9,7 @@ import VideoFigureBlock from './blocks/VideoFigureBlock.jsx'
 import StatGridBlock from './blocks/StatGridBlock.jsx'
 import QuoteBlock from './blocks/QuoteBlock.jsx'
 import CalloutBlock from './blocks/CalloutBlock.jsx'
+import TextTripletBlock from './blocks/TextTripletBlock.jsx'
 import DividerBlock from './blocks/DividerBlock.jsx'
 
 export default function BlockRenderer({ block }) {
@@ -53,6 +54,9 @@ export default function BlockRenderer({ block }) {
           body={block.body}
         />
       )
+
+    case 'caseStudyTextTriplet':
+      return <TextTripletBlock columns={block.columns} />
 
     case 'caseStudyDivider':
       return <DividerBlock variant={block.variant} />

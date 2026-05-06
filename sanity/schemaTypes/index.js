@@ -4,6 +4,7 @@ import caseStudyVideoFigure from './objects/caseStudyVideoFigure.js'
 import caseStudyStatGrid from './objects/caseStudyStatGrid.js'
 import caseStudyQuote from './objects/caseStudyQuote.js'
 import caseStudyCallout from './objects/caseStudyCallout.js'
+import caseStudyTextTriplet from './objects/caseStudyTextTriplet.js'
 import caseStudyDivider from './objects/caseStudyDivider.js'
 import caseStudySection from './objects/caseStudySection.js'
 import caseStudy from './documents/caseStudy.js'
@@ -16,6 +17,7 @@ export const schemaTypes = [
   caseStudyStatGrid,
   caseStudyQuote,
   caseStudyCallout,
+  caseStudyTextTriplet,
   caseStudyDivider,
   caseStudySection,
   caseStudy,

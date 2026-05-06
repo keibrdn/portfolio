@@ -82,6 +82,13 @@ export const caseStudySectionsByIdQuery = /* groq */ `
           subtitle,
           body
         },
+        _type == "caseStudyTextTriplet" => {
+          columns[] {
+            _key,
+            title,
+            text
+          }
+        },
         _type == "caseStudyDivider" => {
           variant
         }

@@ -31,6 +31,7 @@ export default defineType({
         defineArrayMember({type: 'caseStudyStatGrid'}),
         defineArrayMember({type: 'caseStudyQuote'}),
         defineArrayMember({type: 'caseStudyCallout'}),
+        defineArrayMember({type: 'caseStudyTextTriplet'}),
         defineArrayMember({type: 'caseStudyDivider'}),
       ],
       validation: (Rule) => Rule.min(1),
