@@ -24,11 +24,15 @@ function devSanityApiHost() {
 
 const apiHost = devSanityApiHost()
 
+/** Prod defaults to CDN reads; `VITE_SANITY_USE_CDN=false` uses *.api.sanity.io (still needs CORS). */
+const useCdn =
+  import.meta.env.PROD && import.meta.env.VITE_SANITY_USE_CDN !== 'false'
+
 export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: import.meta.env.PROD,
+  useCdn,
   ...(apiHost
     ? {
         useProjectHostname: false,
