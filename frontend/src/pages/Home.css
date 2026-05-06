@@ -135,6 +135,68 @@
   padding-inline: var(--space-case-grid-column);
 }
 
+.homeSanityError {
+  margin: 0;
+  max-width: var(--layout-max-width);
+}
+
+.homeSanityErrorTitle {
+  font-family: var(--font-heading);
+  font-size: var(--size-lg);
+  font-weight: var(--font-weight-heading);
+  color: var(--color-text-heading);
+  line-height: var(--line-height-snug);
+  margin: 0 0 var(--space-md);
+}
+
+.homeSanityErrorText {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  line-height: var(--line-height-body);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-md);
+}
+
+.homeSanityErrorStrong {
+  font-weight: var(--font-weight-body-bold);
+}
+
+.homeSanityErrorCode {
+  font-family: var(--font-ui);
+  font-size: var(--size-xs);
+}
+
+.homeSanityErrorDetail {
+  font-family: var(--font-ui);
+  font-size: var(--size-xs);
+  line-height: var(--line-height-loose);
+  color: var(--color-text-muted);
+  word-break: break-word;
+  margin: 0 0 var(--space-lg);
+}
+
+.homeSanityErrorRetry {
+  font-family: var(--font-ui);
+  font-size: var(--size-sm);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-bg);
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-lg);
+  padding-block: var(--space-sm);
+  padding-inline: var(--space-md);
+  cursor: pointer;
+  transition:
+    color var(--transition-default),
+    background-color var(--transition-default),
+    border-color var(--transition-default);
+}
+
+.homeSanityErrorRetry:hover {
+  background-color: var(--color-accent-orange);
+  border-color: var(--color-accent-orange);
+}
+
 /* Desktop row layout — everything fits within one viewport height */
 @media (min-width: 56.01rem) {
   .homeLanding {
@@ -320,6 +382,10 @@
   }
 
   .homeLoading {
+    padding-inline: 0;
+  }
+
+  .homeSanityError {
     padding-inline: 0;
   }
 }

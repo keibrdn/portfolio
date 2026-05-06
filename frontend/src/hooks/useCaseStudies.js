@@ -48,6 +48,8 @@ export const MOCK_CASE_STUDIES = [
 
 /**
  * Fetches the case study index via `caseStudyListQuery` in `lib/queries.js`.
+ * In development only, empty or failed fetches fall back to {@link MOCK_CASE_STUDIES}
+ * for layout work. Production never shows those placeholders.
  */
 export function useCaseStudies() {
   const [caseStudies, setCaseStudies] = useState([])
@@ -58,19 +60,28 @@ export function useCaseStudies() {
   const load = useCallback(async () => {
     setIsLoading(true)
     setError(null)
+    const allowMocks = import.meta.env.DEV
     try {
       const rows = await client.fetch(caseStudyListQuery)
       if (Array.isArray(rows) && rows.length > 0) {
         setCaseStudies(rows)
         setUsedMock(false)
-      } else {
+      } else if (allowMocks) {
         setCaseStudies(MOCK_CASE_STUDIES)
         setUsedMock(true)
+      } else {
+        setCaseStudies([])
+        setUsedMock(false)
       }
     } catch (e) {
       setError(e instanceof Error ? e : new Error(String(e)))
-      setCaseStudies(MOCK_CASE_STUDIES)
-      setUsedMock(true)
+      if (allowMocks) {
+        setCaseStudies(MOCK_CASE_STUDIES)
+        setUsedMock(true)
+      } else {
+        setCaseStudies([])
+        setUsedMock(false)
+      }
     } finally {
       setIsLoading(false)
     }

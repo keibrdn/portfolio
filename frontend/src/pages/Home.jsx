@@ -4,7 +4,7 @@ import { useCaseStudies } from '../hooks/useCaseStudies.js'
 import './Home.css'
 
 export default function Home() {
-  const { caseStudies, isLoading } = useCaseStudies()
+  const { caseStudies, isLoading, error, retry } = useCaseStudies()
 
   return (
     <AppShell fullBleed fullBleedViewportLock mainClassName="appShellMain--landing">
@@ -56,6 +56,23 @@ export default function Home() {
             <div className="homeCaseStudies">
               {isLoading ? (
                 <p className="homeLoading">Loading projects…</p>
+              ) : error && import.meta.env.PROD ? (
+                <div className="homeSanityError">
+                  <h2 className="homeSanityErrorTitle">Couldn&apos;t load projects</h2>
+                  <p className="homeSanityErrorText">
+                    The site can&apos;t reach Sanity from production. Check Vercel environment
+                    variables (<code className="homeSanityErrorCode">VITE_SANITY_PROJECT_ID</code>,{' '}
+                    <code className="homeSanityErrorCode">VITE_SANITY_DATASET</code>) and add this
+                    URL under{' '}
+                    <strong className="homeSanityErrorStrong">Sanity → API → CORS origins</strong>.
+                  </p>
+                  <p className="homeSanityErrorDetail">
+                    {error instanceof Error ? error.message : String(error)}
+                  </p>
+                  <button type="button" className="homeSanityErrorRetry" onClick={retry}>
+                    Try again
+                  </button>
+                </div>
               ) : (
                 <CaseStudyGrid caseStudies={caseStudies} className="caseStudyGrid--landing" />
               )}
