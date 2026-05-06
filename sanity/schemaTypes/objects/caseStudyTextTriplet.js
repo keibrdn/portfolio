@@ -2,10 +2,10 @@ import {defineArrayMember, defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'caseStudyTextTriplet',
-  title: 'Text columns (3-up, minimal)',
+  title: 'Text columns (2–3, minimal)',
   type: 'object',
   description:
-    'Three side-by-side headings with short supporting text — lighter than a callout (no panel or heavy type).',
+    'Two or three side-by-side headings with short supporting text — lighter than a callout (no panel or heavy type).',
   fields: [
     defineField({
       name: 'columns',
@@ -39,7 +39,7 @@ export default defineType({
         }),
       ],
       validation: (Rule) =>
-        Rule.required().min(3).max(3).error('Add exactly three columns.'),
+        Rule.required().min(2).max(3).error('Add two or three columns.'),
     }),
   ],
   preview: {
@@ -49,8 +49,8 @@ export default defineType({
         ? columns.map((c) => c?.title).filter(Boolean)
         : []
       return {
-        title: 'Text columns (3-up)',
-        subtitle: titles.length ? titles.join(' · ') : 'Three columns',
+        title: 'Text columns (2–3)',
+        subtitle: titles.length ? titles.join(' · ') : 'Columns',
       }
     },
   },
