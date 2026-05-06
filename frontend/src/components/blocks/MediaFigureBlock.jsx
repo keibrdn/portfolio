@@ -10,11 +10,13 @@ export default function MediaFigureBlock({ media, caption, alt }) {
 
   return (
     <figure className="mediaFigure">
-      {src ? (
-        <img className="mediaFigureImg" src={src} alt={altText} loading="lazy" />
-      ) : (
-        <div className="mediaFigureFallback" role="img" aria-label={altText} />
-      )}
+      <div className="mediaFigureMain">
+        {src ? (
+          <img className="mediaFigureImg" src={src} alt={altText} loading="lazy" />
+        ) : (
+          <div className="mediaFigureFallback" role="img" aria-label={altText} />
+        )}
+      </div>
       {caption ? (
         <figcaption className="mediaFigureCaption">{caption}</figcaption>
       ) : null}

@@ -61,11 +61,27 @@
   gap: var(--space-case-study-section-inner);
   width: 100%;
   margin-bottom: var(--space-xl);
-  align-items: start;
+  align-items: stretch;
 }
 
 .caseStudyMediaRow .mediaFigure {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
   margin-bottom: 0;
+}
+
+.caseStudyMediaRow .mediaFigureMain {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caseStudyMediaRow .mediaFigureCaption {
+  flex-shrink: 0;
 }
 
 @media (max-width: var(--breakpoint-case-study-sm)) {

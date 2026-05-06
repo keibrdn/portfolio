@@ -2,6 +2,11 @@
   margin: 0 0 var(--space-xl);
 }
 
+/* Holds image/fallback; `.caseStudyMediaRow` turns this into a flex region for vertical alignment */
+.mediaFigureMain {
+  display: block;
+}
+
 .mediaFigureImg {
   display: block;
   width: 100%;
