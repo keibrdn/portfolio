@@ -20,8 +20,3 @@
   color: var(--color-text-primary);
   margin: 0;
 }
-.resumeCode {
-  font-family: var(--font-ui);
-  font-size: var(--size-sm);
-}
-
