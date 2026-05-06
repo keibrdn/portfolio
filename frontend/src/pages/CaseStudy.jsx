@@ -69,8 +69,8 @@ export default function CaseStudy() {
             <button type="button" className="caseStudyMissingRetry" onClick={retry}>
               Try again
             </button>
-            <Link className="caseStudyMissingLink" to="/work">
-              Back to work
+            <Link className="caseStudyMissingLink" to="/">
+              Back to home
             </Link>
           </p>
         </div>
@@ -87,8 +87,8 @@ export default function CaseStudy() {
             There isn&apos;t published content for{' '}
             <span className="caseStudyMissingSlug">{slug}</span> yet.
           </p>
-          <Link className="caseStudyMissingLink" to="/work">
-            Back to work
+          <Link className="caseStudyMissingLink" to="/">
+            Back to home
           </Link>
         </div>
       </AppShell>
@@ -105,7 +105,7 @@ export default function CaseStudy() {
         <div className="caseStudyPage">
           <div className="caseStudyPageWhole">
             <aside className="caseStudyPageSidebar" aria-label="Case study navigation">
-              <Link className="caseStudyBack" to="/work">
+              <Link className="caseStudyBack" to="/">
                 {'<- BACK'}
               </Link>
               {tocSections.length > 0 ? (
