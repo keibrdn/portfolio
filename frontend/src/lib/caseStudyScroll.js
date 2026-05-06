@@ -18,6 +18,15 @@ export function getCaseStudyAnchorOffsetPx() {
   return parseCssLengthToPx(raw)
 }
 
+/** Spy line for TOC highlighting = anchor offset + `--scroll-case-study-toc-fudge` (layout / rounding slack). */
+export function getCaseStudyTocSpyLinePx() {
+  const fudgeRaw = getComputedStyle(document.documentElement)
+    .getPropertyValue('--scroll-case-study-toc-fudge')
+    .trim()
+  const fudge = fudgeRaw ? parseCssLengthToPx(fudgeRaw) : 0
+  return getCaseStudyAnchorOffsetPx() + fudge
+}
+
 /**
  * Scroll so the section top sits `scroll-margin` below the viewport top (same as CSS anchor behavior,
  * without relying on inconsistent native hash + scroll-margin combinations).

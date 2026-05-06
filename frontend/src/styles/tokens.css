@@ -180,6 +180,8 @@
   --space-case-study-toc-gap: 0.4375rem;
   --space-case-study-meta-gap: 0.625rem;
   --scroll-margin-case-study-anchor: 6rem;
+  /* TOC scroll spy: tolerate subpixel / smooth-scroll vs anchor offset */
+  --scroll-case-study-toc-fudge: 0.75rem;
   --width-case-study-stack: 44.8125rem; /* 717px — hero + meta column measure */
 
   /* Layout — editorial measure + gutters (references: wide margins, readable line length) */

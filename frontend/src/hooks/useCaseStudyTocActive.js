@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
-import { getCaseStudyAnchorOffsetPx } from '../lib/caseStudyScroll.js'
+import { getCaseStudyTocSpyLinePx } from '../lib/caseStudyScroll.js'
 
 function getActiveSectionKey(tocSections) {
   if (!tocSections.length) return null
-  const line = getCaseStudyAnchorOffsetPx()
+  const line = getCaseStudyTocSpyLinePx()
   let activeKey = tocSections[0]._key
   for (let i = 0; i < tocSections.length; i++) {
     const s = tocSections[i]
