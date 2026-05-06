@@ -49,11 +49,24 @@
 }
 
 .homeHeroLead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
   font-family: var(--font-body);
   font-weight: var(--font-weight-body-regular);
   font-size: var(--size-base);
   line-height: var(--line-height-body);
   margin: 0;
+}
+
+.homeHeroLeadPrimary {
+  margin: 0;
+  font-weight: var(--font-weight-body-bold);
+}
+
+.homeHeroLeadSecondary {
+  margin: 0;
+  font-weight: var(--font-weight-body-regular);
 }
 
 .homeSocial {
