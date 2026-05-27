@@ -27,7 +27,7 @@
 
 .caseStudySectionTitle {
   font-family: var(--font-serif);
-  font-weight: 400;
+  font-weight: 500;
   font-size: var(--size-case-study-section-subtitle);
   line-height: var(--line-height-snug);
   color: var(--color-case-study-prose);
@@ -37,7 +37,7 @@
 
 .caseStudySectionLead {
   font-family: var(--font-serif);
-  font-weight: 400;
+  font-weight: 500;
   font-size: var(--size-case-study-section-lead);
   line-height: var(--line-height-snug);
   color: var(--color-case-study-prose);
