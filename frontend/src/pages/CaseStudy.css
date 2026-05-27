@@ -255,7 +255,7 @@
 .caseStudyMetaLabel {
   font-family: var(--font-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-base);
+  font-size: var(--size-case-study-toc);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
   color: var(--color-about-meta);
