@@ -177,6 +177,7 @@
   --space-case-study-stack: 6.25rem;
   --space-case-study-sidebar-stack: 3.1875rem;
   --space-case-study-section-inner: 1.8125rem;
+  --space-case-study-eyebrow-gap: 0.5rem; /* tighter gap between eyebrow label and section title */
   --space-case-study-toc-gap: 0.4375rem;
   --space-case-study-meta-gap: 0.625rem;
   --scroll-margin-case-study-anchor: 6rem;

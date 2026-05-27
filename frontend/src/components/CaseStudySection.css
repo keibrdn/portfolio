@@ -8,7 +8,7 @@
 .caseStudySectionHeader {
   display: flex;
   flex-direction: column;
-  gap: var(--space-case-study-section-inner);
+  gap: var(--space-case-study-eyebrow-gap);
   align-items: flex-start;
   text-align: left;
   width: 100%;
