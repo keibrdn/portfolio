@@ -9,8 +9,9 @@
 .calloutEyebrow {
   font-family: var(--font-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-case-study-toc);
   letter-spacing: var(--letter-spacing-ui);
+  text-transform: uppercase;
   color: var(--color-accent-blue);
   margin: 0 0 var(--space-sm);
 }
