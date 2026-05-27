@@ -46,6 +46,7 @@
   --font-heading: "IBM Plex Mono", ui-monospace, monospace;
   --font-ui: "IBM Plex Mono", ui-monospace, monospace;
   --font-body: "Manrope", system-ui, sans-serif;
+  --font-serif: "Source Serif 4", Georgia, serif;
 
   --font-weight-heading: 700;
   --font-weight-ui: 400;
