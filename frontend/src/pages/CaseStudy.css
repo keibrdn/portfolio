@@ -126,7 +126,7 @@
 }
 
 .caseStudyToc {
-  width: min(100%, 5.875rem);
+  width: 100%;
 }
 
 .caseStudyTocList {
@@ -152,6 +152,7 @@
   letter-spacing: var(--letter-spacing-ui);
   text-transform: uppercase;
   text-align: right;
+  white-space: nowrap;
   color: var(--color-about-label);
   text-decoration: none;
 }
