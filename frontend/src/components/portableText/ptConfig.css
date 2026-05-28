@@ -2,7 +2,7 @@
   font-size: var(--size-md);
   line-height: var(--line-height-body);
   color: var(--color-text-primary);
-  margin: 0 0 var(--space-sm);
+  margin: 0 0 0.2rem;
 }
 
 .ptP:last-child {
