@@ -1,213 +1,191 @@
-/* IBM Plex Mono (400, 700) + Manrope Light (300) — load before :root tokens */
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Manrope:wght@300;400;700&display=swap");
+/* Fonts loaded in index.html: PT Serif · Manrope · DM Mono */
 
 :root {
   /* -------------------------------------------------------------------------
-     Colors
-     Warm neutrals; accents are plum + secondary hues for links, tags, etc.
+     COLORS — Figma "brand" + "colors mapped" collections
      ------------------------------------------------------------------------- */
 
-  /* Page canvas */
+  /* Base palette (Figma grey/400) */
   --color-bg: #fffcf4;
-  /* Slightly lifted planes (cards, sticky bars) — still warm, no harsh white */
-  --color-surface: #faf7ef;
 
-  /* Headings / strongest ink (#242424) — use with --font-heading */
-  --color-text-heading: #242424;
-  /* True black — Figma landing UI (nav emphasis, tag outlines) */
-  --color-ink: #000000;
+  /* Darkest text + UI chrome (Figma grey/100) */
+  --color-ink: #474747;
+  --color-text-heading: #474747;
 
-  /* Primary reading color for paragraphs (#3F3F3F) */
-  --color-text-primary: #3f3f3f;
-  /* Captions, meta, de-emphasized UI copy */
-  --color-text-muted: #7a756d;
-  /* About page — section labels + meta line (Figma) */
-  --color-about-label: #666363;
-  --color-about-meta: #7e7e7e;
+  /* Body reading text (Figma grey/200) */
+  --color-text-primary: #676767;
 
-  /* Default “brand” accent — plum */
-  --color-accent: #653651;
-  --color-accent-plum: #653651;
-  --color-accent-orange: #cc5b3f;
-  --color-accent-blue: #5055af;
-  --color-accent-green: #9e9a36;
+  /* Captions, placeholders, borders (Figma grey/300) */
+  --color-text-muted: #b9b9b9;
+  --color-border: #d8d4cc; /* slightly warmer hairline on cream bg */
 
-  /* Separation without heavy borders — soft warm hairline */
-  --color-border: #e8e4dc;
+  /* Accent — Figma green/100 (primary / page/primary alias) */
+  --color-accent: #9e9a36;
+  --color-accent-light: rgba(158, 154, 54, 0.6); /* Figma green/200 */
 
-  /* Focus rings / keyboard targets — visible but on-brand */
-  --color-focus-ring: var(--color-accent-blue);
+  /* Interaction */
+  --color-focus-ring: #9e9a36;
+
+  /* Placeholder media tile */
+  --color-media-placeholder: #d4d0c8;
+
+  /* Surface tint — quote / callout block backgrounds */
+  --color-surface: #dad9c4;
 
   /* -------------------------------------------------------------------------
-     Typography
-     Headings & UI chrome: IBM Plex Mono. Body: Manrope Light (300).
+     TYPOGRAPHY — Figma "font family" collection
+     heading: PT Serif · body: Manrope · ui/link/eyebrow: DM Mono
      ------------------------------------------------------------------------- */
 
-  --font-heading: "IBM Plex Mono", ui-monospace, monospace;
-  --font-ui: "IBM Plex Mono", ui-monospace, monospace;
+  --font-heading: "PT Serif", Georgia, serif;
   --font-body: "Manrope", system-ui, sans-serif;
-  --font-serif: "Source Serif 4", Georgia, serif;
+  --font-ui: "DM Mono", ui-monospace, monospace;
 
   --font-weight-heading: 700;
-  --font-weight-ui: 400;
-  --font-weight-body: 300;
+  --font-weight-heading-medium: 500; /* section titles, sub-headings */
+  --font-weight-body: 300;           /* Manrope Light — Figma "light" */
   --font-weight-body-regular: 400;
   --font-weight-body-bold: 700;
+  --font-weight-ui: 400;
 
-  --line-height-tight: 1.15;
-  --line-height-snug: 1.35;
-  --line-height-body: 1.65;
-  --line-height-loose: 1.85;
+  --line-height-tight: 1.2;   /* display headings (≈ 56/48) */
+  --line-height-snug: 1.35;   /* sub-heads, nav, labels */
+  --line-height-body: 1.6;    /* body paragraphs (≈ 24/16) */
+  --line-height-loose: 1.85;  /* pull-quotes, long labels */
 
   --letter-spacing-tight: -0.02em;
-  --letter-spacing-ui: 0.02em;
+  --letter-spacing-ui: 0.06em; /* DM Mono nav / eyebrow / tags */
 
-  /* Type scale — large jumps for editorial / portfolio feel */
-  --size-xs: 0.75rem; /* 12px */
-  --size-sm: 0.875rem; /* 14px */
-  --size-base: 1rem; /* 16px */
-  --size-md: 1.125rem; /* 18px */
-  --size-lg: 1.375rem; /* 22px */
-  --size-xl: 1.75rem; /* 28px */
-  --size-2xl: 2.25rem; /* 36px */
-  --size-3xl: 3rem; /* 48px */
-  --size-4xl: clamp(2.75rem, 5vw + 1rem, 4.5rem);
-  /* Figma landing — hero name line */
+  /* Type scale — Figma "responsive" font-size collection
+     xs   12px · sm  16px · md  24px · lg  32px · xl  40px · 2xl  48px  */
+  --size-xs:  0.75rem; /* 12px — captions, tags, toc, meta */
+  --size-sm:  1rem;    /* 16px — body copy */
+  --size-md:  1.5rem;  /* 24px — lead text, h4-level */
+  --size-lg:  2rem;    /* 32px — section headings */
+  --size-xl:  2.5rem;  /* 40px — page titles */
+  --size-2xl: 3rem;    /* 48px — hero / h1 */
+
+  /* Landing sidebar hero name (fixed small label) */
   --size-hero-name: 1.25rem;
-  --line-height-hero-name: 1.376;
+
+  /* About page headline (Figma node) */
   --size-about-headline: 2.9375rem;
-  --line-height-about-headline: 1.376;
 
   /* -------------------------------------------------------------------------
-     Spacing
-     Airy scale — favor section gaps with --space-xl / --space-2xl
+     SPACING — Figma "scale" collection mapped to semantic names
+     2xs 4px · xs 8px · sm 16px · md 24px · lg 32px · xl 40px · 2xl 72px
      ------------------------------------------------------------------------- */
 
-  --space-xs: 0.25rem; /* 4px */
-  --space-sm: 0.5rem; /* 8px */
-  --space-md: 1rem; /* 16px */
-  --space-lg: 1.5rem; /* 24px */
-  --space-xl: 2.5rem; /* 40px */
-  --space-2xl: 4rem; /* 64px */
+  --space-2xs: 0.25rem; /* 4px  — outline offsets, hair gaps */
+  --space-xs:  0.5rem;  /* 8px  */
+  --space-sm:  1rem;    /* 16px */
+  --space-md:  1.5rem;  /* 24px */
+  --space-lg:  2rem;    /* 32px */
+  --space-xl:  2.5rem;  /* 40px */
+  --space-2xl: 4.5rem;  /* 72px */
 
-  /* Section rhythm (optional — for big vertical gaps between bands) */
-  --space-section: clamp(3.5rem, 8vw, 7rem);
+  /* Between major page sections — scales with viewport */
+  --space-section: clamp(2.5rem, 8vw, 5rem);
 
-  /* Figma landing (node 0:81) — spacing */
+  /* Paragraph rhythm — gap between successive <p> elements */
+  --space-prose: 0.75rem; /* 12px */
+
+  /* -------------------------------------------------------------------------
+     RADII & MOTION
+     ------------------------------------------------------------------------- */
+
+  --radius-none: 0;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 999px;
+  --radius-about-photo: 10px;
+
+  --transition-default: 140ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  --transition-color: color var(--transition-default);
+  --transition-opacity: opacity var(--transition-default);
+  --transition-transform: transform 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  --transition-case-card-media: transform 300ms ease-in-out;
+  --scale-case-card-media-hover: 0.987;
+
+  /* About collage / portrait hover */
+  --transition-about-collage-hover: transform 300ms ease-in-out;
+  --about-collage-hover-spread: 2rem;
+  --transition-about-portrait-hover: transform 300ms ease-in-out;
+  --rotate-about-portrait-hover: -15deg;
+
+  /* -------------------------------------------------------------------------
+     LAYOUT
+     ------------------------------------------------------------------------- */
+
+  --layout-measure: 70rem;
+  --layout-max-width: min(var(--layout-measure), calc(100vw - var(--space-xl) * 2));
+  --layout-viewport-min-height: 100dvh;
+  --layout-nav-blur: 12px;
+
+  /* Landing page */
+  --space-landing-top: 6.25rem; /* 100px — gap between nav and landing hero row */
   --space-landing-px: 1.875rem;
   --space-landing-py: 0.625rem;
-  --space-landing-nav-gap: 1.875rem;
-  --space-landing-sidebar-gap: 6.25rem;
-  --space-landing-sidebar-pad-block: 6.25rem;
+  --space-landing-nav-gap: 2rem;
+  --space-landing-sidebar-gap: var(--space-2xl);
+  --space-landing-sidebar-pad-block: var(--space-2xl);
   --width-landing-sidebar: 18.3125rem;
-  --space-case-grid-column: 3.125rem;
-  --space-case-grid-row: 4rem;
-  --space-card-stack: 1.5rem;
-  --space-card-info-gap: 0.5rem;
-  --space-tag-pill-gap: 0.625rem;
-  --space-tag-pill-x: 0.625rem;
-  --space-tag-pill-y: 0.3125rem;
-  --size-tag-pill: 0.75rem;
-  --color-media-placeholder: #ababab;
-  --space-landing-hero-gap: 0.625rem;
-  --space-landing-content-gap: 0.625rem;
-  /* Landing sidebar flower — absolute offsets inside .homeFlower */
-  --home-flower-img-offset-x: -5.3125rem; /* -85px */
-  --home-flower-img-offset-y: -2.375rem; /* -38px */
+  --width-landing-case-card: 31.25rem;
+  --space-landing-hero-gap: var(--space-xs);
+  --space-landing-content-gap: var(--space-xs);
 
-  /* About page layout */
-  --space-about-column-gap: 6.25rem;
-  --space-about-grid-gap: 6.25rem;
-  --space-about-main-pad-inline: 6.25rem;
-  --space-about-main-pad-block: 3.125rem;
-  --space-about-sidebar-pad-block: 3.125rem;
+  /* Case study cards on landing */
+  --space-case-grid-row: var(--space-2xl);
+  --space-case-grid-column: var(--space-xl);
+  --space-card-stack: var(--space-md);
+  --space-card-info-gap: var(--space-xs);
+  --aspect-case-media: 511 / 341;
 
-  /* About portrait — ref dimensions for composition math (unitless, used in calc) */
-  --width-about-portrait-composition: 9.375rem; /* 150px — max frame width */
+  /* Tag pills */
+  --space-tag-gap: var(--space-xs);
+  --space-tag-x: 0.75rem;
+  --space-tag-y: 0.375rem;
+
+  /* Case study page */
+  --width-case-study-toc: 12.125rem;
+  --width-case-study-stack: 44.8125rem;
+  --breakpoint-case-study-sm: 56rem;
+  --space-case-study-content-pad-x: 10rem;
+  --space-case-study-content-pad-y: var(--space-xl);
+  --space-case-study-stack: var(--space-2xl);
+  --space-case-study-section-inner: var(--space-md);
+  --space-case-study-sidebar-stack: var(--space-lg);
+  --space-case-study-eyebrow-gap: var(--space-xs);
+  --space-case-study-toc-gap: var(--space-xs);
+  --space-case-study-meta-gap: var(--space-xs);
+  --space-nav-content-gap: 1.25rem; /* gap between sticky nav and page content */
+  --space-case-study-page-block: var(--space-nav-content-gap);
+  --scroll-margin-case-study-anchor: 6rem;
+  --scroll-case-study-toc-fudge: 0.75rem;
+
+  /* About page */
+  --space-about-main-pad-inline: var(--space-2xl);
+  --space-about-main-pad-block: var(--space-xl);
+  --space-about-grid-gap: var(--space-2xl);
+
+  /* About portrait — scaling calc references (unitless px at ref size) */
+  --width-about-portrait-composition: 9.375rem;
   --about-portrait-photo-ref-w: 150;
   --about-portrait-photo-ref-h: 201;
   --about-portrait-tape-ref-size: 100;
-  /* Tape top-left anchors vs photo frame (unitless px at ref size; scaled in About.css) */
   --about-portrait-tape-one-left: -28;
   --about-portrait-tape-one-top: -33;
   --about-portrait-tape-two-left: 86;
   --about-portrait-tape-two-top: 126;
 
-  /* -------------------------------------------------------------------------
-     Radii & motion
-     Minimal radii; snappy transitions per .cursorrules
-     ------------------------------------------------------------------------- */
-
-  --radius-none: 0;
-  --radius-sm: 8px;
-  /* About portrait photo corners — Figma 10px */
-  --radius-about-photo: 10px;
-  --radius-md: 14px;
-  --radius-lg: 999px;
-
-  /* Default interaction — short, crisp */
-  --transition-default: 140ms cubic-bezier(0.25, 0.1, 0.25, 1);
-  --transition-color: color var(--transition-default);
-  --transition-opacity: opacity var(--transition-default);
-  --transition-transform: transform 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
-  /* Case study card — thumbnail slightly inset on link hover */
-  --transition-case-card-media: transform 300ms ease-in-out;
-  --scale-case-card-media-hover: 0.987;
-
-  /* About collage (Figma 29:329) — hover spread prototype */
-  --transition-about-collage-hover: transform 300ms ease-in-out;
-  --about-collage-hover-spread: 2rem;
-
-  /* About portrait — tilt photo + tapes together on hover */
-  --transition-about-portrait-hover: transform 300ms ease-in-out;
-  --rotate-about-portrait-hover: -15deg;
-
-  /* Case study detail — Figma node 0:42 “Case Study (use this version)” */
-  --color-case-study-prose: #2e2e2e;
-  --font-weight-case-study-title: 500;
-  --size-case-study-hero-title: 2.25rem;
-  --size-case-study-section-subtitle: 1.5rem;
-  --size-case-study-section-lead: 1.25rem;
-  --size-case-study-meta-body: 1rem;
-  --size-case-study-toc: 0.75rem;
-  --line-height-case-study-prose: 1.5625;
-  --width-case-study-toc: 12.125rem;
-  --space-case-study-page-block: 0.625rem;
-  --space-case-study-content-pad-x: 12.5rem;
-  --space-case-study-content-pad-y: 6.25rem;
-  --space-case-study-stack: 6.25rem;
-  --space-case-study-sidebar-stack: 3.1875rem;
-  --space-case-study-section-inner: 1.8125rem;
-  --space-case-study-eyebrow-gap: 0.5rem; /* tighter gap between eyebrow label and section title */
-  --space-case-study-toc-gap: 0.4375rem;
-  --space-case-study-meta-gap: 0.625rem;
-  --scroll-margin-case-study-anchor: 6rem;
-  /* TOC scroll spy: tolerate subpixel / smooth-scroll vs anchor offset */
-  --scroll-case-study-toc-fudge: 0.75rem;
-  --width-case-study-stack: 44.8125rem; /* 717px — hero + meta column measure */
-  /* Align with CaseStudy layout — stack TOC/main below this width */
-  --breakpoint-case-study-sm: 56rem;
-
-  /* Layout — editorial measure + gutters (references: wide margins, readable line length) */
-  --layout-measure: 70rem;
-  --layout-max-width: min(var(--layout-measure), calc(100vw - var(--space-xl) * 2));
-  /* Lock full-bleed landing to dynamic viewport height (above-the-fold) */
-  --layout-viewport-min-height: 100dvh;
-  --layout-nav-blur: 12px;
-  /* Float UI above sticky nav (nav uses z-index 10) */
+  /* z-index */
   --z-back-to-top: 20;
-  /* Back-to-top — 1px border at default root font size */
+
+  /* Back-to-top button */
   --border-width-back-to-top: 0.0625rem;
-  --color-back-to-top-border: var(--color-about-label);
-  /* Extra inset above base --space-lg (50px at 16px root) */
+  --color-back-to-top-border: var(--color-text-muted);
   --space-back-to-top-lift: 3.125rem;
-  /* Fixed control: right edge flush with case study TOC column (fullBleed px + sidebar width) */
   --back-to-top-case-study-anchor-left: calc(
     var(--space-landing-px) + var(--width-case-study-toc)
   );
-  /* When grid container is narrower than this, stack case study cards to one column */
-  --layout-grid-2col-min: 32rem;
-
-  /* Case study card media — Figma frame ~511×341 */
-  --aspect-case-media: 511 / 341;
 }

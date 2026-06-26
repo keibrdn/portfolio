@@ -17,7 +17,7 @@ export default function BlockRenderer({ block }) {
 
   switch (block._type) {
     case 'caseStudyRichText':
-      return <RichTextBlock body={block.body} />
+      return <RichTextBlock title={block.title} body={block.body} />
 
     case 'caseStudyMediaFigure':
       return (
@@ -25,6 +25,7 @@ export default function BlockRenderer({ block }) {
           media={block.media}
           caption={block.caption}
           alt={block.alt}
+          size={block.size}
         />
       )
 
@@ -52,6 +53,7 @@ export default function BlockRenderer({ block }) {
           title={block.title}
           subtitle={block.subtitle}
           body={block.body}
+          image={block.image}
         />
       )
 

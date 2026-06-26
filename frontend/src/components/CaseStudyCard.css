@@ -13,45 +13,64 @@
 }
 
 .caseStudyCardLink:hover {
-  opacity: 0.92;
+  opacity: 0.88;
 }
 
 .caseStudyCardTags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-tag-pill-gap);
+  gap: var(--space-tag-gap);
   align-items: flex-start;
 }
 
 .caseStudyCardTag {
   font-family: var(--font-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-tag-pill);
+  font-size: var(--size-xs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
   color: var(--color-ink);
-  padding-block: var(--space-tag-pill-y);
-  padding-inline: var(--space-tag-pill-x);
-  border: 1px solid var(--color-ink);
+  padding-block: var(--space-tag-y);
+  padding-inline: var(--space-tag-x);
+  border: 1px solid var(--color-text-primary);
   border-radius: var(--radius-lg);
   white-space: nowrap;
 }
 
 .caseStudyCardMedia {
-  border-radius: var(--radius-none);
   overflow: visible;
   width: 100%;
+  /* Shimmer visible beneath the image before it loads */
+  background: linear-gradient(
+    90deg,
+    var(--color-media-placeholder) 25%,
+    color-mix(in srgb, var(--color-media-placeholder) 40%, var(--color-bg)) 50%,
+    var(--color-media-placeholder) 75%
+  );
+  background-size: 300% 100%;
+  animation: shimmerSlide 1.6s ease-in-out infinite;
+}
+
+.caseStudyCardMedia--loaded {
+  background: none;
+  animation: none;
 }
 
 .caseStudyCardImg {
   display: block;
-  box-sizing: content-box;
-  width: auto;
-  max-width: 100%;
+  width: 100%;
   height: auto;
+  aspect-ratio: var(--aspect-case-media);
   transform: scale(1);
   transform-origin: center center;
-  transition: var(--transition-case-card-media);
+  transition:
+    var(--transition-case-card-media),
+    opacity 300ms ease-in-out;
+  opacity: 0;
+}
+
+.caseStudyCardMedia--loaded .caseStudyCardImg {
+  opacity: 1;
 }
 
 .caseStudyCardLink:hover .caseStudyCardImg {
@@ -76,15 +95,12 @@
   flex-direction: column;
   gap: var(--space-card-info-gap);
   width: 100%;
-  font-size: var(--size-base);
-  line-height: var(--line-height-body);
 }
 
 .caseStudyCardTitle {
   font-family: var(--font-heading);
-  font-weight: var(--font-weight-heading);
-  font-size: var(--size-base);
-  letter-spacing: var(--letter-spacing-ui);
+  font-weight: var(--font-weight-heading-medium);
+  font-size: var(--size-md);
   color: var(--color-ink);
   margin: 0;
   line-height: var(--line-height-snug);
@@ -92,9 +108,9 @@
 
 .caseStudyCardExcerpt {
   font-family: var(--font-body);
-  font-weight: var(--font-weight-body);
-  font-size: var(--size-base);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-sm);
   line-height: var(--line-height-body);
-  color: var(--color-ink);
+  color: var(--color-text-primary);
   margin: 0;
 }

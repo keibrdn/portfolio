@@ -1,22 +1,23 @@
 .workHeader {
   margin-bottom: var(--space-xl);
-  padding-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
   border-bottom: 1px solid var(--color-border);
 }
 
 .workTitle {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-heading);
-  font-size: var(--size-3xl);
+  font-size: var(--size-2xl);
   letter-spacing: var(--letter-spacing-tight);
   color: var(--color-text-heading);
-  margin: 0 0 var(--space-md);
+  margin: 0 0 var(--space-sm);
   line-height: var(--line-height-tight);
 }
 
 .workLead {
   font-family: var(--font-body);
-  font-size: var(--size-md);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-sm);
   line-height: var(--line-height-body);
   color: var(--color-text-muted);
   margin: 0;
@@ -24,7 +25,7 @@
 
 .workLoading {
   font-family: var(--font-ui);
-  font-size: var(--size-sm);
+  font-size: var(--size-xs);
   color: var(--color-text-muted);
   margin: 0;
 }

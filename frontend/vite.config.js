@@ -11,20 +11,25 @@ export default defineConfig(({ mode }) => {
   const projectId = env.VITE_SANITY_PROJECT_ID
   const proxyTarget = projectId ? `https://${projectId}.api.sanity.io` : null
 
+  // Same-origin proxy — dev + vite preview on localhost (browser can't call apicdn without CORS).
+  const sanityProxy = proxyTarget
+    ? {
+        '/__sanity': {
+          target: proxyTarget,
+          changeOrigin: true,
+          secure: true,
+          rewrite: (pathStr) => pathStr.replace(/^\/__sanity/, ''),
+        },
+      }
+    : undefined
+
   return {
     plugins: [react()],
     server: {
-      // Same-origin proxy so the browser never hits *.api.sanity.io directly in dev (avoids CORS).
-      proxy: proxyTarget
-        ? {
-            '/__sanity': {
-              target: proxyTarget,
-              changeOrigin: true,
-              secure: true,
-              rewrite: (pathStr) => pathStr.replace(/^\/__sanity/, ''),
-            },
-          }
-        : undefined,
+      proxy: sanityProxy,
+    },
+    preview: {
+      proxy: sanityProxy,
     },
   }
 })

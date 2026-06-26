@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { urlFor } from '../lib/sanity.js'
 import './CaseStudyCard.css'
@@ -29,10 +30,24 @@ export default function CaseStudyCard({
     urlFor(featuredImage).width(1800).fit('max').auto('format').quality(85).url()
 
   const tagList = tagsFromProps(tags, skillsLine)
+  const [imgLoaded, setImgLoaded] = useState(false)
 
   return (
     <article className="caseStudyCard">
       <Link className="caseStudyCardLink" to={href}>
+        <div className={`caseStudyCardMedia${imgLoaded ? ' caseStudyCardMedia--loaded' : ''}`}>
+          {imgUrl ? (
+            <img
+              className="caseStudyCardImg"
+              src={imgUrl}
+              alt={title ? `${title} preview` : 'Project preview'}
+              loading="lazy"
+              onLoad={() => setImgLoaded(true)}
+            />
+          ) : (
+            <div className="caseStudyCardPlaceholder" aria-hidden="true" />
+          )}
+        </div>
         {tagList.length > 0 ? (
           <div className="caseStudyCardTags" aria-label="Tags">
             {tagList.map((t) => (
@@ -42,18 +57,6 @@ export default function CaseStudyCard({
             ))}
           </div>
         ) : null}
-        <div className="caseStudyCardMedia">
-          {imgUrl ? (
-            <img
-              className="caseStudyCardImg"
-              src={imgUrl}
-              alt={title ? `${title} preview` : 'Project preview'}
-              loading="lazy"
-            />
-          ) : (
-            <div className="caseStudyCardPlaceholder" aria-hidden="true" />
-          )}
-        </div>
         <div className="caseStudyCardBody">
           <h2 className="caseStudyCardTitle">{title}</h2>
           {excerpt ? <p className="caseStudyCardExcerpt">{excerpt}</p> : null}

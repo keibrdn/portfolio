@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo } from 'react'
+import { useLayoutEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import AppShell from '../components/layout/AppShell.jsx'
 import CaseStudySection from '../components/CaseStudySection.jsx'
@@ -23,9 +23,28 @@ function tocAnchorClick(e, sectionKey) {
   scrollToCaseStudySection(sectionKey)
 }
 
+function HeroCover({ src, alt }) {
+  const [loaded, setLoaded] = useState(false)
+  return (
+    <div className={`caseStudyHeroMedia${loaded ? ' caseStudyHeroMedia--loaded' : ''}`}>
+      <img
+        className="caseStudyHeroImg"
+        src={src}
+        alt={alt}
+        loading="eager"
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
+  )
+}
+
 export default function CaseStudy() {
   const { slug } = useParams()
   const { doc, isLoading, error, retry } = useCaseStudy(slug)
+
+  const heroImg =
+    doc?.featuredImage &&
+    urlFor(doc.featuredImage).width(1800).fit('max').auto('format').quality(88).url()
 
   const sections = Array.isArray(doc?.sections) ? doc.sections : []
   const tocSections = useMemo(
@@ -45,17 +64,8 @@ export default function CaseStudy() {
     })
   }, [doc, slug, isLoading, error])
 
-  const heroImg =
-    doc?.featuredImage &&
-    urlFor(doc.featuredImage).width(1800).fit('max').auto('format').quality(88).url()
-
-  if (isLoading) {
-    return (
-      <AppShell fullBleed mainClassName="appShellMain--caseStudy">
-        <p className="caseStudyPageLoading">Loading case study…</p>
-      </AppShell>
-    )
-  }
+  const skillsLines = doc ? skillsFromLine(doc.skillsLine) : []
+  const heroHeadline = doc?.subtitle?.trim() ? doc.subtitle.trim() : (doc?.title ?? '')
 
   if (error) {
     return (
@@ -78,7 +88,7 @@ export default function CaseStudy() {
     )
   }
 
-  if (!doc) {
+  if (!doc && !isLoading) {
     return (
       <AppShell fullBleed mainClassName="appShellMain--caseStudy">
         <div className="caseStudyMissing">
@@ -94,10 +104,6 @@ export default function CaseStudy() {
       </AppShell>
     )
   }
-
-  const skillsLines = skillsFromLine(doc.skillsLine)
-
-  const heroHeadline = doc.subtitle?.trim() ? doc.subtitle.trim() : doc.title
 
   return (
     <AppShell fullBleed mainClassName="appShellMain--caseStudy">
@@ -116,7 +122,11 @@ export default function CaseStudy() {
                         section._key != null ? `#section-${section._key}` : undefined
                       const title = String(section.heading).trim()
                       return (
-                        <li key={section._key || `toc-${index}`} className="caseStudyTocItem">
+                        <li
+                          key={section._key || `toc-${index}`}
+                          className="caseStudyTocItem"
+                          style={{ '--i': index }}
+                        >
                           {anchor ? (
                             <a
                               href={anchor}
@@ -142,72 +152,72 @@ export default function CaseStudy() {
             </aside>
 
             <div className="caseStudyPageMain">
-              <div className="caseStudyStack">
-                <h1 className="caseStudyHeroTitle">{heroHeadline}</h1>
+              {doc && (
+                <div className="caseStudyStack">
+                  <h1 className="caseStudyHeroTitle">{heroHeadline}</h1>
 
-                {heroImg ? (
-                  <div className="caseStudyHeroMedia">
-                    <img
-                      className="caseStudyHeroImg"
+                  {heroImg ? (
+                    <HeroCover
+                      key={heroImg}
                       src={heroImg}
                       alt={doc.title ? `${doc.title} cover` : 'Case study cover'}
-                      loading="eager"
                     />
+                  ) : (
+                    <div className="caseStudyHeroPlaceholder" aria-hidden="true" />
+                  )}
+
+                  {skillsLines.length > 0 || doc.role || doc.timeline || doc.team ? (
+                    <dl className="caseStudyMeta">
+                      {skillsLines.length > 0 ? (
+                        <div className="caseStudyMetaGroup">
+                          <dt className="caseStudyMetaLabel">Skills</dt>
+                          <dd className="caseStudyMetaValue">
+                            {skillsLines.map((line) => (
+                              <p key={line} className="caseStudyMetaLine">
+                                {line}
+                              </p>
+                            ))}
+                          </dd>
+                        </div>
+                      ) : null}
+                      {doc.role ? (
+                        <div className="caseStudyMetaGroup">
+                          <dt className="caseStudyMetaLabel">Role</dt>
+                          <dd className="caseStudyMetaValue">
+                            <p className="caseStudyMetaLine">{doc.role}</p>
+                          </dd>
+                        </div>
+                      ) : null}
+                      {doc.timeline ? (
+                        <div className="caseStudyMetaGroup">
+                          <dt className="caseStudyMetaLabel">Timeline</dt>
+                          <dd className="caseStudyMetaValue">
+                            <p className="caseStudyMetaLine">{doc.timeline}</p>
+                          </dd>
+                        </div>
+                      ) : null}
+                      {doc.team ? (
+                        <div className="caseStudyMetaGroup">
+                          <dt className="caseStudyMetaLabel">Team</dt>
+                          <dd className="caseStudyMetaValue">
+                            <p className="caseStudyMetaLine">{doc.team}</p>
+                          </dd>
+                        </div>
+                      ) : null}
+                    </dl>
+                  ) : null}
+
+                  <div className="caseStudySections">
+                    {sections.map((section, i) => (
+                      <CaseStudySection
+                        key={section._key || `section-${i}`}
+                        section={section}
+                        style={{ '--i': i }}
+                      />
+                    ))}
                   </div>
-                ) : (
-                  <div className="caseStudyHeroPlaceholder" aria-hidden="true" />
-                )}
-
-                {skillsLines.length > 0 || doc.role || doc.timeline || doc.team ? (
-                  <dl className="caseStudyMeta">
-                    {skillsLines.length > 0 ? (
-                      <div className="caseStudyMetaGroup">
-                        <dt className="caseStudyMetaLabel">Skills</dt>
-                        <dd className="caseStudyMetaValue">
-                          {skillsLines.map((line) => (
-                            <p key={line} className="caseStudyMetaLine">
-                              {line}
-                            </p>
-                          ))}
-                        </dd>
-                      </div>
-                    ) : null}
-                    {doc.role ? (
-                      <div className="caseStudyMetaGroup">
-                        <dt className="caseStudyMetaLabel">Role</dt>
-                        <dd className="caseStudyMetaValue">
-                          <p className="caseStudyMetaLine">{doc.role}</p>
-                        </dd>
-                      </div>
-                    ) : null}
-                    {doc.timeline ? (
-                      <div className="caseStudyMetaGroup">
-                        <dt className="caseStudyMetaLabel">Timeline</dt>
-                        <dd className="caseStudyMetaValue">
-                          <p className="caseStudyMetaLine">{doc.timeline}</p>
-                        </dd>
-                      </div>
-                    ) : null}
-                    {doc.team ? (
-                      <div className="caseStudyMetaGroup">
-                        <dt className="caseStudyMetaLabel">Team</dt>
-                        <dd className="caseStudyMetaValue">
-                          <p className="caseStudyMetaLine">{doc.team}</p>
-                        </dd>
-                      </div>
-                    ) : null}
-                  </dl>
-                ) : null}
-
-                <div className="caseStudySections">
-                  {sections.map((section, i) => (
-                    <CaseStudySection
-                      key={section._key || `section-${i}`}
-                      section={section}
-                    />
-                  ))}
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

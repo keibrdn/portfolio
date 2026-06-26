@@ -6,6 +6,12 @@ export default defineType({
   type: 'object',
   fields: [
     defineField({
+      name: 'title',
+      title: 'Title (optional)',
+      type: 'string',
+      description: 'Displays as an h4 above the body text.',
+    }),
+    defineField({
       name: 'body',
       title: 'Body',
       type: 'array',

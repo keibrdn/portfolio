@@ -1,24 +1,17 @@
 .appShellMain {
   flex: 0 1 auto;
   width: 100%;
-  padding-top: var(--space-xl);
+  padding-top: var(--space-nav-content-gap);
   padding-bottom: var(--space-xl);
 }
 
 .appShellMain--landing {
   padding-top: 0;
   padding-bottom: var(--space-xl);
-  min-height: 0;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-}
-
-@media (max-width: 56rem) {
-  .appShellMain--landing {
-    overflow: visible;
-  }
+  min-height: min-content;
 }
 
 .appShellMain--about {
@@ -32,7 +25,7 @@
 
 /* Full-bleed shell + landing-style nav; simple pages that aren’t the About grid */
 .appShellMain--fullBleedSimple {
-  padding-top: var(--space-xl);
+  padding-top: var(--space-nav-content-gap);
   padding-bottom: var(--space-xl);
   flex: 0 1 auto;
   display: flex;

@@ -13,20 +13,41 @@ if (!projectId || !dataset) {
   )
 }
 
-/** In dev, route API through Vite’s /__sanity proxy (see vite.config.js) unless opted out with VITE_SANITY_USE_PROXY=false. */
-function devSanityApiHost() {
-  if (!import.meta.env.DEV || import.meta.env.VITE_SANITY_USE_PROXY === 'false') {
+/**
+ * Route API through Vite’s /__sanity proxy (see vite.config.js) unless opted out with
+ * VITE_SANITY_USE_PROXY=false. Used in dev and when serving a prod build on localhost
+ * (vite preview) — the live domain is on Sanity CORS; localhost is not.
+ */
+function localSanityApiHost() {
+  if (import.meta.env.VITE_SANITY_USE_PROXY === 'false') {
     return null
   }
   const origin = typeof globalThis !== 'undefined' ? globalThis.location?.origin : null
-  return origin ? `${origin}/__sanity` : null
+  if (!origin) return null
+
+  if (import.meta.env.DEV) {
+    return `${origin}/__sanity`
+  }
+
+  try {
+    const { hostname } = new URL(origin)
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return `${origin}/__sanity`
+    }
+  } catch {
+    /* invalid origin */
+  }
+
+  return null
 }
 
-const apiHost = devSanityApiHost()
+const apiHost = localSanityApiHost()
 
-/** Prod defaults to CDN reads; `VITE_SANITY_USE_CDN=false` uses *.api.sanity.io (still needs CORS). */
+/** Prod defaults to CDN reads; skip CDN when proxied. `VITE_SANITY_USE_CDN=false` uses api.sanity.io (needs CORS). */
 const useCdn =
-  import.meta.env.PROD && import.meta.env.VITE_SANITY_USE_CDN !== 'false'
+  !apiHost &&
+  import.meta.env.PROD &&
+  import.meta.env.VITE_SANITY_USE_CDN !== 'false'
 
 export const client = createClient({
   projectId,

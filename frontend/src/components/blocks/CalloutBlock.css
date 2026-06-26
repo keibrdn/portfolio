@@ -1,36 +1,71 @@
 .calloutBlock {
-  margin-bottom: var(--space-xl);
-  padding: var(--space-xl);
-  border-radius: var(--radius-md);
-  border: 1px solid color-mix(in srgb, var(--color-accent-blue) 35%, var(--color-border));
-  background-color: color-mix(in srgb, var(--color-surface) 92%, var(--color-accent-blue));
+  margin-block: var(--space-case-study-stack);
+}
+
+.calloutBlock:first-child {
+  margin-top: 0;
+}
+
+.calloutBlock:last-child {
+  margin-bottom: 0;
 }
 
 .calloutEyebrow {
   font-family: var(--font-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-case-study-toc);
+  font-size: var(--size-xs);
+  line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
   text-transform: uppercase;
-  color: var(--color-accent-blue);
-  margin: 0 0 var(--space-sm);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-case-study-eyebrow-gap);
 }
 
 .calloutTitle {
   font-family: var(--font-heading);
-  font-weight: var(--font-weight-heading);
-  font-size: var(--size-xl);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-lg);
   color: var(--color-text-heading);
-  margin: 0 0 var(--space-sm);
-  letter-spacing: var(--letter-spacing-tight);
+  margin: 0 0 var(--space-xs);
+  line-height: var(--line-height-tight);
 }
 
 .calloutSubtitle {
   font-family: var(--font-body);
-  font-size: var(--size-md);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-sm);
   color: var(--color-text-muted);
-  margin: 0 0 var(--space-md);
-  line-height: var(--line-height-snug);
+  margin: 0 0 var(--space-sm);
+  line-height: var(--line-height-body);
+}
+
+.calloutImageWrap {
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--color-media-placeholder) 25%,
+    color-mix(in srgb, var(--color-media-placeholder) 40%, var(--color-bg)) 50%,
+    var(--color-media-placeholder) 75%
+  );
+  background-size: 300% 100%;
+  animation: shimmerSlide 1.6s ease-in-out infinite;
+}
+
+.calloutImageWrap--loaded {
+  background: none;
+  animation: none;
+}
+
+.calloutImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
+}
+
+.calloutImageWrap--loaded .calloutImage {
+  opacity: 1;
 }
 
 .calloutBody .ptP:first-of-type {

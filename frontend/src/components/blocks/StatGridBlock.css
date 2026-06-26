@@ -1,19 +1,19 @@
 .statGridBlock {
   margin-bottom: var(--space-xl);
-  padding: var(--space-lg);
+  padding: var(--space-xl);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  background-color: var(--color-surface);
+  background-color: color-mix(in srgb, var(--color-bg) 80%, var(--color-border));
 }
 
 .statGridIntro {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .statGridList {
   margin: 0;
   display: grid;
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
 .statGridRow {
@@ -32,7 +32,7 @@
 
 .statGridLabel {
   font-family: var(--font-body);
-  font-weight: var(--font-weight-body);
+  font-weight: var(--font-weight-body-regular);
   font-size: var(--size-sm);
   line-height: var(--line-height-body);
   color: var(--color-text-primary);

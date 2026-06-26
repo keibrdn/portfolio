@@ -11,26 +11,26 @@
 
 .textTripletTitle {
   font-family: var(--font-heading);
-  font-weight: var(--font-weight-heading);
-  font-size: var(--size-base);
+  font-weight: var(--font-weight-heading-medium);
+  font-size: var(--size-md);
   line-height: var(--line-height-snug);
-  letter-spacing: var(--letter-spacing-ui);
+  letter-spacing: var(--letter-spacing-tight);
   color: var(--color-ink);
-  margin: 0 0 var(--space-sm);
+  margin: 0 0 var(--space-xs);
 }
 
 .textTripletBody {
   font-family: var(--font-body);
-  font-weight: var(--font-weight-body);
+  font-weight: var(--font-weight-body-regular);
   font-size: var(--size-sm);
   line-height: var(--line-height-body);
-  color: var(--color-text-muted);
+  color: var(--color-text-primary);
   margin: 0;
 }
 
 @media (max-width: 56rem) {
   .textTripletGrid {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-lg);
+    gap: var(--space-md);
   }
 }

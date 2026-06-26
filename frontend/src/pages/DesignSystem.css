@@ -17,7 +17,7 @@
 .designSystemTitle {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-heading);
-  font-size: var(--size-3xl);
+  font-size: var(--size-2xl);
   letter-spacing: var(--letter-spacing-tight);
   line-height: var(--line-height-tight);
   color: var(--color-text-heading);
@@ -173,7 +173,7 @@
 .radiusStripBar {
   width: 100%;
   height: var(--space-lg);
-  background-color: var(--color-accent-plum);
+  background-color: var(--color-accent);
 }
 
 .radiusStripMeta {

@@ -56,7 +56,7 @@
   font-family: var(--font-heading);
   font-weight: var(--font-weight-heading);
   font-size: var(--size-about-headline);
-  line-height: var(--line-height-about-headline);
+  line-height: var(--line-height-tight);
   color: var(--color-ink);
   margin: 0;
   max-width: 23.9375rem;
@@ -74,7 +74,7 @@
   max-width: 9.125rem;
   flex-shrink: 0;
   align-items: center;
-  gap: var(--space-landing-hero-gap);
+  gap: var(--space-xs);
 }
 
 .aboutMetaGroup--edu {
@@ -82,7 +82,7 @@
   flex: 1 1 12rem;
   max-width: none;
   align-items: flex-start;
-  gap: var(--space-landing-hero-gap);
+  gap: var(--space-xs);
 }
 
 .aboutMetaIcon {
@@ -96,12 +96,12 @@
 
 .aboutMetaText {
   font-family: var(--font-ui);
-  font-size: var(--size-tag-pill);
+  font-size: var(--size-xs);
   font-weight: var(--font-weight-ui);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
   text-transform: uppercase;
-  color: var(--color-about-meta);
+  color: var(--color-text-muted);
 }
 
 .aboutMetaText--edu {
@@ -125,26 +125,26 @@
 .aboutBioBlock {
   display: flex;
   flex-direction: column;
-  gap: var(--space-landing-hero-gap);
+  gap: var(--space-xs);
   max-width: 23.9375rem;
 }
 
 .aboutSectionLabel {
   font-family: var(--font-ui);
-  font-size: var(--size-tag-pill);
+  font-size: var(--size-xs);
   font-weight: var(--font-weight-ui);
-  line-height: var(--line-height-about-headline);
+  line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
   text-transform: uppercase;
-  color: var(--color-about-label);
+  color: var(--color-text-muted);
   margin: 0;
 }
 
 .aboutBodyText {
   font-family: var(--font-body);
   font-weight: var(--font-weight-body-regular);
-  font-size: var(--size-base);
-  line-height: var(--line-height-about-headline);
+  font-size: var(--size-sm);
+  line-height: var(--line-height-body);
   color: var(--color-ink);
   margin: 0;
 }
@@ -452,16 +452,16 @@
 /* Wide two-column layout */
 @media (min-width: 56.01rem) {
   .aboutMain {
-    padding-inline: clamp(var(--space-md), 5vw, var(--space-about-main-pad-inline));
-    padding-block: clamp(var(--space-sm), 2svh, var(--space-about-main-pad-block));
+    padding-inline: clamp(var(--space-sm), 5vw, var(--space-about-main-pad-inline));
+    padding-block: clamp(var(--space-xs), 2svh, var(--space-about-main-pad-block));
   }
 
   .aboutGrid {
-    gap: clamp(var(--space-md), 2.5svh, var(--space-about-grid-gap));
+    gap: clamp(var(--space-sm), 2.5svh, var(--space-about-grid-gap));
   }
 
   .aboutIntro {
-    gap: clamp(var(--space-sm), 1.5svh, var(--space-lg));
+    gap: clamp(var(--space-xs), 1.5svh, var(--space-md));
   }
 
   .aboutHeadline {

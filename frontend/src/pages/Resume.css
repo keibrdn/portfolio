@@ -6,16 +6,16 @@
   font-family: var(--font-heading);
   font-weight: var(--font-weight-heading);
   font-size: var(--size-2xl);
-  letter-spacing: var(--letter-spacing-ui);
+  letter-spacing: var(--letter-spacing-tight);
   color: var(--color-text-heading);
-  margin: 0 0 var(--space-lg);
+  margin: 0 0 var(--space-md);
   line-height: var(--line-height-tight);
 }
 
 .resumeLead {
   font-family: var(--font-body);
-  font-weight: var(--font-weight-body);
-  font-size: var(--size-md);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-sm);
   line-height: var(--line-height-body);
   color: var(--color-text-primary);
   margin: 0;

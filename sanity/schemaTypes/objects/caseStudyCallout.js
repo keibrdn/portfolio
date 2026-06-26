@@ -15,7 +15,6 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'subtitle',
@@ -28,6 +27,12 @@ export default defineType({
       title: 'Body',
       type: 'array',
       of: [{type: 'block'}],
+    }),
+    defineField({
+      name: 'image',
+      title: 'Image (optional)',
+      type: 'image',
+      options: {hotspot: true},
     }),
   ],
   preview: {

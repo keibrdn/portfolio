@@ -41,7 +41,7 @@ function renderGroupedSectionBlocks(blocks) {
   return nodes
 }
 
-export default function CaseStudySection({ section }) {
+export default function CaseStudySection({ section, style }) {
   if (!section) return null
 
   const blocks = Array.isArray(section.blocks) ? section.blocks : []
@@ -62,6 +62,7 @@ export default function CaseStudySection({ section }) {
         hasSubheading ? 'caseStudySection--withSub' : 'caseStudySection--leadOnly',
       ].join(' ')}
       aria-labelledby={labelledBy || undefined}
+      style={style}
     >
       <header className="caseStudySectionHeader">
         {hasSubheading ? (

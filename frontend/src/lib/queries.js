@@ -46,6 +46,7 @@ export const caseStudySectionsByIdQuery = /* groq */ `
         _key,
         _type,
         _type == "caseStudyRichText" => {
+          title,
           body
         },
         _type == "caseStudyMediaFigure" => {
@@ -80,7 +81,8 @@ export const caseStudySectionsByIdQuery = /* groq */ `
           eyebrow,
           title,
           subtitle,
-          body
+          body,
+          image
         },
         _type == "caseStudyTextTriplet" => {
           columns[] {

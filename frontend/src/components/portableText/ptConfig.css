@@ -1,5 +1,7 @@
 .ptP {
-  font-size: var(--size-md);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-sm);
   line-height: var(--line-height-body);
   color: var(--color-text-primary);
   margin: 0 0 var(--space-xs);
@@ -9,39 +11,43 @@
   margin-bottom: 0;
 }
 
+/* H2-level heading inside portable text */
 .ptH4 {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-heading);
-  font-size: var(--size-lg);
-  letter-spacing: var(--letter-spacing-ui);
+  font-size: var(--size-md);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-tight);
   color: var(--color-text-heading);
-  margin: var(--space-lg) 0 var(--space-sm);
+  margin: var(--space-xl) 0 var(--space-sm);
 }
 
 .ptQuote {
+  font-family: var(--font-heading);
+  font-style: italic;
   font-size: var(--size-md);
   line-height: var(--line-height-loose);
   color: var(--color-text-muted);
   margin: var(--space-md) 0;
-  padding-inline-start: var(--space-lg);
-  border-inline-start: 1px solid var(--color-border);
+  padding-inline-start: var(--space-md);
+  border-inline-start: 2px solid var(--color-accent);
 }
 
 .ptUl,
 .ptOl {
-  margin: 0 0 var(--space-md);
-  padding-inline-start: var(--space-xl);
+  margin: 0 0 var(--space-sm);
+  padding-inline-start: var(--space-lg);
 }
 
 .ptLi {
-  font-size: var(--size-md);
+  font-size: var(--size-sm);
   line-height: var(--line-height-body);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
   color: var(--color-text-primary);
 }
 
 .ptStrong {
-  font-weight: 700;
+  font-weight: var(--font-weight-body-bold);
   color: var(--color-text-heading);
 }
 
@@ -54,10 +60,10 @@
   font-weight: var(--font-weight-ui);
   color: var(--color-accent);
   text-decoration: underline;
-  text-underline-offset: var(--space-xs);
-  transition: var(--transition-color);
+  text-underline-offset: var(--space-2xs);
+  transition: var(--transition-opacity);
 }
 
 .ptLink:hover {
-  color: var(--color-accent-orange);
+  opacity: 0.75;
 }

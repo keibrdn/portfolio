@@ -11,14 +11,13 @@
   }
 }
 
-/* Figma landing — 2×2 case study block */
 .caseStudyGrid--landing {
-  gap: var(--space-case-grid-row) var(--space-case-grid-column);
+  gap: var(--space-case-grid-row);
 }
 
 .caseStudyGridEmpty {
   font-family: var(--font-ui);
-  font-size: var(--size-sm);
+  font-size: var(--size-xs);
   color: var(--color-text-muted);
   margin: 0;
 }

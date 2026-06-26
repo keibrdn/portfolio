@@ -1,14 +1,14 @@
 .backToTop {
   position: fixed;
-  left: var(--space-lg);
+  left: var(--space-md);
   right: auto;
-  bottom: calc(var(--space-lg) + var(--space-back-to-top-lift));
+  bottom: calc(var(--space-md) + var(--space-back-to-top-lift));
   z-index: var(--z-back-to-top);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: var(--space-md);
+  padding: var(--space-sm);
   border: var(--border-width-back-to-top) solid var(--color-back-to-top-border);
   border-radius: var(--radius-lg);
   background-color: transparent;
@@ -25,7 +25,6 @@
     background-color var(--transition-default);
 }
 
-/* Case study: pin to the inner edge of the sticky TOC column (matches .caseStudyPageSidebar width) */
 .backToTop--alignToc {
   left: var(--back-to-top-case-study-anchor-left);
   transform: translateX(-100%) translateY(var(--space-xs));
@@ -85,7 +84,7 @@
 
 .backToTop:focus-visible {
   outline: var(--border-width-back-to-top) solid var(--color-focus-ring);
-  outline-offset: var(--space-xs);
+  outline-offset: var(--space-2xs);
 }
 
 .backToTopIcon {

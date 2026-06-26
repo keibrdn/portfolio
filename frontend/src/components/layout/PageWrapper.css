@@ -5,7 +5,7 @@
   flex-direction: column;
   width: 100%;
   max-width: 100%;
-  background-color: var(--color-bg);
+  background-color: transparent;
   min-height: min-content;
 }
 

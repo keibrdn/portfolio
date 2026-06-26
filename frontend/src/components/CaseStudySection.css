@@ -14,33 +14,36 @@
   width: 100%;
 }
 
+/* Eyebrow — DM Mono small-caps label */
 .caseStudySectionEyebrow {
   font-family: var(--font-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-case-study-toc);
+  font-size: var(--size-xs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
   text-transform: uppercase;
-  color: var(--color-about-meta);
+  color: var(--color-text-primary);
   margin: 0;
 }
 
+/* H2-level section heading — PT Serif medium */
 .caseStudySectionTitle {
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: var(--size-case-study-section-subtitle);
-  line-height: var(--line-height-snug);
-  color: var(--color-case-study-prose);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading-medium);
+  font-size: var(--size-lg);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-heading);
   margin: 0;
   max-width: 100%;
 }
 
+/* H3-level lead sentence — PT Serif, one step smaller */
 .caseStudySectionLead {
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: var(--size-case-study-section-lead);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading-medium);
+  font-size: var(--size-md);
   line-height: var(--line-height-snug);
-  color: var(--color-case-study-prose);
+  color: var(--color-text-primary);
   margin: 0;
   max-width: 100%;
 }
@@ -54,14 +57,11 @@
 .caseStudyMediaRow {
   --case-study-media-row-columns: 2;
   display: grid;
-  grid-template-columns: repeat(
-    var(--case-study-media-row-columns),
-    minmax(0, 1fr)
-  );
+  grid-template-columns: repeat(var(--case-study-media-row-columns), minmax(0, 1fr));
   gap: var(--space-case-study-section-inner);
   width: 100%;
   margin-bottom: var(--space-xl);
-  align-items: stretch;
+  align-items: start;
 }
 
 .caseStudyMediaRow .mediaFigure {
@@ -78,13 +78,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.caseStudyMediaRow .mediaFigureImg {
+  width: 100%;
+  height: auto;
 }
 
 .caseStudyMediaRow .mediaFigureCaption {
   flex-shrink: 0;
 }
 
-@media (max-width: var(--breakpoint-case-study-sm)) {
+@media (max-width: 56rem) {
   .caseStudyMediaRow {
     grid-template-columns: 1fr;
   }

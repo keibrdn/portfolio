@@ -5,3 +5,12 @@
 .richTextBlock:last-child {
   margin-bottom: 0;
 }
+
+.richTextBlockTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading-medium);
+  font-size: var(--size-lg);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-heading);
+  margin: 0 0 var(--space-xs);
+}

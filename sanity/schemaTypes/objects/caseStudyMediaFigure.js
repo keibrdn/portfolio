@@ -26,6 +26,20 @@ export default defineType({
       type: 'string',
       description: 'Describe the image for screen readers (recommended).',
     }),
+    defineField({
+      name: 'size',
+      title: 'Display size',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Full width (default)', value: 'full'},
+          {title: 'Small (300px, centered)', value: 'small'},
+          {title: 'Medium (500px, centered)', value: 'medium'},
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'full',
+    }),
   ],
   preview: {
     select: {caption: 'caption', media: 'media'},

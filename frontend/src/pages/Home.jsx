@@ -3,11 +3,22 @@ import CaseStudyGrid from '../components/CaseStudyGrid.jsx'
 import { useCaseStudies } from '../hooks/useCaseStudies.js'
 import './Home.css'
 
+/** Home listing — Telefishin pinned first; remaining order from Sanity query. */
+function landingCaseStudies(caseStudies) {
+  return [...caseStudies].sort((a, b) => {
+    const aSlug = String(a.slug ?? '').toLowerCase()
+    const bSlug = String(b.slug ?? '').toLowerCase()
+    if (aSlug === 'telefishin') return -1
+    if (bSlug === 'telefishin') return 1
+    return 0
+  })
+}
+
 export default function Home() {
   const { caseStudies, isLoading, error, retry } = useCaseStudies()
 
   return (
-    <AppShell fullBleed fullBleedViewportLock mainClassName="appShellMain--landing">
+    <AppShell fullBleed mainClassName="appShellMain--landing">
       <div className="homeLanding">
         <div className="homeLandingRow">
           <aside className="homeSidebar" aria-label="Introduction">
@@ -41,21 +52,15 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            <div className="homeFlower" aria-hidden="true">
-              <img
-                className="homeFlowerImg"
-                src="/landing-flower.svg"
-                alt=""
-                width={474}
-                height={325}
-              />
-            </div>
           </aside>
 
           <div className="homeContent">
             <div className="homeCaseStudies">
               {isLoading ? (
-                <p className="homeLoading">Loading projects…</p>
+                <div className="caseStudyGrid--landing homeSkeletonGrid" aria-hidden="true">
+                  <div className="homeSkeletonCard" />
+                  <div className="homeSkeletonCard" />
+                </div>
               ) : error && import.meta.env.PROD ? (
                 <div className="homeSanityError">
                   <h2 className="homeSanityErrorTitle">Couldn&apos;t load projects</h2>
@@ -74,7 +79,10 @@ export default function Home() {
                   </button>
                 </div>
               ) : (
-                <CaseStudyGrid caseStudies={caseStudies} className="caseStudyGrid--landing" />
+                <CaseStudyGrid
+                  caseStudies={landingCaseStudies(caseStudies)}
+                  className="caseStudyGrid--landing"
+                />
               )}
             </div>
           </div>

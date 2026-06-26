@@ -9,7 +9,7 @@
 }
 
 .videoFigurePlayer mux-player {
-  --media-accent-color: var(--color-accent-plum);
+  --media-accent-color: var(--color-accent);
   --media-border-radius: var(--radius-md);
   width: 100%;
   display: block;

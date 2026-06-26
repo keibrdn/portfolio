@@ -2,32 +2,49 @@
   margin: 0 0 var(--space-xl);
 }
 
-.quoteBlock_pullQuote {
-  padding: var(--space-lg);
-  border-left: 2px solid var(--color-accent-plum);
+.quoteBlockQuoteMark {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--size-2xl);
+  line-height: 1;
+  color: var(--color-text-heading);
+  user-select: none;
 }
 
-.quoteBlock_compact {
-  padding-block: var(--space-sm);
+.quoteBlockQuoteMark--open {
+  margin-bottom: var(--space-xs);
+}
+
+.quoteBlockQuoteMark--close {
+  margin-top: var(--space-xs);
+  text-align: right;
 }
 
 .quoteBlockText {
-  font-size: var(--size-lg);
-  line-height: var(--line-height-loose);
-  color: var(--color-text-primary);
-  margin: 0 0 var(--space-sm);
-  font-style: italic;
+  margin: 0;
 }
 
-.quoteBlock_compact .quoteBlockText {
+/* Override .ptP specificity from CaseStudy.css by using 3 class selectors */
+.quoteBlock .quoteBlockText .ptP,
+.quoteBlock .quoteBlockText p {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body-regular);
   font-size: var(--size-md);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-primary);
+  font-style: normal;
+  margin: 0;
 }
+
 
 .quoteBlockAttr {
+  display: block;
   font-family: var(--font-ui);
   font-weight: var(--font-weight-ui);
   font-size: var(--size-xs);
   letter-spacing: var(--letter-spacing-ui);
-  color: var(--color-text-muted);
+  color: var(--color-text-heading);
   font-style: normal;
+  text-align: right;
+  margin-top: var(--space-sm);
 }

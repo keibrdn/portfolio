@@ -1,8 +1,52 @@
+/* ── Shared keyframes ────────────────────────────────────────────────────── */
+@keyframes shimmerSlide {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *[class*="navTextLink"],
+  *[class*="homeHero"] > *,
+  *[class*="homeSocial"] > *,
+  *[class*="caseStudyCard"] {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+  }
+}
+
+/* ── End shared keyframes ─────────────────────────────────────────────── */
+
 :root {
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  overscroll-behavior: none;
+  scrollbar-gutter: stable;
+  background-color: var(--color-bg);
+  background-image: url('/mesh-bg.png');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 *,
@@ -16,6 +60,11 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: var(--color-bg);
+  background-image: url('/mesh-bg.png');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--color-text-primary);
   font-family: var(--font-body);
   font-weight: var(--font-weight-body);
@@ -25,11 +74,9 @@ body {
 #root {
   display: flex;
   flex-direction: column;
-  /* At least one viewport; never shorter than scrollable content (About, etc.). */
   min-height: max(var(--layout-viewport-min-height), min-content);
 }
 
-/* Flex bridge — min-content so tall pages (About) extend html/body height for outer scroll */
 .rootStretch {
   flex: 1 1 auto;
   display: flex;

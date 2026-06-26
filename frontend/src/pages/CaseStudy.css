@@ -3,12 +3,33 @@
   padding-bottom: var(--space-case-study-content-pad-y);
 }
 
-.caseStudyPageLoading {
-  font-family: var(--font-ui);
-  font-size: var(--size-sm);
-  color: var(--color-text-muted);
-  margin: 0;
-  padding-inline: var(--space-landing-px);
+/* TOC items — slide in from left when they mount, staggered */
+.caseStudyTocItem {
+  animation: slideInLeft 360ms ease-in-out both;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+
+/* Hero content — cascade down the page */
+.caseStudyHeroTitle {
+  animation: fadeIn 450ms ease-in-out both;
+  animation-delay: 60ms;
+}
+
+.caseStudyHeroMedia,
+.caseStudyHeroPlaceholder {
+  animation: fadeIn 500ms ease-in-out both;
+  animation-delay: 220ms;
+}
+
+.caseStudyMeta {
+  animation: fadeIn 450ms ease-in-out both;
+  animation-delay: 400ms;
+}
+
+/* Sections — each one fades in 160ms after the previous */
+.caseStudySection {
+  animation: fadeIn 500ms ease-in-out both;
+  animation-delay: calc(560ms + var(--i, 0) * 160ms);
 }
 
 .caseStudyMissing {
@@ -18,15 +39,15 @@
 
 .caseStudyMissingTitle {
   font-family: var(--font-heading);
-  font-size: var(--size-2xl);
+  font-size: var(--size-xl);
   color: var(--color-text-heading);
-  margin: 0 0 var(--space-md);
+  margin: 0 0 var(--space-sm);
 }
 
 .caseStudyMissingText {
-  font-size: var(--size-md);
+  font-size: var(--size-sm);
   color: var(--color-text-muted);
-  margin: 0 0 var(--space-lg);
+  margin: 0 0 var(--space-md);
 }
 
 .caseStudyMissingSlug {
@@ -36,35 +57,35 @@
 
 .caseStudyMissingLink {
   font-family: var(--font-ui);
-  font-size: var(--size-sm);
+  font-size: var(--size-xs);
   color: var(--color-accent);
   text-decoration: underline;
-  text-underline-offset: var(--space-xs);
+  text-underline-offset: var(--space-2xs);
 }
 
 .caseStudyMissingLink:hover {
-  color: var(--color-accent-orange);
-  transition: var(--transition-color);
+  opacity: 0.75;
+  transition: var(--transition-opacity);
 }
 
 .caseStudyMissingActions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
   margin: 0;
 }
 
 .caseStudyMissingRetry {
   font-family: var(--font-ui);
-  font-size: var(--size-sm);
+  font-size: var(--size-xs);
   letter-spacing: var(--letter-spacing-ui);
   color: var(--color-bg);
   background-color: var(--color-accent);
   border: 1px solid var(--color-accent);
   border-radius: var(--radius-lg);
-  padding-block: var(--space-sm);
-  padding-inline: var(--space-md);
+  padding-block: var(--space-xs);
+  padding-inline: var(--space-sm);
   cursor: pointer;
   transition:
     color var(--transition-default),
@@ -73,8 +94,7 @@
 }
 
 .caseStudyMissingRetry:hover {
-  background-color: var(--color-accent-orange);
-  border-color: var(--color-accent-orange);
+  opacity: 0.8;
 }
 
 .caseStudyArticle {
@@ -86,42 +106,45 @@
 }
 
 .caseStudyPageWhole {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr calc(var(--width-case-study-stack) + var(--space-xl) * 2) 1fr;
   align-items: flex-start;
   width: 100%;
   overflow-x: clip;
 }
 
 .caseStudyPageSidebar {
+  grid-column: 1;
+  justify-self: end;
   position: sticky;
   top: 5rem;
   z-index: 1;
   box-sizing: border-box;
   width: var(--width-case-study-toc);
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: var(--space-case-study-sidebar-stack);
   padding-block: var(--space-case-study-content-pad-y);
+  padding-right: var(--space-xl);
 }
 
 .caseStudyBack {
-  font-family: var(--font-heading);
-  font-weight: var(--font-weight-heading);
-  font-size: var(--size-case-study-toc);
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
   text-transform: uppercase;
   text-decoration: underline;
-  text-underline-offset: var(--space-xs);
+  text-underline-offset: var(--space-2xs);
   text-align: right;
   color: var(--color-ink);
   width: min(100%, 5.875rem);
 }
 
 .caseStudyBack:hover {
-  opacity: 0.85;
+  opacity: 0.75;
   transition: var(--transition-opacity);
 }
 
@@ -147,24 +170,24 @@
   display: block;
   font-family: var(--font-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-case-study-toc);
+  font-size: var(--size-xs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
   text-transform: uppercase;
   text-align: right;
   white-space: nowrap;
-  color: var(--color-about-meta);
+  color: var(--color-text-muted);
   text-decoration: none;
+  transition: var(--transition-color);
 }
 
 .caseStudyTocLink:hover {
   color: var(--color-ink);
-  transition: var(--transition-color);
 }
 
 .caseStudyTocLink:focus-visible {
   outline: 2px solid var(--color-focus-ring);
-  outline-offset: var(--space-xs);
+  outline-offset: var(--space-2xs);
 }
 
 .caseStudyTocLink--active {
@@ -173,16 +196,17 @@
 }
 
 .caseStudyPageMain {
-  flex: 1 1 auto;
+  grid-column: 2;
   min-width: 0;
   box-sizing: border-box;
   padding-block: var(--space-case-study-content-pad-y);
-  padding-inline: clamp(var(--space-md), 5vw, var(--space-case-study-content-pad-x));
+  padding-inline: var(--space-xl);
   display: flex;
   flex-direction: column;
   gap: var(--space-case-study-stack);
 }
 
+/* Hero + meta column — centered, readable measure */
 .caseStudyStack {
   display: flex;
   flex-direction: column;
@@ -192,10 +216,11 @@
   width: min(100%, var(--width-case-study-stack));
 }
 
+/* H1 — single hero title level on case study page */
 .caseStudyHeroTitle {
-  font-family: var(--font-serif);
-  font-weight: var(--font-weight-case-study-title);
-  font-size: var(--size-case-study-hero-title);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-2xl);
   line-height: var(--line-height-tight);
   color: var(--color-ink);
   margin: 0;
@@ -205,28 +230,59 @@
 }
 
 .caseStudyHeroMedia {
+  position: relative;
   width: 100%;
-  max-width: min(100%, 33.5rem);
-  padding: var(--space-sm);
   box-sizing: border-box;
+}
+
+/* Reserve space while image is still downloading */
+.caseStudyHeroMedia:not(.caseStudyHeroMedia--loaded) {
+  aspect-ratio: 16 / 10;
+}
+
+/* Shimmer lives on a pseudo-element so it can cross-fade with the image */
+.caseStudyHeroMedia::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--color-media-placeholder) 25%,
+    color-mix(in srgb, var(--color-media-placeholder) 40%, var(--color-bg)) 50%,
+    var(--color-media-placeholder) 75%
+  );
+  background-size: 300% 100%;
+  animation: shimmerSlide 1.6s ease-in-out infinite;
+  opacity: 1;
+  transition: opacity 400ms ease-in-out;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Fade out shimmer at the same time the image fades in — no blank frame */
+.caseStudyHeroMedia--loaded::before {
+  opacity: 0;
+  animation: none;
 }
 
 .caseStudyHeroImg {
   display: block;
   width: 100%;
   height: auto;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
+}
+
+.caseStudyHeroMedia--loaded .caseStudyHeroImg {
+  opacity: 1;
 }
 
 .caseStudyHeroPlaceholder {
   width: 100%;
-  max-width: min(100%, 33.5rem);
   aspect-ratio: 16 / 10;
-  border-radius: var(--radius-none);
-  background: linear-gradient(
-    120deg,
-    var(--color-surface),
-    color-mix(in srgb, var(--color-accent-plum) 25%, var(--color-bg))
-  );
+  background-color: var(--color-media-placeholder);
 }
 
 .caseStudyMeta {
@@ -236,7 +292,7 @@
   justify-content: space-between;
   gap: var(--space-xl);
   margin: 0;
-  padding-block: var(--space-sm);
+  padding-block: var(--space-xs);
   width: 100%;
 }
 
@@ -245,7 +301,6 @@
   flex-direction: column;
   gap: var(--space-case-study-meta-gap);
   align-items: flex-start;
-  justify-content: center;
   margin: 0;
   min-width: min(100%, 7rem);
   flex: 1 1 auto;
@@ -254,10 +309,10 @@
 .caseStudyMetaLabel {
   font-family: var(--font-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-case-study-toc);
+  font-size: var(--size-xs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
-  color: var(--color-about-meta);
+  color: var(--color-text-muted);
   text-transform: uppercase;
   margin: 0;
 }
@@ -268,11 +323,11 @@
 
 .caseStudyMetaLine {
   font-family: var(--font-body);
-  font-weight: var(--font-weight-body);
-  font-size: var(--size-case-study-meta-body);
-  line-height: var(--line-height-case-study-prose);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-sm);
+  line-height: var(--line-height-body);
   color: var(--color-ink);
-  margin: 0 0 var(--space-xs);
+  margin: 0 0 var(--space-2xs);
 }
 
 .caseStudyMetaLine:last-child {
@@ -289,9 +344,9 @@
   text-align: left;
 }
 
-/* Portable text + blocks — Figma body (Manrope Light 16 / ~25px line, #2e2e2e) */
+/* Body prose inside case study */
 .caseStudyPageMain .richTextBlock {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
 }
 
 .caseStudyPageMain .richTextBlock:last-child {
@@ -301,25 +356,25 @@
 .caseStudyPageMain .ptP,
 .caseStudyPageMain .ptLi {
   font-family: var(--font-body);
-  font-weight: var(--font-weight-body);
-  font-size: var(--size-base);
-  line-height: var(--line-height-case-study-prose);
-  color: var(--color-case-study-prose);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-sm);
+  line-height: var(--line-height-body);
+  color: var(--color-text-primary);
 }
 
 .caseStudyPageMain .ptP {
-  margin: 0 0 var(--space-md);
+  margin: 0 0 var(--space-prose);
 }
 
 .caseStudyPageMain .ptStrong {
   font-weight: var(--font-weight-body-bold);
-  color: var(--color-case-study-prose);
+  color: var(--color-text-heading);
 }
 
 .caseStudyPageMain .ptUl,
 .caseStudyPageMain .ptOl {
-  margin: 0 0 var(--space-md);
-  padding-inline-start: var(--space-lg);
+  margin: 0 0 var(--space-sm);
+  padding-inline-start: var(--space-md);
 }
 
 .caseStudyPageMain .ptLi {
@@ -327,7 +382,7 @@
 }
 
 .caseStudyPageMain .mediaFigure {
-  margin: 0 0 var(--space-lg);
+  margin: 0 0 var(--space-md);
 }
 
 .caseStudyPageMain .mediaFigureImg {
@@ -335,7 +390,7 @@
 }
 
 .caseStudySections .mediaFigureCaption {
-  text-align: left;
+  text-align: center;
 }
 
 .caseStudyPageMain .videoFigurePlayer {
@@ -348,11 +403,13 @@
 
 @media (max-width: 56rem) {
   .caseStudyPageWhole {
-    flex-direction: column;
-    gap: var(--space-lg);
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
   }
 
   .caseStudyPageSidebar {
+    grid-column: 1;
+    justify-self: stretch;
     position: static;
     width: 100%;
     flex-direction: row;
@@ -360,7 +417,7 @@
     align-items: flex-start;
     justify-content: space-between;
     padding-block: 0;
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
 
   .caseStudyBack {
@@ -373,6 +430,7 @@
   }
 
   .caseStudyPageMain {
+    grid-column: 1;
     padding-inline: 0;
     padding-block: 0;
     gap: var(--space-xl);
@@ -387,7 +445,7 @@
   }
 
   .caseStudyHeroTitle {
-    font-size: clamp(1.25rem, 5vw, var(--size-case-study-hero-title));
+    font-size: clamp(1.5rem, 5vw, var(--size-2xl));
     text-align: left;
   }
 
@@ -397,11 +455,11 @@
 
   .caseStudyHeroMedia,
   .caseStudyHeroPlaceholder {
-    max-width: none;
+    width: 100%;
   }
 
   .caseStudyMeta {
     flex-direction: column;
-    gap: var(--space-lg);
+    gap: var(--space-md);
   }
 }

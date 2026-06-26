@@ -8,8 +8,21 @@ export default defineType({
     defineField({
       name: 'quote',
       title: 'Quote',
-      type: 'text',
-      rows: 5,
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [{title: 'Normal', value: 'normal'}],
+          lists: [],
+          marks: {
+            decorators: [
+              {title: 'Strong', value: 'strong'},
+              {title: 'Emphasis', value: 'em'},
+            ],
+            annotations: [],
+          },
+        },
+      ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -33,11 +46,12 @@ export default defineType({
     }),
   ],
   preview: {
-    select: {quote: 'quote'},
-    prepare({quote}) {
+    select: {quote: 'quote', attribution: 'attribution'},
+    prepare({quote, attribution}) {
+      const text = quote?.[0]?.children?.[0]?.text ?? ''
       return {
-        title: quote ? `${quote.slice(0, 72)}${quote.length > 72 ? '…' : ''}` : 'Quote',
-        subtitle: 'Quote block',
+        title: text ? `${text.slice(0, 72)}${text.length > 72 ? '…' : ''}` : 'Quote',
+        subtitle: attribution ?? 'Quote block',
       }
     },
   },
