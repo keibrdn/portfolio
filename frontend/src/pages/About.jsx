@@ -82,69 +82,75 @@ function AboutCollage() {
   )
 }
 
-export default function About() {
+export function AboutContent() {
   return (
-    <AppShell fullBleed mainClassName="appShellMain--about">
-      <div className="aboutPage">
-        <div className="aboutBody">
-          <div className="aboutMain">
-            <div className="aboutGrid">
-              <header className="aboutIntro">
-                <h1 className="aboutHeadline">
-                  {'design, development, & everything in-between'}
-                </h1>
-                <div className="aboutMeta">
-                  <div className="aboutMetaGroup">
-                    <img
-                      className="aboutMetaIcon"
-                      src={ABOUT_ASSETS.iconPin}
-                      alt=""
-                      width={19}
-                      height={28}
-                    />
-                    <span className="aboutMetaText">Seattle, WA</span>
-                  </div>
-                  <div className="aboutMetaGroup aboutMetaGroup--edu">
-                    <img
-                      className="aboutMetaIcon aboutMetaIcon--grad"
-                      src={ABOUT_ASSETS.iconGrad}
-                      alt=""
-                      width={28}
-                      height={23}
-                    />
-                    <span className="aboutMetaText aboutMetaText--edu">
-                      Master of Human-Computer Interaction + Design @ UW
-                    </span>
-                  </div>
+    <div className="aboutPage">
+      <div className="aboutBody">
+        <div className="aboutMain">
+          <div className="aboutGrid">
+            <header className="aboutIntro">
+              <h1 className="aboutHeadline">
+                {'design, development, & everything in-between'}
+              </h1>
+              <div className="aboutMeta">
+                <div className="aboutMetaGroup">
+                  <img
+                    className="aboutMetaIcon"
+                    src={ABOUT_ASSETS.iconPin}
+                    alt=""
+                    width={19}
+                    height={28}
+                  />
+                  <span className="aboutMetaText">Seattle, WA</span>
                 </div>
-              </header>
-
-              <div className="aboutBio">
-                <section className="aboutBioBlock">
-                  <h2 className="aboutSectionLabel">philosophy:</h2>
-                  <p className="aboutBodyText">
-                    Design is rarely about one thing. That&apos;s why I use an{' '}
-                    <strong className="aboutEmphasis">interdisciplinary lens</strong> to think about
-                    the entire system — product, business, development, and user requirements — in
-                    order to produce the right solution.
-                  </p>
-                </section>
-                <section className="aboutBioBlock">
-                  <h2 className="aboutSectionLabel">for fun!</h2>
-                  <p className="aboutBodyText">
-                    I&apos;m a matcha-lover who loves literary fiction, oldies, and bird-watching!
-                    My favorite bird is the California Scrub Jay, a noisy little guy who reminds me of
-                    home.
-                  </p>
-                </section>
+                <div className="aboutMetaGroup aboutMetaGroup--edu">
+                  <img
+                    className="aboutMetaIcon aboutMetaIcon--grad"
+                    src={ABOUT_ASSETS.iconGrad}
+                    alt=""
+                    width={28}
+                    height={23}
+                  />
+                  <span className="aboutMetaText aboutMetaText--edu">
+                    Master of Human-Computer Interaction + Design @ UW
+                  </span>
+                </div>
               </div>
+            </header>
 
-              <AboutPortrait />
-              <AboutCollage />
+            <div className="aboutBio">
+              <section className="aboutBioBlock">
+                <h2 className="aboutSectionLabel">philosophy:</h2>
+                <p className="aboutBodyText">
+                  Design is rarely about one thing. That&apos;s why I use an{' '}
+                  <strong className="aboutEmphasis">interdisciplinary lens</strong> to think about
+                  the entire system — product, business, development, and user requirements — in
+                  order to produce the right solution.
+                </p>
+              </section>
+              <section className="aboutBioBlock">
+                <h2 className="aboutSectionLabel">for fun!</h2>
+                <p className="aboutBodyText">
+                  I&apos;m a matcha-lover who loves literary fiction, oldies, and bird-watching!
+                  My favorite bird is the California Scrub Jay, a noisy little guy who reminds me of
+                  home.
+                </p>
+              </section>
             </div>
+
+            <AboutPortrait />
+            <AboutCollage />
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+export default function About() {
+  return (
+    <AppShell fullBleed mainClassName="appShellMain--about">
+      <AboutContent />
     </AppShell>
   )
 }

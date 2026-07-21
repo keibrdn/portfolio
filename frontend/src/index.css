@@ -19,11 +19,18 @@
   to   { opacity: 1; transform: translateX(0); }
 }
 
+@keyframes tabSlingshot {
+  0%   { padding-inline: var(--space-tag-x); }
+  38%  { padding-inline: calc(var(--space-tag-x) + 24px); }
+  100% { padding-inline: calc(var(--space-tag-x) + 10px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *[class*="navTextLink"],
   *[class*="homeHero"] > *,
   *[class*="homeSocial"] > *,
-  *[class*="caseStudyCard"] {
+  *[class*="caseStudyCard"],
+  *[class*="homeContentNavTab"] {
     animation-duration: 0.01ms !important;
     animation-delay: 0ms !important;
   }
@@ -42,11 +49,6 @@ html {
   overscroll-behavior: none;
   scrollbar-gutter: stable;
   background-color: var(--color-bg);
-  background-image: url('/mesh-bg.png');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 *,
@@ -59,12 +61,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: var(--color-bg);
-  background-image: url('/mesh-bg.png');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: transparent;
   color: var(--color-text-primary);
   font-family: var(--font-body);
   font-weight: var(--font-weight-body);

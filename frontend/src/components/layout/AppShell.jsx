@@ -7,10 +7,11 @@ export default function AppShell({
   fullBleed = false,
   fullBleedViewportLock = false,
   mainClassName = '',
+  showNav = true,
 }) {
   return (
     <PageWrapper fullBleed={fullBleed} fullBleedViewportLock={fullBleedViewportLock}>
-      <Nav fullBleed={fullBleed} />
+      {showNav && <Nav fullBleed={fullBleed} />}
       <main className={['appShellMain', mainClassName].filter(Boolean).join(' ')}>{children}</main>
     </PageWrapper>
   )

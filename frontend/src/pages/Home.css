@@ -7,34 +7,34 @@
 }
 
 .homeLandingRow {
-  display: grid;
-  grid-template-columns: 1fr calc(var(--width-landing-case-card) + var(--space-xl)) 1fr;
-  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xl);
   padding-top: var(--space-landing-top);
   min-width: 0;
   min-height: min-content;
 }
 
 .homeSidebar {
-  grid-column: 1;
-  justify-self: end;
-  width: var(--width-landing-sidebar);
-  max-width: 100%;
+  width: 100%;
+  max-width: var(--width-case-study-stack);
   display: flex;
   flex-direction: column;
   gap: var(--space-landing-sidebar-gap);
   padding-top: 0;
-  padding-bottom: var(--space-landing-sidebar-pad-block);
-  padding-right: var(--space-xl);
+  padding-bottom: 0;
   box-sizing: border-box;
+  align-items: flex-start;
 }
 
 .homeSidebarMiddle {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-  gap: var(--space-xl);
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--space-sm);
+  width: 100%;
 }
 
 /* Sidebar text — slide in from left on mount */
@@ -50,6 +50,7 @@
 .homeSocial > *:nth-child(1) { animation-delay: 200ms; }
 .homeSocial > *:nth-child(2) { animation-delay: 270ms; }
 .homeSocial > *:nth-child(3) { animation-delay: 340ms; }
+.homeSocial > *:nth-child(4) { animation-delay: 410ms; }
 
 /* Case study cards — stagger each card's own elements so the arrival feels choreographed */
 .caseStudyGrid--landing .caseStudyCard:nth-child(1) { --card-delay: 520ms; }
@@ -73,9 +74,9 @@
 .homeHero {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-  gap: var(--space-landing-hero-gap);
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--space-sm);
   color: var(--color-ink);
   flex-shrink: 0;
 }
@@ -83,9 +84,9 @@
 .homeHeroName {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-body-regular);
-  font-size: var(--size-md);
+  font-size: var(--size-lg);
   line-height: var(--line-height-snug);
-  color: var(--color-text-heading);
+  color: var(--color-accent);
   margin: 0;
 }
 
@@ -99,10 +100,11 @@
 
 .homeSocial {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-  gap: 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: var(--space-sm);
   font-family: var(--font-ui);
   font-size: var(--size-xs);
   line-height: var(--line-height-loose);
@@ -111,11 +113,20 @@
 }
 
 .homeSocialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
   color: inherit;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.15em;
   transition: var(--transition-opacity);
+}
+
+.homeSocialIcon {
+  display: block;
+  flex-shrink: 0;
+  color: var(--color-accent);
 }
 
 .homeSocialLink:hover {
@@ -135,36 +146,95 @@
 }
 
 .homeContent {
-  grid-column: 2;
   display: flex;
   flex-direction: column;
-  gap: var(--space-landing-content-gap);
-  padding-inline-start: var(--space-xl);
+  gap: var(--space-sm);
+  width: 100%;
   min-width: 0;
   min-height: min-content;
+  max-width: var(--width-case-study-stack);
+}
+
+.homeContentNav {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: var(--space-xs);
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.homeContentNavTab {
+  font-family: var(--font-ui);
+  font-size: var(--size-xs);
+  font-weight: var(--font-weight-ui);
+  letter-spacing: var(--letter-spacing-ui);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-muted);
+  background: none;
+  border: 1px solid var(--color-text-muted);
+  border-bottom: none;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  padding-block: var(--space-tag-y);
+  padding-inline: var(--space-tag-x);
+  white-space: nowrap;
+  cursor: pointer;
+  /* sit the tab flush on the bottom shelf line */
+  margin-bottom: -2px;
+  transition:
+    color var(--transition-default),
+    border-color var(--transition-default),
+    background-color var(--transition-default);
+}
+
+.homeContentNavTab:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.homeContentNavTab--active:hover {
+  color: var(--color-bg);
+  border-color: var(--color-accent);
+}
+
+.homeContentNavTab:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: var(--space-2xs);
+}
+
+.homeContentNavTab--active {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border-color: var(--color-accent);
+  font-weight: var(--font-weight-body-bold);
+  padding-inline: calc(var(--space-tag-x) + 10px);
+  animation: tabSlingshot 500ms ease-out both;
+}
+
+.homeContentPanel {
+  width: 100%;
 }
 
 .homeCaseStudies {
   flex: 0 0 auto;
-  width: fit-content;
+  width: 100%;
   align-self: flex-start;
   min-height: min-content;
   display: flex;
   flex-direction: column;
 }
 
-/* Landing — single-column vertical stack, 500px cap */
+/* Landing — single-column vertical stack, full width of homeContent */
 .homeCaseStudies .caseStudyGrid--landing {
   container-type: normal;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--space-case-grid-row);
-  width: var(--width-landing-case-card);
+  width: 100%;
 }
 
 .homeCaseStudies .caseStudyCard {
-  width: var(--width-landing-case-card);
+  width: 100%;
 }
 
 .homeSkeletonGrid {
@@ -173,7 +243,7 @@
 
 /* Invisible spacers — hold the card column height during data fetch, no shimmer */
 .homeSkeletonCard {
-  width: var(--width-landing-case-card);
+  width: 100%;
   aspect-ratio: var(--aspect-case-media);
   background: none;
 }
@@ -237,16 +307,16 @@
   opacity: 0.8;
 }
 
-/* Desktop row layout */
+/* Desktop layout */
 @media (min-width: 56.01rem) {
   .homeSidebar {
-    gap: clamp(var(--space-sm), 5svh, var(--space-landing-sidebar-gap));
+    gap: var(--space-landing-sidebar-gap);
     padding-top: 0;
-    padding-bottom: clamp(var(--space-xs), 3svh, var(--space-landing-sidebar-pad-block));
+    padding-bottom: 0;
   }
 
   .homeSidebarMiddle {
-    gap: clamp(var(--space-sm), 5svh, var(--space-landing-sidebar-gap));
+    gap: var(--space-sm);
   }
 
 
@@ -301,7 +371,7 @@
   }
 
   .homeHeroName {
-    font-size: clamp(1rem, 2.5svh, var(--size-md));
+    font-size: clamp(1.25rem, 3.5svh, var(--size-lg));
   }
 
   .homeHeroLead {
@@ -312,22 +382,13 @@
 
 @media (max-width: 56rem) {
   .homeLandingRow {
-    grid-template-columns: 1fr;
     padding-top: var(--space-xl);
-  }
-
-  .homeSidebar {
-    grid-column: 1;
-    justify-self: stretch;
-    padding-right: 0;
-    padding-block: var(--space-xl);
     gap: var(--space-xl);
   }
 
-  .homeContent {
-    grid-column: 1;
-    display: flex;
-    flex-direction: column;
+  .homeSidebar {
+    padding-block: 0;
+    gap: var(--space-xl);
   }
 
   .homeCaseStudies {

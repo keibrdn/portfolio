@@ -1,18 +1,44 @@
 import './DesignSystem.css'
 
 const COLOR_TOKENS = [
-  { token: '--color-bg', label: 'Background' },
-  { token: '--color-surface', label: 'Surface' },
-  { token: '--color-text-heading', label: 'Text heading' },
-  { token: '--color-text-primary', label: 'Text primary' },
-  { token: '--color-text-muted', label: 'Text muted' },
-  { token: '--color-accent', label: 'Accent' },
-  { token: '--color-accent-plum', label: 'Accent plum' },
-  { token: '--color-accent-orange', label: 'Accent orange' },
-  { token: '--color-accent-blue', label: 'Accent blue' },
-  { token: '--color-accent-green', label: 'Accent green' },
-  { token: '--color-border', label: 'Border' },
-  { token: '--color-focus-ring', label: 'Focus ring' },
+  { token: '--color-bg', label: 'Background', hex: '#fffcf4' },
+  { token: '--color-surface', label: 'Surface', hex: '#dad9c4' },
+  { token: '--color-text-heading', label: 'Text heading', hex: '#474747' },
+  { token: '--color-text-primary', label: 'Text primary', hex: '#676767' },
+  { token: '--color-text-muted', label: 'Text muted', hex: '#b9b9b9' },
+  { token: '--color-accent', label: 'Accent', hex: '#9e9a36' },
+  { token: '--color-border', label: 'Border', hex: '#d8d4cc' },
+  { token: '--color-focus-ring', label: 'Focus ring', hex: '#9e9a36' },
+]
+
+const FONT_TOKENS = [
+  {
+    token: '--font-heading',
+    label: 'PT Serif',
+    role: 'Heading',
+    weightVar: '--font-weight-heading',
+    sizeVar: '--size-lg',
+    trackingVar: '--letter-spacing-tight',
+    lineHeightVar: '--line-height-tight',
+  },
+  {
+    token: '--font-body',
+    label: 'Manrope',
+    role: 'Body',
+    weightVar: '--font-weight-body',
+    sizeVar: '--size-sm',
+    trackingVar: null,
+    lineHeightVar: '--line-height-body',
+  },
+  {
+    token: '--font-ui',
+    label: 'DM Mono',
+    role: 'UI / Eyebrow',
+    weightVar: '--font-weight-ui',
+    sizeVar: '--size-xs',
+    trackingVar: '--letter-spacing-ui',
+    lineHeightVar: '--line-height-snug',
+  },
 ]
 
 const SIZE_TOKENS = [
@@ -56,7 +82,7 @@ export default function DesignSystem() {
           Colors
         </h2>
         <div className="colorRow">
-          {COLOR_TOKENS.map(({ token, label }) => (
+          {COLOR_TOKENS.map(({ token, label, hex }) => (
             <div key={token} className="colorSwatch">
               <div
                 className="colorSwatchTile"
@@ -66,6 +92,34 @@ export default function DesignSystem() {
               />
               <span className="colorSwatchLabel">{label}</span>
               <span className="colorSwatchVar">{token}</span>
+              {hex && <span className="colorSwatchHex">{hex}</span>}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="typefaces-heading">
+        <h2 id="typefaces-heading" className="sectionLabel">
+          Typefaces
+        </h2>
+        <div className="typefaceRow">
+          {FONT_TOKENS.map(({ token, label, role, weightVar, sizeVar, trackingVar, lineHeightVar }) => (
+            <div key={token} className="typefaceCard">
+              <p
+                className="typefaceSample"
+                style={{
+                  fontFamily: `var(${token})`,
+                  fontWeight: `var(${weightVar})`,
+                  fontSize: `var(${sizeVar})`,
+                  letterSpacing: trackingVar ? `var(${trackingVar})` : undefined,
+                  lineHeight: `var(${lineHeightVar})`,
+                }}
+              >
+                Aa
+              </p>
+              <span className="typefaceName">{label}</span>
+              <span className="typefaceRole">{role}</span>
+              <span className="typefaceVar">{token}</span>
             </div>
           ))}
         </div>

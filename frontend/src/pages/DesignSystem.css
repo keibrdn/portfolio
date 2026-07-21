@@ -83,6 +83,58 @@
   color: var(--color-text-muted);
 }
 
+.colorSwatchHex {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  color: var(--color-text-muted);
+  letter-spacing: var(--letter-spacing-ui);
+}
+
+.typefaceRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+.typefaceCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  flex: 1 1 12rem;
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.typefaceSample {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-text-heading);
+}
+
+.typefaceName {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading);
+  font-size: var(--size-md);
+  color: var(--color-text-heading);
+  line-height: var(--line-height-tight);
+}
+
+.typefaceRole {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-ui);
+}
+
+.typefaceVar {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  color: var(--color-text-muted);
+}
+
 .typeScale {
   display: flex;
   flex-direction: column;

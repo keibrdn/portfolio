@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './styles/tokens.css'
@@ -11,11 +11,21 @@ import Resume from './pages/Resume.jsx'
 import Fun from './pages/Fun.jsx'
 import DesignSystem from './pages/DesignSystem.jsx'
 import BackToTop from './components/BackToTop.jsx'
+import AsciiGradientBackground, { DEFAULT_SETTINGS } from './components/AsciiGradientBackground.jsx'
+import AsciiGradientControls from './components/AsciiGradientControls.jsx'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+function App() {
+  const [bgSettings, setBgSettings] = useState(DEFAULT_SETTINGS)
+
+  return (
     <div className="rootStretch">
       <BrowserRouter>
+        <AsciiGradientBackground settings={bgSettings} />
+
+        {import.meta.env.DEV && (
+          <AsciiGradientControls settings={bgSettings} onChange={setBgSettings} />
+        )}
+
         <div className="rootStretchRouter">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -30,5 +40,11 @@ createRoot(document.getElementById('root')).render(
         </div>
       </BrowserRouter>
     </div>
+  )
+}
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
   </StrictMode>,
 )

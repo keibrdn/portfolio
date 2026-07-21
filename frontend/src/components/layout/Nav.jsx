@@ -4,7 +4,6 @@ import './Nav.css'
 const links = [
   { to: '/', label: 'home', end: true },
   { to: '/about', label: 'about' },
-  { to: '/resume', label: 'resume' },
   { to: '/fun', label: 'fun' },
 ]
 
