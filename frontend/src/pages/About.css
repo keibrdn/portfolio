@@ -31,7 +31,7 @@
 /* ── Bio section ─────────────────────────────────────────────────── */
 .aboutBioSection {
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: var(--space-md);
 }
 
 .aboutHeadline {
@@ -48,7 +48,7 @@
 .aboutBioRow {
   display: flex;
   flex-direction: row;
-  gap: var(--space-section);
+  gap: var(--space-xl);
   align-items: stretch;
   width: 100%;
 }
@@ -83,20 +83,18 @@
 /* ── Bio portrait stack ──────────────────────────────────────────── */
 .aboutPhotoStack {
   flex-shrink: 0;
-  width: 170px;
+  width: 175px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   overflow: visible;
-  /* 24px eyebrow+gap offset + 10px to push adult's rotated corner
-     down to the bioText top edge */
-  padding-top: 34px;
+  padding-block: 14px;
 }
 
 .aboutPhotoReveal {
-  width: 126px;
-  height: 168px;
+  width: 130px;
+  height: 173px;
   overflow: visible;
   display: flex;
   align-items: center;
@@ -105,11 +103,8 @@
 
 .aboutPhoto {
   display: block;
-  /* Sized so that with ±10° rotation the visual corners land exactly
-     at bioText top (adult) and bioText bottom (baby): 2×168 + 2×9.7px
-     corner overhang ≈ 355px = bioText height */
-  width: 126px;
-  height: 168px;
+  width: 130px;
+  height: 173px;
   object-fit: cover;
   object-position: center;
 }

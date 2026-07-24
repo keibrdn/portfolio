@@ -124,7 +124,7 @@ export function AboutContent() {
           <div className="aboutBioRow">
             <div className="aboutBioBlock">
               <p className="aboutEyebrow" data-reveal style={{ '--reveal-delay': '100ms' }}>
-                Who is Keila?
+                Who am I?
               </p>
               <div className="aboutBioText" ref={bioTextRef}>
                 <p data-reveal style={{ '--reveal-delay': '200ms' }}>
@@ -145,7 +145,7 @@ export function AboutContent() {
                 </p>
                 <p data-reveal style={{ '--reveal-delay': '650ms' }}>
                   When I&apos;m not sitting at my desk with terrible posture, I love visiting
-                  faraway places, soaking in the sun, and creating extremely niche playlists
+                  faraway places, exploring coffee shops, and creating extremely niche playlists
                   on Spotify.
                 </p>
               </div>

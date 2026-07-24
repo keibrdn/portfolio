@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import AppShell from '../components/layout/AppShell.jsx'
 import CaseStudyGrid from '../components/CaseStudyGrid.jsx'
@@ -10,7 +10,6 @@ import './Home.css'
 
 const TABS = [
   { id: 'work', label: 'work' },
-  { id: 'fun', label: 'fun' },
   { id: 'about', label: 'about' },
 ]
 
@@ -63,6 +62,16 @@ function FunContent() {
 export default function Home() {
   const { caseStudies, isLoading, error, retry } = useCaseStudies()
   const [activeTab, setActiveTab] = useState('work')
+  const [emailCopied, setEmailCopied] = useState(false)
+  const copyTimer = useRef(null)
+
+  function handleCopyEmail() {
+    navigator.clipboard.writeText('keilabraden@gmail.com').then(() => {
+      setEmailCopied(true)
+      clearTimeout(copyTimer.current)
+      copyTimer.current = setTimeout(() => setEmailCopied(false), 1000)
+    })
+  }
 
   return (
     <AppShell fullBleed mainClassName="appShellMain--landing" showNav={false}>
@@ -71,16 +80,23 @@ export default function Home() {
           <aside className="homeSidebar" aria-label="Introduction">
             <div className="homeSidebarMiddle">
               <div className="homeHero">
-                <h1 className="homeHeroName">hello! my name is keila</h1>
+                <h1 className="homeHeroName">keila braden — product designer</h1>
                 <p className="homeHeroLead">
-                  A product designer with engineering roots who always looks for the right
-                  problem to solve
+                  I like figuring out systems and finding the small moments that make products feel right
                 </p>
               </div>
               <div className="homeSocial">
-                <a className="homeSocialLink" href="mailto:keilabraden@gmail.com">
-                  email<IconCopy />
-                </a>
+                <button
+                  type="button"
+                  className="homeSocialLink homeSocialLink--copy"
+                  onClick={handleCopyEmail}
+                  aria-label="Copy email address"
+                >
+                  <span className="homeCopyTooltip" aria-live="polite">
+                    {emailCopied ? 'copied!' : 'email'}
+                  </span>
+                  <IconCopy />
+                </button>
                 <a
                   className="homeSocialLink"
                   href="https://www.linkedin.com/in/keila-braden/"
@@ -97,9 +113,14 @@ export default function Home() {
                 >
                   github<IconLink />
                 </a>
-                <Link className="homeSocialLink" to="/resume">
+                <a
+                  className="homeSocialLink"
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
                   resume<IconDownload />
-                </Link>
+                </a>
               </div>
             </div>
           </aside>

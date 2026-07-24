@@ -138,6 +138,17 @@
   outline-offset: var(--space-2xs);
 }
 
+.homeSocialLink--copy {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: var(--size-xs);
+  font-weight: var(--font-weight-ui);
+  letter-spacing: var(--letter-spacing-ui);
+}
+
 .homeSocialLink--inactive {
   text-decoration: underline;
   text-decoration-thickness: 1px;
