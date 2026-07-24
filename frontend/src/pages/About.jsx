@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import AppShell from '../components/layout/AppShell.jsx'
 import './About.css'
 
@@ -31,7 +31,7 @@ const TIPS = {
   subject5:           'Hoji, Redlands, CA',
   mexicoCity:         'Mexico City',
   uji:                'Uji, Japan',
-  oaxaca:             'Oaxaca',
+  oaxaca:             'Monte Albán, Oaxaca',
   la:                 'LA (SoCal is home!)',
   forest:             'Sequoia National Park',
 }
@@ -44,6 +44,26 @@ export function AboutContent() {
   const [tooltip, setTooltip]   = useState(null) // { text, x, y } | null
   const [activeId, setActiveId] = useState(null) // currently hovered
   const [pinnedId, setPinnedId] = useState(null) // last hovered — stays elevated
+
+  const headlineRef = useRef(null)
+  const bioTextRef  = useRef(null)
+
+  useEffect(() => {
+    const headline = headlineRef.current
+    const bioText  = bioTextRef.current
+    if (!headline || !bioText) return
+
+    function fitText() {
+      headline.style.fontSize = '100px'
+      const ratio = bioText.offsetWidth / headline.scrollWidth
+      headline.style.fontSize = (100 * ratio) + 'px'
+    }
+
+    fitText()
+    const observer = new ResizeObserver(fitText)
+    observer.observe(bioText)
+    return () => observer.disconnect()
+  }, [])
 
   /* Returns merged style + event handlers for any hoverable photo */
   function ph(id, baseTransform, extraStyle = {}) {
@@ -59,7 +79,7 @@ export function AboutContent() {
         position: 'relative',
         zIndex: isActive ? 20 : isPinned ? 10 : 1,
         cursor: 'none',
-        transition: 'transform 220ms ease-in-out',
+        transition: 'transform 500ms cubic-bezier(0.34, 1.82, 0.64, 1)',
       },
       onMouseEnter: () => { setActiveId(id); setPinnedId(id) },
       onMouseLeave: () => { setActiveId(null); setTooltip(null) },
@@ -73,29 +93,33 @@ export function AboutContent() {
 
         {/* ── 1. Bio ───────────────────────────────────────────── */}
         <section className="aboutSection aboutBioSection">
-          <h2 className="aboutHeadline">designer, tinkerer, caffeine enthusiast</h2>
+          <h2 className="aboutHeadline" ref={headlineRef} data-reveal style={{ '--reveal-delay': '0ms' }}>
+            designer, tinkerer, caffeine enthusiast
+          </h2>
 
           <div className="aboutBioRow">
             <div className="aboutBioBlock">
-              <AboutEyebrow>Who is Keila?</AboutEyebrow>
-              <div className="aboutBioText">
-                <p>
+              <p className="aboutEyebrow" data-reveal style={{ '--reveal-delay': '100ms' }}>
+                Who is Keila?
+              </p>
+              <div className="aboutBioText" ref={bioTextRef}>
+                <p data-reveal style={{ '--reveal-delay': '200ms' }}>
                   I&apos;m Keila, a current student within the{' '}
                   <strong>Master of Human-Computer Interaction and Design</strong>{' '}
                   program at the <strong>University of Washington</strong>.
                 </p>
-                <p>
+                <p data-reveal style={{ '--reveal-delay': '300ms' }}>
                   I harness everything from code, research, storytelling, and design to make
                   complex ideas come to life.
                 </p>
-                <p>
+                <p data-reveal style={{ '--reveal-delay': '500ms' }}>
                   My love for creating goes way back. I fell in love with art and computers
                   and grew up feeling like I eventually had to choose one or the other. I was
                   halfway through undergrad, studying computer science, when I stumbled upon
                   product design. The only thing I could think of was, &ldquo;finally&rdquo;.
                   After that, everything melted into place.
                 </p>
-                <p>
+                <p data-reveal style={{ '--reveal-delay': '650ms' }}>
                   When I&apos;m not sitting at my desk with terrible posture, I love visiting
                   faraway places, soaking in the sun, and creating extremely niche playlists
                   on Spotify.
@@ -104,16 +128,20 @@ export function AboutContent() {
             </div>
 
             <div className="aboutPhotoStack">
-              <img className="aboutPhoto" src={A.adult} alt="Keila as an adult"
-                {...ph('adult', 'rotate(10deg)')} />
-              <img className="aboutPhoto" src={A.baby}  alt="Keila as a baby"
-                {...ph('baby', 'rotate(-10deg)')} />
+              <div className="aboutPhotoReveal" data-reveal style={{ '--reveal-delay': '400ms' }}>
+                <img className="aboutPhoto" src={A.adult} alt="Keila as an adult"
+                  {...ph('adult', 'rotate(10deg)')} />
+              </div>
+              <div className="aboutPhotoReveal" data-reveal style={{ '--reveal-delay': '700ms' }}>
+                <img className="aboutPhoto" src={A.baby}  alt="Keila as a baby"
+                  {...ph('baby', 'rotate(-10deg)')} />
+              </div>
             </div>
           </div>
         </section>
 
         {/* ── 2. Design Philosophy ─────────────────────────────── */}
-        <section className="aboutSection">
+        <section className="aboutSection" data-reveal style={{ '--reveal-delay': '100ms' }}>
           <AboutEyebrow>Design philosophy</AboutEyebrow>
           <div className="aboutPhilosophyContainer">
             {['Curiosity', 'Elegance', 'Clarity'].map((word) => (
@@ -125,7 +153,7 @@ export function AboutContent() {
         </section>
 
         {/* ── 3. Education ─────────────────────────────────────── */}
-        <section className="aboutSection">
+        <section className="aboutSection" data-reveal style={{ '--reveal-delay': '200ms' }}>
           <AboutEyebrow>Education</AboutEyebrow>
           <div className="aboutEducationContainer">
             <div className="aboutEducationEntry">
@@ -148,7 +176,7 @@ export function AboutContent() {
         </section>
 
         {/* ── 4. Caffeinated beverages ─────────────────────────── */}
-        <section className="aboutSection">
+        <section className="aboutSection" data-reveal style={{ '--reveal-delay': '300ms' }}>
           <AboutEyebrow>My collection of caffeinated beverages</AboutEyebrow>
           <div className="aboutPhotoRow aboutPhotoRow--drinks">
             <img src={A.tazMatcha}          alt="Taz Matcha"          className="aboutDrinkPhoto"
@@ -167,7 +195,7 @@ export function AboutContent() {
         </section>
 
         {/* ── 5. Places ────────────────────────────────────────── */}
-        <section className="aboutSection">
+        <section className="aboutSection" data-reveal style={{ '--reveal-delay': '400ms' }}>
           <AboutEyebrow>Places I&apos;ve been</AboutEyebrow>
           <div className="aboutPhotoRow aboutPhotoRow--places">
             <img src={A.mexicoCity} alt="Mexico City" className="aboutPlacePhoto"

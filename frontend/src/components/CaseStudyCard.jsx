@@ -49,13 +49,9 @@ export default function CaseStudyCard({
           )}
         </div>
         {tagList.length > 0 ? (
-          <div className="caseStudyCardTags" aria-label="Tags">
-            {tagList.map((t) => (
-              <span key={t} className="caseStudyCardTag">
-                {t}
-              </span>
-            ))}
-          </div>
+          <p className="caseStudyCardTags" aria-label="Tags">
+            {tagList.join(' / ')}
+          </p>
         ) : null}
         <div className="caseStudyCardBody">
           <h2 className="caseStudyCardTitle">{title}</h2>

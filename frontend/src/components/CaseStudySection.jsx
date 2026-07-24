@@ -62,6 +62,7 @@ export default function CaseStudySection({ section, style }) {
         hasSubheading ? 'caseStudySection--withSub' : 'caseStudySection--leadOnly',
       ].join(' ')}
       aria-labelledby={labelledBy || undefined}
+      data-reveal
       style={style}
     >
       <header className="caseStudySectionHeader">

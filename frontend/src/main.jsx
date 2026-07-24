@@ -11,6 +11,7 @@ import Resume from './pages/Resume.jsx'
 import Fun from './pages/Fun.jsx'
 import DesignSystem from './pages/DesignSystem.jsx'
 import BackToTop from './components/BackToTop.jsx'
+import ScrollRevealProvider from './components/ScrollRevealProvider.jsx'
 import AsciiGradientBackground, { DEFAULT_SETTINGS } from './components/AsciiGradientBackground.jsx'
 import AsciiGradientControls from './components/AsciiGradientControls.jsx'
 
@@ -27,6 +28,7 @@ function App() {
         )}
 
         <div className="rootStretchRouter">
+          <ScrollRevealProvider />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/work" element={<Work />} />

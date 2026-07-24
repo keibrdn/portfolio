@@ -25,6 +25,21 @@
   100% { padding-inline: calc(var(--space-tag-x) + 10px); }
 }
 
+/* ── Scroll-reveal ───────────────────────────────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 450ms ease-out,
+    transform 450ms ease-out;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal][data-reveal-visible] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *[class*="navTextLink"],
   *[class*="homeHero"] > *,
@@ -33,6 +48,11 @@
   *[class*="homeContentNavTab"] {
     animation-duration: 0.01ms !important;
     animation-delay: 0ms !important;
+  }
+
+  [data-reveal] {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
   }
 }
 

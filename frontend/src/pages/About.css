@@ -14,14 +14,7 @@
   flex-direction: column;
   gap: var(--space-xs);
   width: 100%;
-  animation: fadeIn 400ms ease-in-out both;
 }
-
-.aboutSection:nth-child(1) { animation-delay:   0ms; }
-.aboutSection:nth-child(2) { animation-delay: 120ms; }
-.aboutSection:nth-child(3) { animation-delay: 240ms; }
-.aboutSection:nth-child(4) { animation-delay: 360ms; }
-.aboutSection:nth-child(5) { animation-delay: 480ms; }
 
 /* ── Eyebrow ─────────────────────────────────────────────────────── */
 .aboutEyebrow {
@@ -43,10 +36,11 @@
 
 .aboutHeadline {
   font-family: var(--font-heading);
-  font-size: var(--size-lg);
+  font-size: var(--size-lg); /* overridden by JS fitText */
   font-weight: var(--font-weight-body-regular);
   line-height: var(--line-height-tight);
   color: var(--color-accent);
+  white-space: nowrap;
   margin: 0;
 }
 
@@ -92,12 +86,21 @@
   width: 170px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   overflow: visible;
   /* 24px eyebrow+gap offset + 10px to push adult's rotated corner
      down to the bioText top edge */
   padding-top: 34px;
+}
+
+.aboutPhotoReveal {
+  width: 126px;
+  height: 168px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .aboutPhoto {
