@@ -99,11 +99,11 @@ export default function Home() {
                 </button>
                 <a
                   className="homeSocialLink"
-                  href="https://www.linkedin.com/in/keila-braden/"
+                  href="/resume.pdf"
                   target="_blank"
                   rel="noreferrer noopener"
                 >
-                  linkedin<IconLink />
+                  resume<IconDownload />
                 </a>
                 <a
                   className="homeSocialLink"
@@ -115,11 +115,11 @@ export default function Home() {
                 </a>
                 <a
                   className="homeSocialLink"
-                  href="/resume.pdf"
+                  href="https://www.linkedin.com/in/keila-braden/"
                   target="_blank"
                   rel="noreferrer noopener"
                 >
-                  resume<IconDownload />
+                  linkedin<IconLink />
                 </a>
               </div>
             </div>
