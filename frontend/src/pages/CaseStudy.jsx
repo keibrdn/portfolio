@@ -106,13 +106,21 @@ export default function CaseStudy() {
   }
 
   return (
-    <AppShell fullBleed mainClassName="appShellMain--caseStudy">
+    <AppShell fullBleed mainClassName="appShellMain--caseStudy" showNav={false}>
       <article className="caseStudyArticle">
         <div className="caseStudyPage">
           <div className="caseStudyPageWhole">
             <aside className="caseStudyPageSidebar" aria-label="Case study navigation">
               <Link className="caseStudyBack" to="/">
-                {'<- BACK'}
+                <svg
+                  className="caseStudyBackIcon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                </svg>
+                <span className="caseStudyBackLabel">home</span>
               </Link>
               {tocSections.length > 0 ? (
                 <nav className="caseStudyToc" aria-label="Table of contents">

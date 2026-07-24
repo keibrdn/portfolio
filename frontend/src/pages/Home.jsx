@@ -115,7 +115,11 @@ export default function Home() {
                       ? 'homeContentNavTab homeContentNavTab--active'
                       : 'homeContentNavTab'
                   }
-                  onClick={() => setActiveTab(id)}
+                  onClick={() => {
+                    const scrollY = window.scrollY
+                    setActiveTab(id)
+                    requestAnimationFrame(() => window.scrollTo({ top: scrollY, behavior: 'instant' }))
+                  }}
                   aria-current={activeTab === id ? 'true' : undefined}
                 >
                   {label}

@@ -1,519 +1,268 @@
-.aboutPage {
+/* ── About content wrapper ───────────────────────────────────────── */
+.aboutContent {
   display: flex;
+  flex-direction: column;
+  gap: var(--space-section);
   width: 100%;
-  flex-direction: column;
-  flex: 1 1 auto;
-  min-width: 0;
-  min-height: min-content;
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-section);
 }
 
-.aboutBody {
+/* ── Shared section shell ────────────────────────────────────────── */
+.aboutSection {
   display: flex;
-  flex: 1 1 auto;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-  min-height: min-content;
-}
-
-/* Container queries — stack grid when squished horizontally */
-.aboutMain {
-  container: about / inline-size;
+  gap: var(--space-xs);
   width: 100%;
-  min-width: 0;
-  padding-inline: var(--space-about-main-pad-inline);
-  padding-block: var(--space-about-main-pad-block);
-  box-sizing: border-box;
+  animation: fadeIn 400ms ease-in-out both;
 }
 
-.aboutGrid {
-  display: grid;
-  align-items: start;
-  justify-items: center;
-  justify-content: center;
-  gap: var(--space-about-grid-gap);
-  grid-template-columns: minmax(0, 23.9375rem) minmax(0, 31.125rem);
-  grid-template-rows: auto auto;
-  grid-template-areas:
-    'intro portrait'
-    'bio collage';
-}
+.aboutSection:nth-child(1) { animation-delay:   0ms; }
+.aboutSection:nth-child(2) { animation-delay: 120ms; }
+.aboutSection:nth-child(3) { animation-delay: 240ms; }
+.aboutSection:nth-child(4) { animation-delay: 360ms; }
+.aboutSection:nth-child(5) { animation-delay: 480ms; }
 
-.aboutIntro {
-  display: flex;
-  grid-area: intro;
-  box-sizing: border-box;
-  width: min(100%, 23.9375rem);
-  flex-direction: column;
-  gap: var(--space-lg);
-  justify-self: center;
-  /* Row 1: vertically center headline+meta with portrait+tapes as one unit */
-  align-self: center;
-}
-
-.aboutHeadline {
-  font-family: var(--font-heading);
-  font-weight: var(--font-weight-heading);
-  font-size: var(--size-about-headline);
-  line-height: var(--line-height-tight);
-  color: var(--color-ink);
-  margin: 0;
-  max-width: 23.9375rem;
-}
-
-.aboutMeta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: var(--space-md);
-}
-
-.aboutMetaGroup {
-  display: flex;
-  max-width: 9.125rem;
-  flex-shrink: 0;
-  align-items: center;
-  gap: var(--space-xs);
-}
-
-.aboutMetaGroup--edu {
-  display: flex;
-  flex: 1 1 12rem;
-  max-width: none;
-  align-items: flex-start;
-  gap: var(--space-xs);
-}
-
-.aboutMetaIcon {
-  display: block;
-  flex-shrink: 0;
-}
-
-.aboutMetaIcon--grad {
-  margin-top: var(--space-xs);
-}
-
-.aboutMetaText {
+/* ── Eyebrow ─────────────────────────────────────────────────────── */
+.aboutEyebrow {
   font-family: var(--font-ui);
   font-size: var(--size-xs);
   font-weight: var(--font-weight-ui);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-text-primary);
+  margin: 0;
 }
 
-.aboutMetaText--edu {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.aboutBio {
-  display: flex;
-  grid-area: bio;
-  box-sizing: border-box;
-  width: min(100%, 23.9375rem);
+/* ── Bio section ─────────────────────────────────────────────────── */
+.aboutBioSection {
   flex-direction: column;
-  gap: var(--space-2xl);
-  max-width: 23.9375rem;
-  justify-self: center;
-  /* Row 2: vertically center bio vs collage */
-  align-self: center;
+  gap: var(--space-xl);
+}
+
+.aboutHeadline {
+  font-family: var(--font-heading);
+  font-size: var(--size-lg);
+  font-weight: var(--font-weight-body-regular);
+  line-height: var(--line-height-tight);
+  color: var(--color-accent);
+  margin: 0;
+}
+
+/* Row: bio text block left, photo stack right */
+.aboutBioRow {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-section);
+  align-items: stretch;
+  width: 100%;
 }
 
 .aboutBioBlock {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
-  max-width: 23.9375rem;
+  flex: 1 1 0;
+  min-width: 0;
 }
 
-.aboutSectionLabel {
-  font-family: var(--font-ui);
-  font-size: var(--size-xs);
-  font-weight: var(--font-weight-ui);
-  line-height: var(--line-height-snug);
-  letter-spacing: var(--letter-spacing-ui);
-  text-transform: uppercase;
-  color: var(--color-text-heading);
-  margin: 0;
+.aboutBioText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
 }
 
-.aboutBodyText {
+.aboutBioText p {
   font-family: var(--font-body);
-  font-weight: var(--font-weight-body-regular);
   font-size: var(--size-sm);
+  font-weight: var(--font-weight-body-regular);
   line-height: var(--line-height-body);
   color: var(--color-ink);
   margin: 0;
 }
 
-.aboutEmphasis {
+.aboutBioText strong {
   font-weight: var(--font-weight-body-bold);
 }
 
-.aboutPortrait {
+/* ── Bio portrait stack ──────────────────────────────────────────── */
+.aboutPhotoStack {
+  flex-shrink: 0;
+  width: 170px;
   display: flex;
-  grid-area: portrait;
-  box-sizing: border-box;
-  width: min(100%, 21rem);
-  justify-content: center;
-  justify-self: center;
-  align-self: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   overflow: visible;
+  /* 24px eyebrow+gap offset + 10px to push adult's rotated corner
+     down to the bioText top edge */
+  padding-top: 34px;
 }
 
-.aboutPortraitStage {
-  display: flex;
-  width: 100%;
-  max-width: 21rem;
-  justify-content: center;
-  overflow: visible;
-}
-
-/* Explicit aspect box + inset photo so tape % positions always match the visible photo */
-.aboutPortraitComposition {
-  position: relative;
+.aboutPhoto {
   display: block;
-  width: min(100%, var(--width-about-portrait-composition));
-  aspect-ratio: var(--about-portrait-photo-ref-w) / var(--about-portrait-photo-ref-h);
-  transform: rotate(0deg);
-  transform-origin: center center;
-  transition: var(--transition-about-portrait-hover);
+  /* Sized so that with ±10° rotation the visual corners land exactly
+     at bioText top (adult) and bioText bottom (baby): 2×168 + 2×9.7px
+     corner overhang ≈ 355px = bioText height */
+  width: 126px;
+  height: 168px;
+  object-fit: cover;
+  object-position: center;
 }
 
-.aboutPortrait:hover .aboutPortraitComposition {
-  transform: rotate(var(--rotate-about-portrait-hover));
-}
-
-.aboutPortraitPhoto {
-  position: absolute;
-  inset: 0;
+/* ── Design Philosophy ───────────────────────────────────────────── */
+.aboutPhilosophyContainer {
+  display: flex;
+  gap: var(--space-section);
+  border: 1px solid var(--color-accent-light);
   width: 100%;
-  height: 100%;
-  border-radius: var(--radius-about-photo);
-  object-fit: cover;
-  z-index: 0;
-}
-
-.aboutPortraitTape {
-  position: absolute;
-  z-index: 1;
-  width: calc(100% * (var(--about-portrait-tape-ref-size) / var(--about-portrait-photo-ref-w)));
-  height: auto;
-  aspect-ratio: 1;
-  object-fit: cover;
-}
-
-/* Anchors: tape box top-left at token coords vs 196×263 frame (scales with composition) */
-.aboutPortraitTape--one {
-  top: calc(100% * var(--about-portrait-tape-one-top) / var(--about-portrait-photo-ref-h));
-  left: calc(100% * var(--about-portrait-tape-one-left) / var(--about-portrait-photo-ref-w));
-  transform: rotate(-50deg);
-  transform-origin: center center;
-}
-
-.aboutPortraitTape--two {
-  top: calc(100% * var(--about-portrait-tape-two-top) / var(--about-portrait-photo-ref-h));
-  left: calc(100% * var(--about-portrait-tape-two-left) / var(--about-portrait-photo-ref-w));
-  transform: rotate(130deg);
-  transform-origin: center center;
-}
-
-.aboutCollage {
-  grid-area: collage;
   box-sizing: border-box;
-  width: min(100%, 31.125rem);
-  justify-self: center;
-  align-self: center;
 }
 
-.aboutCollageStage {
-  position: relative;
+.aboutPhilosophyBlock {
+  flex: 1 1 0;
+  background-color: var(--color-accent-light);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  min-height: 82px;
+  padding: var(--space-xs) var(--space-md);
+  box-sizing: border-box;
+}
+
+.aboutPhilosophyWord {
+  font-family: var(--font-heading);
+  font-size: var(--size-md);
+  font-weight: var(--font-weight-body-regular);
+  line-height: var(--line-height-snug);
+  color: var(--color-ink);
+}
+
+/* ── Education ───────────────────────────────────────────────────── */
+.aboutEducationContainer {
+  display: flex;
+  gap: var(--space-section);
   width: 100%;
-  aspect-ratio: 498 / 404;
-  margin-inline: auto;
-  overflow: visible;
-  pointer-events: auto;
 }
 
-.aboutCollageLayer {
-  position: absolute;
-  overflow: hidden;
+.aboutEducationEntry {
+  display: flex;
+  flex: 1 1 0;
+  gap: var(--space-xs);
+  align-items: center;
+  min-width: 0;
+}
+
+.aboutEduLogo {
+  height: 75px;
+  width: 75px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.aboutEduText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  min-width: 0;
+}
+
+.aboutEduDegree {
+  font-family: var(--font-body);
+  font-size: var(--size-sm);
+  font-weight: var(--font-weight-body-bold);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.aboutEduYear {
+  font-family: var(--font-body);
+  font-size: var(--size-xs);
+  font-weight: var(--font-weight-body-regular);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.aboutEduSchool {
+  font-family: var(--font-body);
+  font-size: var(--size-xs);
+  font-weight: var(--font-weight-body-regular);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-primary);
+  text-decoration: underline;
+  margin: 0;
+}
+
+/* ── Horizontal photo rows (drinks + places) ─────────────────────── */
+.aboutPhotoRow {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /* allow rotated images to overflow without clipping */
+  overflow: visible;
+  padding-block: var(--space-sm); /* vertical breathing room for rotation */
+}
+
+.aboutPhotoRow--drinks {
+  justify-content: space-between;
+}
+
+.aboutDrinkPhoto,
+.aboutPlacePhoto {
+  display: block;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.aboutPlacePhoto {
+  width: 167px;
+  height: 111px;
+}
+
+/* ── Cursor-following tooltip ────────────────────────────────────── */
+.aboutTooltip {
+  position: fixed;
+  z-index: 9999;
   pointer-events: none;
-  transition: var(--transition-about-collage-hover);
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  font-family: var(--font-ui);
+  font-size: var(--size-xs);
+  font-weight: var(--font-weight-ui);
+  letter-spacing: var(--letter-spacing-ui);
+  text-transform: uppercase;
+  line-height: var(--line-height-snug);
+  padding: 10px 15px;
+  border-radius: 0;
+  white-space: nowrap;
 }
 
-.aboutCollageLayer img {
-  display: block;
+/* Triangle pointing upper-left toward the cursor */
+.aboutTooltip::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid var(--color-accent);
+  border-left: 8px solid var(--color-accent);
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+
+/* ── Standalone About page shell ─────────────────────────────────── */
+.appShellMain--about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-2xl) var(--space-landing-px);
+  box-sizing: border-box;
+  max-width: var(--width-case-study-stack);
+  margin-inline: auto;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Figma 29:329 — back → front; altoid stays fixed on hover */
-.aboutCollageLayer--altoid {
-  z-index: 1;
-  transition: none;
-  top: 3.0625rem;
-  right: 30.92%;
-  left: 20.88%;
-  aspect-ratio: 375 / 430;
-}
-
-.aboutCollageLayer--matcha {
-  z-index: 2;
-  top: 7.25rem;
-  right: 12.25%;
-  left: 40.36%;
-  aspect-ratio: 1510 / 1436;
-  transform: translate(0, 0);
-}
-
-.aboutCollage:hover .aboutCollageLayer--matcha {
-  transform: translate(
-    var(--about-collage-hover-spread),
-    calc(var(--about-collage-hover-spread) * 0.4)
-  );
-}
-
-.aboutCollageLayer--book {
-  z-index: 3;
-  top: 12.875rem;
-  right: 37.55%;
-  left: 27.51%;
-  aspect-ratio: 1 / 1;
-  transform: translate(0, 0);
-}
-
-.aboutCollage:hover .aboutCollageLayer--book {
-  transform: translate(0, var(--about-collage-hover-spread));
-}
-
-.aboutCollageLayer--chromeOne {
-  z-index: 4;
-  top: 8.0625rem;
-  right: 59.44%;
-  left: 17.47%;
-  aspect-ratio: 1 / 1;
-  transform: translate(0, 0);
-}
-
-.aboutCollage:hover .aboutCollageLayer--chromeOne {
-  transform: translate(calc(-1 * var(--about-collage-hover-spread)), 0);
-}
-
-.aboutCollageLayer--chromeTwo {
-  z-index: 5;
-  top: 5.6875rem;
-  right: 32.93%;
-  left: 44.98%;
-  aspect-ratio: 1 / 1;
-  transform: rotate(180deg);
-}
-
-.aboutCollage:hover .aboutCollageLayer--chromeTwo {
-  transform: rotate(180deg)
-    translate(var(--about-collage-hover-spread), calc(-1 * var(--about-collage-hover-spread) * 0.35));
-}
-
-.aboutCollageLayer--earbuds {
-  z-index: 6;
-  top: 2.5rem;
-  right: 41.37%;
-  left: 36.95%;
-  aspect-ratio: 964 / 954;
-  transform: translate(0, 0);
-}
-
-.aboutCollage:hover .aboutCollageLayer--earbuds {
-  transform: translate(0, calc(-1 * var(--about-collage-hover-spread)));
-}
-
-.aboutCollageLayer--nbr {
-  z-index: 7;
-  top: 11.875rem;
-  right: 57.71%;
-  left: 12.85%;
-  aspect-ratio: 1 / 1;
-  transform: rotate(-21.22deg);
-}
-
-.aboutCollage:hover .aboutCollageLayer--nbr {
-  transform: rotate(-21.22deg)
-    translate(calc(-1 * var(--about-collage-hover-spread)), var(--about-collage-hover-spread));
-}
-
-.aboutCollageLayer--scrubjay {
-  z-index: 8;
-  top: 1rem;
-  right: 55.02%;
-  left: 10.04%;
-  aspect-ratio: 980 / 980;
-  transform: translate(0, 0);
-}
-
-.aboutCollage:hover .aboutCollageLayer--scrubjay {
-  transform: translate(
-    calc(-1 * var(--about-collage-hover-spread)),
-    calc(-1 * var(--about-collage-hover-spread))
-  );
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .aboutCollageLayer {
-    transition: none;
-  }
-
-  .aboutCollage:hover .aboutCollageLayer--matcha,
-  .aboutCollage:hover .aboutCollageLayer--book,
-  .aboutCollage:hover .aboutCollageLayer--chromeOne,
-  .aboutCollage:hover .aboutCollageLayer--earbuds,
-  .aboutCollage:hover .aboutCollageLayer--scrubjay {
-    transform: translate(0, 0);
-  }
-
-  .aboutCollage:hover .aboutCollageLayer--chromeTwo {
-    transform: rotate(180deg);
-  }
-
-  .aboutCollage:hover .aboutCollageLayer--nbr {
-    transform: rotate(-21.22deg);
-  }
-
-  .aboutPortraitComposition {
-    transition: none;
-  }
-
-  .aboutPortrait:hover .aboutPortraitComposition {
-    transform: rotate(0deg);
-  }
-}
-
-/* Stack order: intro → portrait → bio → collage */
-
-/* Narrow viewport: single-column grid */
-@container about (max-width: 42rem) {
-  .aboutGrid {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-    grid-template-areas:
-      'intro'
-      'portrait'
-      'bio'
-      'collage';
-    align-items: start;
-    justify-items: center;
-    gap: var(--space-xl);
-  }
-
-  .aboutBio {
-    max-width: none;
-  }
-
-  .aboutBioBlock {
-    max-width: none;
-  }
-
-  .aboutHeadline {
-    max-width: none;
-  }
-}
-
-/* Short viewport: same stack (full text, page scrolls) */
-@media (min-width: 56.01rem) and (max-height: 44rem) {
-  .aboutGrid {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-    grid-template-areas:
-      'intro'
-      'portrait'
-      'bio'
-      'collage';
-    align-items: start;
-    justify-items: center;
-    gap: var(--space-xl);
-  }
-
-  .aboutBio {
-    max-width: none;
-  }
-
-  .aboutBioBlock {
-    max-width: none;
-  }
-
-  .aboutHeadline {
-    max-width: none;
-  }
-}
-
-/* Wide two-column layout */
-@media (min-width: 56.01rem) {
-  .aboutMain {
-    padding-inline: clamp(var(--space-sm), 5vw, var(--space-about-main-pad-inline));
-    padding-block: clamp(var(--space-xs), 2svh, var(--space-about-main-pad-block));
-  }
-
-  .aboutGrid {
-    gap: clamp(var(--space-sm), 2.5svh, var(--space-about-grid-gap));
-  }
-
-  .aboutIntro {
-    gap: clamp(var(--space-xs), 1.5svh, var(--space-md));
-  }
-
-  .aboutHeadline {
-    font-size: clamp(1.125rem, 2.5svh, var(--size-about-headline));
-  }
-}
-
-@media (max-width: 56rem) {
-  .aboutMain {
-    padding-inline: 0;
-    padding-block: var(--space-lg);
-  }
-
-  .aboutGrid {
-    grid-template-columns: 1fr;
-    grid-template-rows: none;
-    grid-template-areas:
-      'intro'
-      'portrait'
-      'bio'
-      'collage';
-    align-items: start;
-    justify-items: center;
-    gap: var(--space-xl);
-  }
-
-  .aboutBio {
-    max-width: none;
-    width: 100%;
-  }
-
-  .aboutBioBlock {
-    max-width: none;
-  }
-
-  .aboutHeadline {
-    max-width: none;
-  }
-
-  .aboutIntro {
-    width: 100%;
-  }
-
-  .aboutPortrait {
-    width: min(100%, 21rem);
-  }
-
-  .aboutCollage {
-    width: min(100%, 31.125rem);
-  }
-
-  .aboutCollageStage {
-    max-width: 100%;
-  }
 }

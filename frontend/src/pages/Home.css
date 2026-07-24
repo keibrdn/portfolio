@@ -84,7 +84,7 @@
 .homeHeroName {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-body-regular);
-  font-size: var(--size-lg);
+  font-size: var(--size-xl);
   line-height: var(--line-height-snug);
   color: var(--color-accent);
   margin: 0;
@@ -371,7 +371,7 @@
   }
 
   .homeHeroName {
-    font-size: clamp(1.25rem, 3.5svh, var(--size-lg));
+    font-size: var(--size-xl);
   }
 
   .homeHeroLead {

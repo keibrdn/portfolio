@@ -51,6 +51,7 @@
 .caseStudySectionBlocks {
   display: flex;
   flex-direction: column;
+  gap: var(--space-xl);
   width: 100%;
 }
 
@@ -60,7 +61,6 @@
   grid-template-columns: repeat(var(--case-study-media-row-columns), minmax(0, 1fr));
   gap: var(--space-case-study-section-inner);
   width: 100%;
-  margin-bottom: var(--space-xl);
   align-items: start;
 }
 
