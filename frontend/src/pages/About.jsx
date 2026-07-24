@@ -1,23 +1,47 @@
 import { useState, useRef, useEffect } from 'react'
 import AppShell from '../components/layout/AppShell.jsx'
+import { urlFor } from '../lib/sanity.js'
 import './About.css'
 
+const ASSETS = {
+  adult:              { _type: 'reference', _ref: 'image-dcd222f392546fb2864b506b2c7a6e4beea9605f-1648x2219-jpg' },
+  baby:               { _type: 'reference', _ref: 'image-5f6ac0ba9c1a20f615851418fddeeae91ad2eb1e-1513x1077-jpg' },
+  uwLogo:             { _type: 'reference', _ref: 'image-a78b6ffdda1210c61a9a070f771115b46ba7ff71-156x147-png' },
+  ucrLogo:            { _type: 'reference', _ref: 'image-19a2b0ca4273058e93b9f9984d0d39c664636945-496x477-png' },
+  tazMatcha:          { _type: 'reference', _ref: 'image-59063ee506182d99e8822130984bb261f937984d-2109x2812-png' },
+  eyesPeeled:         { _type: 'reference', _ref: 'image-82eedc1b72bb74d540335d95396db61a38ecfc44-2653x2206-png' },
+  condron:            { _type: 'reference', _ref: 'image-ba203d6521e78a378ed271f141d2f4314f612985-1024x1003-png' },
+  lighthouseRoasters: { _type: 'reference', _ref: 'image-0478886e1310b946795651cc62155c5db2f50e1a-1742x3324-png' },
+  moment:             { _type: 'reference', _ref: 'image-b39f224a164156b490351e78d63b34d8e13d7c02-832x1095-png' },
+  subject5:           { _type: 'reference', _ref: 'image-358adb5da1ecede036fd6481f2b3032a2f4be65f-1675x2301-png' },
+  mexicoCity:         { _type: 'reference', _ref: 'image-f5df3811854318a85ccbfc6f62ffa7aa47b18f60-2374x1696-jpg' },
+  uji:                { _type: 'reference', _ref: 'image-7c4789d7135f7fc66dd191981dc0f7974bb33ab9-3130x2075-jpg' },
+  oaxaca:             { _type: 'reference', _ref: 'image-122682a4dd5e3fb6cf55be0706bb1c33fc791820-2955x2111-jpg' },
+  la:                 { _type: 'reference', _ref: 'image-ed7daf4755fa01e896412eedf5f0a8202e664ab8-1713x1136-jpg' },
+  forest:             { _type: 'reference', _ref: 'image-6a4c8870bc93c1c1182914d55263f0969eea7a83-3130x2075-jpg' },
+}
+
+// Pre-build optimised CDN URLs — auto WebP/AVIF, capped to display size @2x
+function img(key, width) {
+  return urlFor(ASSETS[key]).width(width).auto('format').quality(85).url()
+}
+
 const A = {
-  adult:             '/about/dcd222f392546fb2864b506b2c7a6e4beea9605f.png',
-  baby:              '/about/5f6ac0ba9c1a20f615851418fddeeae91ad2eb1e.png',
-  uwLogo:            '/about/e7815f6481b011737f7452cd497ef1cc3814ab3c.png',
-  ucrLogo:           '/about/8c8cf0fa33446f929f8fd9f0009aae8dbc1b124b.png',
-  tazMatcha:         '/about/59063ee506182d99e8822130984bb261f937984d.png',
-  eyesPeeled:        '/about/82eedc1b72bb74d540335d95396db61a38ecfc44.png',
-  condron:           '/about/ba203d6521e78a378ed271f141d2f4314f612985.png',
-  lighthouseRoasters:'/about/0478886e1310b946795651cc62155c5db2f50e1a.png',
-  moment:            '/about/b39f224a164156b490351e78d63b34d8e13d7c02.png',
-  subject5:          '/about/358adb5da1ecede036fd6481f2b3032a2f4be65f.png',
-  mexicoCity:        '/about/f5df3811854318a85ccbfc6f62ffa7aa47b18f60.png',
-  uji:               '/about/7c4789d7135f7fc66dd191981dc0f7974bb33ab9.png',
-  oaxaca:            '/about/122682a4dd5e3fb6cf55be0706bb1c33fc791820.png',
-  la:                '/about/ed7daf4755fa01e896412eedf5f0a8202e664ab8.png',
-  forest:            '/about/6a4c8870bc93c1c1182914d55263f0969eea7a83.png',
+  adult:              img('adult',              320),
+  baby:               img('baby',               320),
+  uwLogo:             img('uwLogo',             200),
+  ucrLogo:            img('ucrLogo',            200),
+  tazMatcha:          img('tazMatcha',          300),
+  eyesPeeled:         img('eyesPeeled',         400),
+  condron:            img('condron',            300),
+  lighthouseRoasters: img('lighthouseRoasters', 200),
+  moment:             img('moment',             300),
+  subject5:           img('subject5',           300),
+  mexicoCity:         img('mexicoCity',         500),
+  uji:                img('uji',                500),
+  oaxaca:             img('oaxaca',             500),
+  la:                 img('la',                 500),
+  forest:             img('forest',             500),
 }
 
 const TIPS = {
@@ -66,10 +90,10 @@ export function AboutContent() {
   }, [])
 
   /* Returns merged style + event handlers for any hoverable photo */
-  function ph(id, baseTransform, extraStyle = {}) {
+  function ph(id, baseTransform, extraStyle = {}, hoverScale = 1.2) {
     const isActive = activeId === id
     const isPinned = pinnedId === id && !isActive
-    const scale    = isActive ? ' scale(1.2)' : ''
+    const scale    = isActive ? ` scale(${hoverScale})` : ''
     const transform = baseTransform ? `${baseTransform}${scale}` : scale.trim() || undefined
 
     return {
@@ -140,18 +164,6 @@ export function AboutContent() {
           </div>
         </section>
 
-        {/* ── 2. Design Philosophy ─────────────────────────────── */}
-        <section className="aboutSection" data-reveal style={{ '--reveal-delay': '100ms' }}>
-          <AboutEyebrow>Design philosophy</AboutEyebrow>
-          <div className="aboutPhilosophyContainer">
-            {['Curiosity', 'Elegance', 'Clarity'].map((word) => (
-              <div key={word} className="aboutPhilosophyBlock">
-                <span className="aboutPhilosophyWord">{word}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* ── 3. Education ─────────────────────────────────────── */}
         <section className="aboutSection" data-reveal style={{ '--reveal-delay': '200ms' }}>
           <AboutEyebrow>Education</AboutEyebrow>
@@ -180,17 +192,17 @@ export function AboutContent() {
           <AboutEyebrow>My collection of caffeinated beverages</AboutEyebrow>
           <div className="aboutPhotoRow aboutPhotoRow--drinks">
             <img src={A.tazMatcha}          alt="Taz Matcha"          className="aboutDrinkPhoto"
-              {...ph('tazMatcha',          'scaleX(-1)',        { width:  93, height: 124 })} />
+              {...ph('tazMatcha',          'scaleX(-1)',        { width:  93, height: 124 }, 1.5)} />
             <img src={A.eyesPeeled}         alt="Eyes Peeled"         className="aboutDrinkPhoto"
-              {...ph('eyesPeeled',         'rotate(15.7deg)',   { width: 150, height: 124 })} />
+              {...ph('eyesPeeled',         'rotate(15.7deg)',   { width: 150, height: 124 }, 1.5)} />
             <img src={A.condron}            alt="Condron"             className="aboutDrinkPhoto"
-              {...ph('condron',            null,               { width: 126, height: 124 })} />
+              {...ph('condron',            null,               { width: 126, height: 124 }, 1.5)} />
             <img src={A.lighthouseRoasters} alt="Lighthouse Roasters" className="aboutDrinkPhoto"
-              {...ph('lighthouseRoasters', 'rotate(10deg)',    { width:  65, height: 124 })} />
+              {...ph('lighthouseRoasters', 'rotate(10deg)',    { width:  65, height: 124 }, 1.5)} />
             <img src={A.moment}             alt="Moment"              className="aboutDrinkPhoto"
-              {...ph('moment',             'rotate(16.8deg)',  { width:  95, height: 124 })} />
+              {...ph('moment',             'rotate(16.8deg)',  { width:  95, height: 124 }, 1.5)} />
             <img src={A.subject5}           alt="Subject 5"           className="aboutDrinkPhoto"
-              {...ph('subject5',           null,               { width:  90, height: 124 })} />
+              {...ph('subject5',           null,               { width:  90, height: 124 }, 1.5)} />
           </div>
         </section>
 
@@ -199,15 +211,15 @@ export function AboutContent() {
           <AboutEyebrow>Places I&apos;ve been</AboutEyebrow>
           <div className="aboutPhotoRow aboutPhotoRow--places">
             <img src={A.mexicoCity} alt="Mexico City" className="aboutPlacePhoto"
-              {...ph('mexicoCity', 'rotate(-10deg)', { marginRight: -29 })} />
+              {...ph('mexicoCity', 'rotate(-10deg)', { marginRight: -29 }, 1.5)} />
             <img src={A.uji}        alt="Uji"         className="aboutPlacePhoto"
-              {...ph('uji',        'rotate(10deg)',  { marginRight: -29 })} />
+              {...ph('uji',        'rotate(10deg)',  { marginRight: -29 }, 1.5)} />
             <img src={A.oaxaca}     alt="Oaxaca"      className="aboutPlacePhoto"
-              {...ph('oaxaca',     'rotate(-10deg)', { marginRight: -29 })} />
+              {...ph('oaxaca',     'rotate(-10deg)', { marginRight: -29 }, 1.5)} />
             <img src={A.la}         alt="LA"          className="aboutPlacePhoto"
-              {...ph('la',         'rotate(10deg)',  { marginRight: -29 })} />
+              {...ph('la',         'rotate(10deg)',  { marginRight: -29 }, 1.5)} />
             <img src={A.forest}     alt="Forest"      className="aboutPlacePhoto"
-              {...ph('forest',     'rotate(-10deg)')} />
+              {...ph('forest',     'rotate(-10deg)', {}, 1.5)} />
           </div>
         </section>
 

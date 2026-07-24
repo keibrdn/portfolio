@@ -88,6 +88,10 @@ body {
   line-height: var(--line-height-body);
 }
 
+p {
+  text-wrap: pretty;
+}
+
 #root {
   display: flex;
   flex-direction: column;

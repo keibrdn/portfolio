@@ -146,7 +146,7 @@
 /* ── Education ───────────────────────────────────────────────────── */
 .aboutEducationContainer {
   display: flex;
-  gap: var(--space-section);
+  gap: var(--space-xl);
   width: 100%;
 }
 
@@ -159,8 +159,8 @@
 }
 
 .aboutEduLogo {
-  height: 75px;
-  width: 75px;
+  height: 84px;
+  width: auto;
   object-fit: contain;
   flex-shrink: 0;
 }
