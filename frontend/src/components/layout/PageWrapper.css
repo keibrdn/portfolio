@@ -26,6 +26,13 @@
   min-height: 0;
 }
 
+/* Page owns its own padding completely — wrapper adds none */
+.pageWrapperInner--noPadding {
+  padding: 0 !important;
+  max-width: none;
+  margin-inline: 0;
+}
+
 /* Figma — full width with fixed horizontal padding (home, about, …) */
 .pageWrapperInner--fullBleed {
   max-width: none;

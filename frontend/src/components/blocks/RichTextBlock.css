@@ -1,4 +1,15 @@
 
+.richTextBlockEyebrow {
+  font-family: var(--font-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xs);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-ui);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-md);
+}
+
 .richTextBlockTitle {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-heading-medium);

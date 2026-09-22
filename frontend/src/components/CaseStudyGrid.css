@@ -15,6 +15,16 @@
   gap: var(--space-case-grid-row);
 }
 
+/* Horizontal layout for home page landing */
+.caseStudyGrid--horizontal {
+  container: none;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  grid-template-columns: unset;
+  width: 100%;
+}
+
 .caseStudyGridEmpty {
   font-family: var(--font-ui);
   font-size: var(--size-xs);

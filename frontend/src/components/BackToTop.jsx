@@ -4,7 +4,7 @@ import './BackToTop.css'
 
 const FOOTER_HEIGHT = 300
 
-export default function BackToTop() {
+function BackToTopInner() {
   const { pathname } = useLocation()
   const [visible, setVisible] = useState(false)
   const [footerOffset, setFooterOffset] = useState(0)
@@ -53,4 +53,13 @@ export default function BackToTop() {
       <span className="backToTopLabel" aria-hidden="true">back to top</span>
     </button>
   )
+}
+
+export default function BackToTop() {
+  const { pathname } = useLocation()
+
+  // Home page uses internal column scroll — no page-level back-to-top needed
+  if (pathname === '/') return null
+
+  return <BackToTopInner />
 }

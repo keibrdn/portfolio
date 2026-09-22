@@ -46,6 +46,7 @@ export const caseStudySectionsByIdQuery = /* groq */ `
         _key,
         _type,
         _type == "caseStudyRichText" => {
+          eyebrow,
           title,
           body
         },

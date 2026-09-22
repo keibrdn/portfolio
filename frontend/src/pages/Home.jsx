@@ -1,18 +1,12 @@
-import { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useRef, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import AppShell from '../components/layout/AppShell.jsx'
 import CaseStudyGrid from '../components/CaseStudyGrid.jsx'
+import Footer from '../components/layout/Footer.jsx'
 import { useCaseStudies } from '../hooks/useCaseStudies.js'
-import { AboutContent } from './About.jsx'
-import './About.css'
-import './Fun.css'
 import './Home.css'
 
-const TABS = [
-  { id: 'work', label: 'work' },
-  { id: 'about', label: 'about' },
-]
-
+/* ── Icons (same SVG paths as before) ─────────────────────── */
 function IconLink() {
   return (
     <svg className="homeSocialIcon" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -39,7 +33,12 @@ function IconCopy() {
   )
 }
 
-/** Home listing — Telefishin pinned first; remaining order from Sanity query. */
+/* ── Nav active-class helper ──────────────────────────────── */
+function navClass({ isActive }) {
+  return isActive ? 'homeFixedNavLink homeFixedNavLink--active' : 'homeFixedNavLink'
+}
+
+/** Telefishin pinned first; remaining order from Sanity. */
 function landingCaseStudies(caseStudies) {
   return [...caseStudies].sort((a, b) => {
     const aSlug = String(a.slug ?? '').toLowerCase()
@@ -50,20 +49,17 @@ function landingCaseStudies(caseStudies) {
   })
 }
 
-function FunContent() {
-  return (
-    <article className="funArticle">
-      <h1 className="funTitle">Fun</h1>
-      <p className="funLead">This page is still under construction! Check back soon.</p>
-    </article>
-  )
-}
-
 export default function Home() {
   const { caseStudies, isLoading, error, retry } = useCaseStudies()
-  const [activeTab, setActiveTab] = useState('work')
   const [emailCopied, setEmailCopied] = useState(false)
   const copyTimer = useRef(null)
+
+  // Cycle through Handwritten3 → Handwritten2 → Handwritten5 every 300ms → wiggly effect
+  const [fontIdx, setFontIdx] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setFontIdx((i) => (i + 1) % 3), 300)
+    return () => clearInterval(id)
+  }, [])
 
   function handleCopyEmail() {
     navigator.clipboard.writeText('keilabraden@gmail.com').then(() => {
@@ -74,120 +70,89 @@ export default function Home() {
   }
 
   return (
-    <AppShell fullBleed mainClassName="appShellMain--landing" showNav={false}>
+    <AppShell fullBleed noPadding mainClassName="appShellMain--landing" showNav={false} showFooter={false}>
       <div className="homeLanding">
-        <div className="homeLandingRow">
-          <aside className="homeSidebar" aria-label="Introduction">
-            <div className="homeSidebarMiddle">
-              <div className="homeHero">
-                <h1 className="homeHeroName">keila braden — product designer</h1>
-                <p className="homeHeroLead">
-                  I like figuring out systems and finding the small moments that make products feel right
+
+        {/* ── Fixed left vertical nav ───────────────────────── */}
+        <nav className="homeFixedNav" aria-label="Site navigation">
+          <span className="homeFixedNavDot" aria-hidden="true" />
+          <NavLink className={navClass} to="/" end>work</NavLink>
+          <NavLink className={navClass} to="/fun">play</NavLink>
+          <NavLink className={navClass} to="/about">about</NavLink>
+          <a className="homeFixedNavLink" href="mailto:keilabraden@gmail.com">contact</a>
+        </nav>
+
+        {/* ── Main scrollable content ───────────────────────── */}
+        <div className="homeContent">
+
+          {/* Bio — centered */}
+          <section className="homeBio">
+            <div className="homeBioTagline">
+              <h1 className={`homeHeroName homeHeroName--${fontIdx}`}>
+                keila braden, product designer
+              </h1>
+              <p className="homeHeroLead">
+                I craft human experiences that spark connection and belonging,
+                grounded in equal parts craft and curiosity.
+              </p>
+            </div>
+
+            <div className="homeBioLinks">
+              <button
+                type="button"
+                className="homeSocialLink homeSocialLink--copy"
+                onClick={handleCopyEmail}
+                aria-label="Copy email address"
+              >
+                <span className="homeCopyTooltip" aria-live="polite">
+                  {emailCopied ? 'copied!' : 'email'}
+                </span>
+                <IconCopy />
+              </button>
+              <a className="homeSocialLink" href="/resume.pdf" target="_blank" rel="noreferrer noopener">
+                resume<IconDownload />
+              </a>
+              <a className="homeSocialLink" href="https://www.linkedin.com/in/keilabraden" target="_blank" rel="noreferrer noopener">
+                linkedin<IconLink />
+              </a>
+            </div>
+          </section>
+
+          {/* Case studies */}
+          <section className="homeCaseStudies" aria-label="Work">
+            {isLoading ? (
+              <div className="homeSkeletonGrid" aria-hidden="true">
+                <div className="homeSkeletonCard" />
+                <div className="homeSkeletonCard" />
+              </div>
+            ) : error && import.meta.env.PROD ? (
+              <div className="homeSanityError">
+                <h2 className="homeSanityErrorTitle">Couldn&apos;t load projects</h2>
+                <p className="homeSanityErrorText">
+                  The site can&apos;t reach Sanity from production. Check Vercel environment
+                  variables (<code className="homeSanityErrorCode">VITE_SANITY_PROJECT_ID</code>,{' '}
+                  <code className="homeSanityErrorCode">VITE_SANITY_DATASET</code>) and add this
+                  URL under{' '}
+                  <strong className="homeSanityErrorStrong">Sanity → API → CORS origins</strong>.
                 </p>
-              </div>
-              <div className="homeSocial">
-                <button
-                  type="button"
-                  className="homeSocialLink homeSocialLink--copy"
-                  onClick={handleCopyEmail}
-                  aria-label="Copy email address"
-                >
-                  <span className="homeCopyTooltip" aria-live="polite">
-                    {emailCopied ? 'copied!' : 'email'}
-                  </span>
-                  <IconCopy />
+                <p className="homeSanityErrorDetail">
+                  {error instanceof Error ? error.message : String(error)}
+                </p>
+                <button type="button" className="homeSanityErrorRetry" onClick={retry}>
+                  Try again
                 </button>
-                <a
-                  className="homeSocialLink"
-                  href="/resume.pdf"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  resume<IconDownload />
-                </a>
-                <a
-                  className="homeSocialLink"
-                  href="https://github.com/keibrdn"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  github<IconLink />
-                </a>
-                <a
-                  className="homeSocialLink"
-                  href="https://www.linkedin.com/in/keila-braden/"
-                  target="_blank"
-                  rel="noreferrer noopener"
-                >
-                  linkedin<IconLink />
-                </a>
               </div>
-            </div>
-          </aside>
+            ) : (
+              <CaseStudyGrid
+                caseStudies={landingCaseStudies(caseStudies)}
+                layout="horizontal"
+              />
+            )}
+          </section>
 
-          <div className="homeContent">
-            <nav className="homeContentNav" aria-label="Content sections">
-              {TABS.map(({ id, label }) => (
-                <button
-                  key={id}
-                  type="button"
-                  className={
-                    activeTab === id
-                      ? 'homeContentNavTab homeContentNavTab--active'
-                      : 'homeContentNavTab'
-                  }
-                  onClick={() => {
-                    const scrollY = window.scrollY
-                    setActiveTab(id)
-                    requestAnimationFrame(() => window.scrollTo({ top: scrollY, behavior: 'instant' }))
-                  }}
-                  aria-current={activeTab === id ? 'true' : undefined}
-                >
-                  {label}
-                </button>
-              ))}
-            </nav>
-
-            <div className="homeContentPanel">
-              {activeTab === 'work' && (
-                <div className="homeCaseStudies">
-                  {isLoading ? (
-                    <div className="caseStudyGrid--landing homeSkeletonGrid" aria-hidden="true">
-                      <div className="homeSkeletonCard" />
-                      <div className="homeSkeletonCard" />
-                    </div>
-                  ) : error && import.meta.env.PROD ? (
-                    <div className="homeSanityError">
-                      <h2 className="homeSanityErrorTitle">Couldn&apos;t load projects</h2>
-                      <p className="homeSanityErrorText">
-                        The site can&apos;t reach Sanity from production. Check Vercel environment
-                        variables (<code className="homeSanityErrorCode">VITE_SANITY_PROJECT_ID</code>,{' '}
-                        <code className="homeSanityErrorCode">VITE_SANITY_DATASET</code>) and add this
-                        URL under{' '}
-                        <strong className="homeSanityErrorStrong">Sanity → API → CORS origins</strong>.
-                      </p>
-                      <p className="homeSanityErrorDetail">
-                        {error instanceof Error ? error.message : String(error)}
-                      </p>
-                      <button type="button" className="homeSanityErrorRetry" onClick={retry}>
-                        Try again
-                      </button>
-                    </div>
-                  ) : (
-                    <CaseStudyGrid
-                      caseStudies={landingCaseStudies(caseStudies)}
-                      className="caseStudyGrid--landing"
-                    />
-                  )}
-                </div>
-              )}
-
-              {activeTab === 'about' && <AboutContent />}
-
-              {activeTab === 'fun' && <FunContent />}
-            </div>
-          </div>
+          <Footer />
         </div>
+
       </div>
     </AppShell>
   )

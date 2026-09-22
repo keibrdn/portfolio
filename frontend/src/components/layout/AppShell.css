@@ -6,12 +6,11 @@
 }
 
 .appShellMain--landing {
-  padding-top: 0;
-  padding-bottom: var(--space-xl);
-  flex: 0 1 auto;
+  padding: 0;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  min-height: min-content;
+  min-height: 100vh;
 }
 
 .appShellMain--about {

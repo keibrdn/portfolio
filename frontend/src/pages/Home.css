@@ -1,123 +1,144 @@
+/* ─── Page shell ─────────────────────────────────────────── */
+
 .homeLanding {
-  display: flex;
-  flex-direction: column;
-  flex: 0 1 auto;
-  min-height: min-content;
+  min-height: 100vh;
   width: 100%;
+  position: relative;
 }
 
-.homeLandingRow {
+/* ─── Fixed left vertical nav ────────────────────────────── */
+
+.homeFixedNav {
+  position: fixed;
+  left: 4vw;
+  top: 42vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  z-index: 50;
+}
+
+.homeFixedNavDot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  margin-bottom: 2px;
+}
+
+.homeFixedNavLink {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 8px;
+  color: var(--color-text-primary);
+  text-align: right;
+  text-decoration: none;
+  transition: color var(--transition-default);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.homeFixedNavLink:hover {
+  color: var(--color-ink);
+}
+
+.homeFixedNavLink--active {
+  color: var(--color-accent);
+}
+
+/* ─── Scrollable content area ────────────────────────────── */
+
+.homeContent {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2xl);
-  padding-top: var(--space-landing-top);
-  min-width: 0;
-  min-height: min-content;
+  padding-block-start: 180px;
+  padding-block-end: 0;
 }
 
-.homeSidebar {
-  width: 100%;
-  max-width: var(--width-case-study-stack);
+/* ─── Bio section (centered) ─────────────────────────────── */
+
+.homeBio {
   display: flex;
   flex-direction: column;
-  gap: var(--space-landing-sidebar-gap);
-  padding-top: 0;
-  padding-bottom: 0;
+  align-items: center;
+  gap: 46px;
+  text-align: center;
+  width: 100%;
+  max-width: 620px;
+  padding-inline: 24px;
   box-sizing: border-box;
-  align-items: flex-start;
+  margin-bottom: 120px;
 }
 
-.homeSidebarMiddle {
+.homeBioTagline {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: var(--space-sm);
-  width: 100%;
-}
-
-/* Sidebar text — slide in from left on mount */
-.homeHero > * {
-  animation: slideInLeft 320ms ease-in-out both;
-}
-.homeHero > *:nth-child(1) { animation-delay: 0ms; }
-.homeHero > *:nth-child(2) { animation-delay: 100ms; }
-
-.homeSocial > * {
-  animation: slideInLeft 320ms ease-in-out both;
-}
-.homeSocial > *:nth-child(1) { animation-delay: 200ms; }
-.homeSocial > *:nth-child(2) { animation-delay: 270ms; }
-.homeSocial > *:nth-child(3) { animation-delay: 340ms; }
-.homeSocial > *:nth-child(4) { animation-delay: 410ms; }
-
-/* Case study cards — stagger each card's own elements so the arrival feels choreographed */
-.caseStudyGrid--landing .caseStudyCard:nth-child(1) { --card-delay: 520ms; }
-.caseStudyGrid--landing .caseStudyCard:nth-child(2) { --card-delay: 680ms; }
-.caseStudyGrid--landing .caseStudyCard:nth-child(3) { --card-delay: 840ms; }
-.caseStudyGrid--landing .caseStudyCard:nth-child(n+4) { --card-delay: 1000ms; }
-
-.caseStudyGrid--landing .caseStudyCardMedia {
-  animation: fadeIn 380ms ease-in-out both;
-  animation-delay: var(--card-delay, 520ms);
-}
-.caseStudyGrid--landing .caseStudyCardTags {
-  animation: fadeIn 320ms ease-in-out both;
-  animation-delay: calc(var(--card-delay, 520ms) + 100ms);
-}
-.caseStudyGrid--landing .caseStudyCardBody {
-  animation: fadeIn 320ms ease-in-out both;
-  animation-delay: calc(var(--card-delay, 520ms) + 200ms);
-}
-
-.homeHero {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: var(--space-sm);
-  color: var(--color-ink);
-  flex-shrink: 0;
+  align-items: center;
+  gap: 12px;
 }
 
 .homeHeroName {
-  font-family: var(--font-heading);
-  font-weight: var(--font-weight-body-regular);
-  font-size: var(--size-xl);
-  line-height: var(--line-height-snug);
+  font-family: var(--font-handwritten);
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 48px;
   color: var(--color-accent);
   margin: 0;
+  white-space: nowrap;
+}
+
+/* Font cycles every 300ms → wiggly effect.
+   --0 is the base (Handwritten3 @ 44px). Adjust font-size per variant to
+   compensate for any optical size differences between fonts. */
+.homeHeroName--0 {
+  font-family: var(--font-handwritten);
+  font-size: 44px;
+}
+
+.homeHeroName--1 {
+  font-family: var(--font-handwritten2);
+  font-size: 43px; /* Handwritten2 renders slightly larger — nudge down 1px */
+}
+
+.homeHeroName--2 {
+  font-family: var(--font-handwritten5);
+  font-size: 48px;
 }
 
 .homeHeroLead {
   font-family: var(--font-body);
-  font-weight: var(--font-weight-body-regular);
-  font-size: var(--size-sm);
-  line-height: var(--line-height-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--color-text-primary);
   margin: 0;
 }
 
-.homeSocial {
+/* ─── Bio contact links ──────────────────────────────────── */
+
+.homeBioLinks {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
-  gap: var(--space-sm);
-  font-family: var(--font-ui);
-  font-size: var(--size-xs);
-  line-height: var(--line-height-loose);
-  color: var(--color-ink);
-  flex-shrink: 0;
+  gap: 46px;
 }
 
 .homeSocialLink {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2xs);
-  color: inherit;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--color-text-primary);
   text-decoration: underline;
+  text-decoration-color: var(--color-accent);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.15em;
   transition: var(--transition-opacity);
@@ -143,125 +164,40 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  font-family: var(--font-ui);
-  font-size: var(--size-xs);
-  font-weight: var(--font-weight-ui);
-  letter-spacing: var(--letter-spacing-ui);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
 }
 
-.homeSocialLink--inactive {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  opacity: 0.45;
-  cursor: default;
-}
-
-.homeContent {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  width: 100%;
-  min-width: 0;
-  min-height: min-content;
-  max-width: var(--width-case-study-stack);
-}
-
-.homeContentNav {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  gap: var(--space-xs);
-  border-bottom: 1px solid var(--color-accent);
-}
-
-.homeContentNavTab {
-  font-family: var(--font-ui);
-  font-size: var(--size-xs);
-  font-weight: var(--font-weight-ui);
-  letter-spacing: var(--letter-spacing-ui);
-  line-height: var(--line-height-snug);
-  color: var(--color-text-muted);
-  background: none;
-  border: 1px solid var(--color-text-muted);
-  border-bottom: none;
-  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
-  padding-block: var(--space-tag-y);
-  padding-inline: var(--space-tag-x);
-  white-space: nowrap;
-  cursor: pointer;
-  /* sit the tab flush on the bottom shelf line */
-  margin-bottom: -2px;
-  transition:
-    color var(--transition-default),
-    border-color var(--transition-default),
-    background-color var(--transition-default);
-}
-
-.homeContentNavTab:hover {
-  color: var(--color-accent);
-  border-color: var(--color-accent);
-}
-
-.homeContentNavTab--active:hover {
-  color: var(--color-bg);
-  border-color: var(--color-accent);
-}
-
-.homeContentNavTab:focus-visible {
-  outline: 2px solid var(--color-focus-ring);
-  outline-offset: var(--space-2xs);
-}
-
-.homeContentNavTab--active {
-  background: var(--color-accent);
-  color: var(--color-bg);
-  border-color: var(--color-accent);
-  font-weight: var(--font-weight-body-bold);
-  padding-inline: calc(var(--space-tag-x) + 10px);
-  animation: tabSlingshot 500ms ease-out both;
-}
-
-.homeContentPanel {
-  width: 100%;
-}
+/* ─── Case studies section ───────────────────────────────── */
 
 .homeCaseStudies {
-  flex: 0 0 auto;
   width: 100%;
-  align-self: flex-start;
-  min-height: min-content;
+  max-width: 917px;
+  padding-inline: 24px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
 
-/* Landing — single-column vertical stack, full width of homeContent */
-.homeCaseStudies .caseStudyGrid--landing {
-  container-type: normal;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-case-grid-row);
-  width: 100%;
-}
-
-.homeCaseStudies .caseStudyCard {
-  width: 100%;
-}
+/* ─── Loading / error states ─────────────────────────────── */
 
 .homeSkeletonGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
   pointer-events: none;
+  width: 100%;
 }
 
-/* Invisible spacers — hold the card column height during data fetch, no shimmer */
 .homeSkeletonCard {
   width: 100%;
-  aspect-ratio: var(--aspect-case-media);
+  height: 337px;
   background: none;
 }
 
 .homeSanityError {
   margin: 0;
-  max-width: var(--layout-max-width);
 }
 
 .homeSanityErrorTitle {
@@ -310,103 +246,9 @@
   padding-block: var(--space-xs);
   padding-inline: var(--space-sm);
   cursor: pointer;
-  transition:
-    opacity var(--transition-default);
+  transition: opacity var(--transition-default);
 }
 
 .homeSanityErrorRetry:hover {
   opacity: 0.8;
-}
-
-/* Desktop layout */
-@media (min-width: 56.01rem) {
-  .homeSidebar {
-    gap: var(--space-landing-sidebar-gap);
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .homeSidebarMiddle {
-    gap: var(--space-sm);
-  }
-
-
-  .homeCaseStudies .caseStudyCardLink {
-    gap: clamp(var(--space-xs), 1.25svh, var(--space-card-stack));
-  }
-
-  .homeCaseStudies .caseStudyCardTags {
-    flex-shrink: 0;
-    flex-wrap: wrap;
-    row-gap: var(--space-tag-gap);
-  }
-
-  .homeCaseStudies .caseStudyCardMedia {
-    flex: 0 0 auto;
-    min-height: 0;
-    min-width: 0;
-    width: 100%;
-    margin-block-start: var(--space-2xs);
-  }
-
-  .homeCaseStudies .caseStudyCardImg {
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    min-height: 0;
-  }
-
-  .homeCaseStudies .caseStudyCardPlaceholder {
-    width: 100%;
-    aspect-ratio: var(--aspect-case-media);
-    min-height: 0;
-  }
-
-  .homeCaseStudies .caseStudyCardBody {
-    flex-shrink: 0;
-  }
-
-  .homeCaseStudies .caseStudyCardTitle {
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
-
-  .homeCaseStudies .caseStudyCardExcerpt {
-    display: -webkit-box;
-    overflow: hidden;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
-
-  .homeHeroName {
-    font-size: var(--size-xl);
-  }
-
-  .homeHeroLead {
-    font-size: clamp(0.875rem, 1.75svh, var(--size-sm));
-    line-height: var(--line-height-snug);
-  }
-}
-
-@media (max-width: 56rem) {
-  .homeLandingRow {
-    padding-top: var(--space-xl);
-    gap: var(--space-xl);
-  }
-
-  .homeSidebar {
-    padding-block: 0;
-    gap: var(--space-xl);
-  }
-
-  .homeCaseStudies {
-    flex: none;
-  }
-
-  .homeSanityError {
-    padding-inline: 0;
-  }
 }

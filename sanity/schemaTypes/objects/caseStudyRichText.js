@@ -6,6 +6,12 @@ export default defineType({
   type: 'object',
   fields: [
     defineField({
+      name: 'eyebrow',
+      title: 'Eyebrow (optional)',
+      type: 'string',
+      description: 'Small uppercase label above the title, e.g. “The problem”.',
+    }),
+    defineField({
       name: 'title',
       title: 'Title (optional)',
       type: 'string',

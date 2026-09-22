@@ -1,4 +1,4 @@
-import { StrictMode, useState } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './styles/tokens.css'
@@ -12,21 +12,11 @@ import Fun from './pages/Fun.jsx'
 import DesignSystem from './pages/DesignSystem.jsx'
 import BackToTop from './components/BackToTop.jsx'
 import ScrollRevealProvider from './components/ScrollRevealProvider.jsx'
-import AsciiGradientBackground, { DEFAULT_SETTINGS } from './components/AsciiGradientBackground.jsx'
-import AsciiGradientControls from './components/AsciiGradientControls.jsx'
 
 function App() {
-  const [bgSettings, setBgSettings] = useState(DEFAULT_SETTINGS)
-
   return (
     <div className="rootStretch">
       <BrowserRouter>
-        <AsciiGradientBackground settings={bgSettings} />
-
-        {import.meta.env.DEV && (
-          <AsciiGradientControls settings={bgSettings} onChange={setBgSettings} />
-        )}
-
         <div className="rootStretchRouter">
           <ScrollRevealProvider />
           <Routes>

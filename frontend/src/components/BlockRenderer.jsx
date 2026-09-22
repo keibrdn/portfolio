@@ -17,7 +17,7 @@ export default function BlockRenderer({ block }) {
 
   switch (block._type) {
     case 'caseStudyRichText':
-      return <RichTextBlock title={block.title} body={block.body} />
+      return <RichTextBlock eyebrow={block.eyebrow} title={block.title} body={block.body} />
 
     case 'caseStudyMediaFigure':
       return (

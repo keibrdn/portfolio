@@ -1,7 +1,7 @@
 import CaseStudyCard from './CaseStudyCard.jsx'
 import './CaseStudyGrid.css'
 
-export default function CaseStudyGrid({ caseStudies, className = '' }) {
+export default function CaseStudyGrid({ caseStudies, className = '', layout = 'vertical' }) {
   const items = Array.isArray(caseStudies) ? caseStudies : []
 
   if (items.length === 0) {
@@ -13,7 +13,7 @@ export default function CaseStudyGrid({ caseStudies, className = '' }) {
   }
 
   return (
-    <div className={['caseStudyGrid', className].filter(Boolean).join(' ')}>
+    <div className={['caseStudyGrid', className, layout === 'horizontal' ? 'caseStudyGrid--horizontal' : ''].filter(Boolean).join(' ')}>
       {items.map((cs) => (
         <CaseStudyCard
           key={cs._id}
@@ -23,6 +23,7 @@ export default function CaseStudyGrid({ caseStudies, className = '' }) {
           excerpt={cs.excerpt}
           featuredImage={cs.featuredImage}
           tags={cs.tags}
+          layout={layout}
         />
       ))}
     </div>

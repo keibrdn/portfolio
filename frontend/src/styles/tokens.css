@@ -6,7 +6,7 @@
      ------------------------------------------------------------------------- */
 
   /* Base palette (Figma grey/400) */
-  --color-bg: #fffcf4;
+  --color-bg: #fffefd;
 
   /* Darkest text + UI chrome (Figma grey/100) */
   --color-ink: #474747;
@@ -32,14 +32,21 @@
   /* Surface tint — quote / callout block backgrounds */
   --color-surface: #dad9c4;
 
+  /* Neutral surface — cards, panels, recessed areas */
+  --color-surface-neutral: #f2f2f2;
+
   /* -------------------------------------------------------------------------
      TYPOGRAPHY — Figma "font family" collection
      heading: PT Serif · body: Manrope · ui/link/eyebrow: DM Mono
      ------------------------------------------------------------------------- */
 
   --font-heading: "PT Serif", Georgia, serif;
-  --font-body: "Manrope", system-ui, sans-serif;
+  --font-body: "PT Serif", Georgia, serif;
   --font-ui: "DM Mono", ui-monospace, monospace;
+  /* Handwritten display fonts — files live in frontend/public/fonts/ */
+  --font-handwritten: "Handwritten3", cursive;
+  --font-handwritten2: "Handwritten2", cursive;
+  --font-handwritten5: "Handwritten5", cursive;
 
   --font-weight-heading: 700;
   --font-weight-heading-medium: 500; /* section titles, sub-headings */
@@ -148,7 +155,7 @@
 
   /* Case study page */
   --width-case-study-toc: 12.125rem;
-  --width-case-study-stack: 44.8125rem;
+  --width-case-study-stack: 52rem;
   --breakpoint-case-study-sm: 56rem;
   --space-case-study-content-pad-x: 10rem;
   --space-case-study-content-pad-y: var(--space-xl);

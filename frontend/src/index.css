@@ -1,3 +1,30 @@
+@font-face {
+  font-family: 'Handwritten3';
+  src: url('/fonts/Handwritten3-Regular.otf') format('opentype'),
+       url('/fonts/Handwritten3-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Handwritten2';
+  src: url('/fonts/Handwritten2-Regular.otf') format('opentype'),
+       url('/fonts/Handwritten2-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Handwritten5';
+  src: url('/fonts/handwritten5-Regular.otf') format('opentype'),
+       url('/fonts/handwritten5-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ── Shared keyframes ────────────────────────────────────────────────────── */
 @keyframes shimmerSlide {
   0%   { background-position: 200% center; }

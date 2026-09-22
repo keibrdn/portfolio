@@ -3,6 +3,7 @@ import './DesignSystem.css'
 const COLOR_TOKENS = [
   { token: '--color-bg', label: 'Background', hex: '#fffcf4' },
   { token: '--color-surface', label: 'Surface', hex: '#dad9c4' },
+  { token: '--color-surface-neutral', label: 'Surface neutral', hex: '#f2f2f2' },
   { token: '--color-text-heading', label: 'Text heading', hex: '#474747' },
   { token: '--color-text-primary', label: 'Text primary', hex: '#676767' },
   { token: '--color-text-muted', label: 'Text muted', hex: '#b9b9b9' },

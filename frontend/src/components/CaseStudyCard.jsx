@@ -23,6 +23,7 @@ export default function CaseStudyCard({
   excerpt,
   featuredImage,
   tags,
+  layout = 'vertical', // 'vertical' | 'horizontal'
 }) {
   const href = `/work/${slug}`
   const imgUrl =
@@ -32,6 +33,40 @@ export default function CaseStudyCard({
   const tagList = tagsFromProps(tags, skillsLine)
   const [imgLoaded, setImgLoaded] = useState(false)
 
+  if (layout === 'horizontal') {
+    return (
+      <article className="caseStudyCard caseStudyCard--horizontal">
+        <Link className="caseStudyCardLink caseStudyCardLink--horizontal" to={href}>
+          {/* Left: text info */}
+          <div className="caseStudyCardInfo">
+            <h2 className="caseStudyCardTitle--h">{title}</h2>
+            {excerpt ? <p className="caseStudyCardExcerpt--h">{excerpt}</p> : null}
+            {tagList.length > 0 && (
+              <p className="caseStudyCardTags--h" aria-label="Tags">
+                {tagList.join(' / ')}
+              </p>
+            )}
+          </div>
+          {/* Right: cover image */}
+          <div className={`caseStudyCardMedia caseStudyCardMedia--h${imgLoaded ? ' caseStudyCardMedia--loaded' : ''}`}>
+            {imgUrl ? (
+              <img
+                className="caseStudyCardImg caseStudyCardImg--h"
+                src={imgUrl}
+                alt={title ? `${title} preview` : 'Project preview'}
+                loading="lazy"
+                onLoad={() => setImgLoaded(true)}
+              />
+            ) : (
+              <div className="caseStudyCardPlaceholder caseStudyCardPlaceholder--h" aria-hidden="true" />
+            )}
+          </div>
+        </Link>
+      </article>
+    )
+  }
+
+  // Default vertical layout (used on other pages)
   return (
     <article className="caseStudyCard">
       <Link className="caseStudyCardLink" to={href}>
