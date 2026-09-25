@@ -26,10 +26,10 @@
 
 .siteFooterMade {
   font-family: var(--font-ui);
-  font-size: var(--size-xs);
+  text-transform: var(--text-transform-ui);
+  font-size: var(--size-xxs);
   font-weight: var(--font-weight-ui);
   letter-spacing: var(--letter-spacing-ui);
-  text-transform: uppercase;
   color: var(--color-text-primary);
   margin: 0;
 }
@@ -46,7 +46,8 @@
   align-items: center;
   gap: var(--space-2xs);
   font-family: var(--font-ui);
-  font-size: var(--size-xs);
+  text-transform: var(--text-transform-ui);
+  font-size: var(--size-xxs);
   font-weight: var(--font-weight-ui);
   letter-spacing: var(--letter-spacing-ui);
   color: var(--color-text-primary);

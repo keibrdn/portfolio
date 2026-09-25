@@ -6,49 +6,189 @@
   position: relative;
 }
 
-/* ─── Fixed left vertical nav ────────────────────────────── */
+/* ─── Left vertical nav ──────────────────────────────────── */
 
 .homeFixedNav {
   position: fixed;
-  left: 4vw;
-  top: 42vh;
+  left: auto;
+  right: calc(50% + min(var(--width-home-content), 100%) / 2 + var(--space-nav-to-content));
+  top: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
   z-index: 50;
+  padding-right: var(--space-sm);
+}
+
+.homeFixedNavRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 12px;
 }
 
 .homeFixedNavDot {
-  display: block;
+  position: absolute;
+  right: 0;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: var(--color-accent);
-  margin-bottom: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    top 420ms cubic-bezier(0.22, 1.45, 0.36, 1),
+    opacity var(--transition-default);
+}
+
+.homeFixedNavDot--ready {
+  opacity: 1;
+}
+
+.homeFixedNavDot--hop {
+  animation: homeNavDotHop 420ms cubic-bezier(0.22, 1.2, 0.36, 1) both;
+}
+
+@keyframes homeNavDotHop {
+  0%   { transform: scale(1) translateX(0); }
+  18%  { transform: scale(0.7, 0.82) translateX(2px); }
+  48%  { transform: scale(1.14) translateX(8px); }
+  78%  { transform: scale(0.86, 1.06) translateX(1px); }
+  100% { transform: scale(1) translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homeFixedNavDot {
+    transition: none;
+  }
+
+  .homeFixedNavDot--hop {
+    animation: none;
+  }
 }
 
 .homeFixedNavLink {
-  font-family: var(--font-body);
-  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
+  letter-spacing: var(--letter-spacing-ui);
+  font-size: var(--size-xxs);
   font-weight: 400;
-  line-height: 8px;
+  line-height: 12px;
+  height: 12px;
   color: var(--color-text-primary);
   text-align: right;
   text-decoration: none;
-  transition: color var(--transition-default);
   cursor: pointer;
   background: none;
   border: none;
   padding: 0;
+  transform: scale(1);
+  transform-origin: right center;
+  transition:
+    color var(--transition-default),
+    var(--transition-bounce);
+}
+
+.homeFixedNavLink:hover,
+.homeFixedNavLink--active {
+  transform: scale(1.3);
 }
 
 .homeFixedNavLink:hover {
   color: var(--color-ink);
 }
 
-.homeFixedNavLink--active {
+.homeFixedNavLink--active,
+.homeFixedNavLink--active:hover {
   color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homeFixedNavLink {
+    transition: color var(--transition-default);
+  }
+
+  .homeFixedNavLink:hover,
+  .homeFixedNavLink--active {
+    transform: none;
+  }
+}
+
+.homeHamburger {
+  display: none;
+}
+
+@media (max-width: 56rem) {
+  .homeHamburger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    position: fixed;
+    top: var(--space-md);
+    right: var(--space-md);
+    z-index: 60;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: none;
+    background-color: var(--color-accent);
+    cursor: pointer;
+  }
+
+  .homeHamburgerBar {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: var(--color-bg);
+    transition: var(--transition-bounce);
+  }
+
+  .homeHamburger--open .homeHamburgerBar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .homeHamburger--open .homeHamburgerBar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .homeHamburger--open .homeHamburgerBar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .homeFixedNav {
+    display: none;
+    left: auto;
+    right: var(--space-md);
+    top: calc(var(--space-md) + 44px + var(--space-sm));
+    transform: none;
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-bg);
+    gap: var(--space-sm);
+    align-items: flex-end;
+  }
+
+  .homeFixedNav--open {
+    display: flex;
+  }
+
+  .homeFixedNavDot {
+    display: none;
+  }
+
+  .homeFixedNavRow {
+    height: auto;
+  }
+
+  .homeFixedNavLink {
+    height: auto;
+    line-height: var(--line-height-snug);
+    font-size: var(--size-xxs);
+  }
 }
 
 /* ─── Scrollable content area ────────────────────────────── */
@@ -57,8 +197,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: var(--width-home-content);
+  margin-inline: auto;
   padding-block-start: 180px;
   padding-block-end: 0;
+  overflow-x: clip;
 }
 
 /* ─── Bio section (centered) ─────────────────────────────── */
@@ -81,16 +225,35 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  width: 100%;
+}
+
+.homeHeroNameSlot {
+  position: relative;
+  height: var(--height-home-hero-name);
+  min-height: var(--height-home-hero-name);
+  max-height: var(--height-home-hero-name);
+  width: 100%;
+  min-width: 0;
+  flex-shrink: 0;
+  overflow: visible;
 }
 
 .homeHeroName {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   font-family: var(--font-handwritten);
   font-size: 44px;
   font-weight: 400;
-  line-height: 48px;
+  line-height: 1;
   color: var(--color-accent);
   margin: 0;
+  text-align: center;
   white-space: nowrap;
+  pointer-events: none;
 }
 
 /* Font cycles every 300ms → wiggly effect.
@@ -118,6 +281,9 @@
   line-height: 24px;
   color: var(--color-text-primary);
   margin: 0;
+  width: 502px;
+  max-width: 100%;
+  flex-shrink: 0;
 }
 
 /* ─── Bio contact links ──────────────────────────────────── */
@@ -126,16 +292,18 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 46px;
+  gap: var(--space-md);
 }
 
 .homeSocialLink {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2xs);
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 400;
+  font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
+  letter-spacing: var(--letter-spacing-ui);
+  font-size: var(--size-xxs);
+  font-weight: var(--font-weight-ui);
   color: var(--color-text-primary);
   text-decoration: underline;
   text-decoration-color: var(--color-accent);
@@ -164,28 +332,59 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 400;
 }
 
-/* ─── Case studies section ───────────────────────────────── */
+/* ─── Page sections (work / play / about / contact) ──────── */
 
-.homeCaseStudies {
+.homePageSection {
   width: 100%;
-  max-width: 917px;
+  max-width: var(--width-home-content);
   padding-inline: 24px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  scroll-margin-top: 48px;
+  margin-bottom: var(--space-section);
+}
+
+.homeSectionEyebrow {
+  font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xxs);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-eyebrow);
+  margin: 0 0 var(--space-md);
+  align-self: flex-start;
+}
+
+.homePlayStack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-case-grid-row);
+  align-items: start;
+  width: 100%;
+}
+
+.homePlayPlaceholder {
+  width: 100%;
+  aspect-ratio: var(--aspect-home-cover);
+  background-color: var(--color-surface-neutral);
+}
+
+.homeAboutSection .aboutContent {
+  padding-top: 0;
+  padding-bottom: 0;
+  max-width: 100%;
 }
 
 /* ─── Loading / error states ─────────────────────────────── */
 
 .homeSkeletonGrid {
-  display: flex;
-  flex-direction: column;
-  gap: 100px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-case-grid-row);
   pointer-events: none;
   width: 100%;
 }
@@ -223,12 +422,14 @@
 
 .homeSanityErrorCode {
   font-family: var(--font-ui);
-  font-size: var(--size-xs);
+  text-transform: var(--text-transform-ui);
+  font-size: var(--size-xxs);
 }
 
 .homeSanityErrorDetail {
   font-family: var(--font-ui);
-  font-size: var(--size-xs);
+  text-transform: var(--text-transform-ui);
+  font-size: var(--size-xxs);
   line-height: var(--line-height-loose);
   color: var(--color-text-muted);
   word-break: break-word;
@@ -237,7 +438,8 @@
 
 .homeSanityErrorRetry {
   font-family: var(--font-ui);
-  font-size: var(--size-xs);
+  text-transform: var(--text-transform-ui);
+  font-size: var(--size-xxs);
   letter-spacing: var(--letter-spacing-ui);
   color: var(--color-bg);
   background-color: var(--color-accent);

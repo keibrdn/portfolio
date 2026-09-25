@@ -14,12 +14,12 @@ if (!projectId || !dataset) {
 }
 
 /**
- * Route API through Vite’s /__sanity proxy (see vite.config.js) unless opted out with
- * VITE_SANITY_USE_PROXY=false. Used in dev and when serving a prod build on localhost
- * (vite preview) — the live domain is on Sanity CORS; localhost is not.
+ * Optional same-origin proxy (vite.config.js `/__sanity`). Default is direct
+ * api.sanity.io now that localhost is on the project CORS list. Set
+ * VITE_SANITY_USE_PROXY=true to force the proxy.
  */
 function localSanityApiHost() {
-  if (import.meta.env.VITE_SANITY_USE_PROXY === 'false') {
+  if (import.meta.env.VITE_SANITY_USE_PROXY !== 'true') {
     return null
   }
   const origin = typeof globalThis !== 'undefined' ? globalThis.location?.origin : null
@@ -67,4 +67,19 @@ const builder = imageUrlBuilder({projectId, dataset})
 /** Chain `.width()`, `.height()`, `.format()`, `.url()`, etc. See @sanity/image-url. */
 export function urlFor(source) {
   return builder.image(source)
+}
+
+/** Retry transient proxy / network drops (ECONNRESET on the Vite Sanity proxy). */
+export async function fetchSanity(query, params) {
+  const attempts = 3
+  let lastError
+  for (let i = 0; i < attempts; i += 1) {
+    try {
+      return await client.fetch(query, params)
+    } catch (e) {
+      lastError = e
+      await new Promise((resolve) => setTimeout(resolve, 200 * (i + 1)))
+    }
+  }
+  throw lastError
 }

@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useState} from 'react'
-import {client} from '../lib/sanity.js'
+import {fetchSanity} from '../lib/sanity.js'
 import {
   caseStudyMetaBySlugQuery,
   caseStudySectionsByIdQuery,
@@ -23,12 +23,12 @@ export function useCaseStudy(slug) {
     setIsLoading(true)
     setError(null)
     try {
-      const meta = await client.fetch(caseStudyMetaBySlugQuery, {slug})
+      const meta = await fetchSanity(caseStudyMetaBySlugQuery, {slug})
       if (!meta?._id) {
         setDoc(null)
         return
       }
-      const sectionBundle = await client.fetch(caseStudySectionsByIdQuery, {
+      const sectionBundle = await fetchSanity(caseStudySectionsByIdQuery, {
         id: meta._id,
       })
       const sections = sectionBundle?.sections

@@ -34,8 +34,10 @@
 
 .navTextLink {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-xxs);
+  letter-spacing: var(--letter-spacing-ui);
   line-height: var(--line-height-loose);
   color: var(--color-ink);
   text-decoration: underline;

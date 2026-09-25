@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { urlFor } from '../../lib/sanity.js'
+import { useImageLoaded } from '../../hooks/useImageLoaded.js'
 import './MediaFigureBlock.css'
 
 export default function MediaFigureBlock({ media, caption, alt, size }) {
@@ -8,20 +8,22 @@ export default function MediaFigureBlock({ media, caption, alt, size }) {
     urlFor(media).width(1600).auto('format').quality(85).url()
 
   const altText = alt || caption || ''
-  const [imgLoaded, setImgLoaded] = useState(false)
+  const { loaded, onLoad, onError, ref } = useImageLoaded(src)
 
   const sizeClass = size === 'small' ? ' mediaFigure--small' : size === 'medium' ? ' mediaFigure--medium' : ''
 
   return (
     <figure className={`mediaFigure${sizeClass}`}>
-      <div className={`mediaFigureMain${imgLoaded ? ' mediaFigureMain--loaded' : ''}`}>
+      <div className={`mediaFigureMain${loaded ? ' mediaFigureMain--loaded' : ''}`}>
         {src ? (
           <img
+            ref={ref}
             className="mediaFigureImg"
             src={src}
             alt={altText}
             loading="lazy"
-            onLoad={() => setImgLoaded(true)}
+            onLoad={onLoad}
+            onError={onError}
           />
         ) : (
           <div className="mediaFigureFallback" role="img" aria-label={altText} />

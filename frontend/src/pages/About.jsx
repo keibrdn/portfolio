@@ -71,20 +71,41 @@ export function AboutContent() {
 
   const headlineRef = useRef(null)
   const bioTextRef  = useRef(null)
+  const [fontIdx, setFontIdx] = useState(0)
+  const [fontSizes, setFontSizes] = useState(['', '', ''])
+
+  useEffect(() => {
+    const id = setInterval(() => setFontIdx((i) => (i + 1) % 3), 300)
+    return () => clearInterval(id)
+  }, [])
 
   useEffect(() => {
     const headline = headlineRef.current
     const bioText  = bioTextRef.current
     if (!headline || !bioText) return
 
-    function fitText() {
-      headline.style.fontSize = '100px'
-      const ratio = bioText.offsetWidth / headline.scrollWidth
-      headline.style.fontSize = (100 * ratio) + 'px'
+    function measure() {
+      const text = headline.textContent
+      const width = bioText.offsetWidth
+      if (!text || !width) return
+
+      const sizes = [0, 1, 2].map((i) => {
+        const probe = document.createElement('span')
+        probe.className = `aboutHeadline aboutHeadline--${i}`
+        probe.textContent = text
+        probe.style.cssText =
+          'position:absolute;visibility:hidden;left:0;top:0;white-space:nowrap;font-size:100px;pointer-events:none'
+        document.body.appendChild(probe)
+        const size = 100 * (width / probe.scrollWidth)
+        probe.remove()
+        return `${size}px`
+      })
+      setFontSizes(sizes)
     }
 
-    fitText()
-    const observer = new ResizeObserver(fitText)
+    measure()
+    document.fonts?.ready?.then(measure)
+    const observer = new ResizeObserver(measure)
     observer.observe(bioText)
     return () => observer.disconnect()
   }, [])
@@ -103,7 +124,7 @@ export function AboutContent() {
         position: 'relative',
         zIndex: isActive ? 20 : isPinned ? 10 : 1,
         cursor: 'none',
-        transition: 'transform 500ms cubic-bezier(0.34, 1.82, 0.64, 1)',
+        transition: 'var(--transition-bounce)',
       },
       onMouseEnter: () => { setActiveId(id); setPinnedId(id) },
       onMouseLeave: () => { setActiveId(null); setTooltip(null) },
@@ -117,9 +138,15 @@ export function AboutContent() {
 
         {/* ── 1. Bio ───────────────────────────────────────────── */}
         <section className="aboutSection aboutBioSection">
-          <h2 className="aboutHeadline" ref={headlineRef} data-reveal style={{ '--reveal-delay': '0ms' }}>
-            designer, tinkerer, caffeine enthusiast
-          </h2>
+          <div className="aboutHeadlineSlot" data-reveal style={{ '--reveal-delay': '0ms' }}>
+            <h2
+              className={`aboutHeadline aboutHeadline--${fontIdx}`}
+              ref={headlineRef}
+              style={{ fontSize: fontSizes[fontIdx] || undefined }}
+            >
+              designer, tinkerer, caffeine enthusiast
+            </h2>
+          </div>
 
           <div className="aboutBioRow">
             <div className="aboutBioBlock">
@@ -211,13 +238,13 @@ export function AboutContent() {
           <AboutEyebrow>Places I&apos;ve been</AboutEyebrow>
           <div className="aboutPhotoRow aboutPhotoRow--places">
             <img src={A.mexicoCity} alt="Mexico City" className="aboutPlacePhoto"
-              {...ph('mexicoCity', 'rotate(-10deg)', { marginRight: -29 }, 1.5)} />
+              {...ph('mexicoCity', 'rotate(-10deg)', {}, 1.5)} />
             <img src={A.uji}        alt="Uji"         className="aboutPlacePhoto"
-              {...ph('uji',        'rotate(10deg)',  { marginRight: -29 }, 1.5)} />
+              {...ph('uji',        'rotate(10deg)',  {}, 1.5)} />
             <img src={A.oaxaca}     alt="Oaxaca"      className="aboutPlacePhoto"
-              {...ph('oaxaca',     'rotate(-10deg)', { marginRight: -29 }, 1.5)} />
+              {...ph('oaxaca',     'rotate(-10deg)', {}, 1.5)} />
             <img src={A.la}         alt="LA"          className="aboutPlacePhoto"
-              {...ph('la',         'rotate(10deg)',  { marginRight: -29 }, 1.5)} />
+              {...ph('la',         'rotate(10deg)',  {}, 1.5)} />
             <img src={A.forest}     alt="Forest"      className="aboutPlacePhoto"
               {...ph('forest',     'rotate(-10deg)', {}, 1.5)} />
           </div>

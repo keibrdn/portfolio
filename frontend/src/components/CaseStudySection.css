@@ -14,15 +14,15 @@
   width: 100%;
 }
 
-/* Eyebrow — DM Mono small-caps label */
+/* Eyebrow — Roboto Mono small-caps label */
 .caseStudySectionEyebrow {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-xxs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
-  text-transform: uppercase;
-  color: var(--color-text-primary);
+  color: var(--color-eyebrow);
   margin: 0;
 }
 

@@ -19,12 +19,12 @@
 /* ── Eyebrow ─────────────────────────────────────────────────────── */
 .aboutEyebrow {
   font-family: var(--font-ui);
-  font-size: var(--size-xs);
+  text-transform: var(--text-transform-ui);
+  font-size: var(--size-xxs);
   font-weight: var(--font-weight-ui);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
-  text-transform: uppercase;
-  color: var(--color-text-primary);
+  color: var(--color-eyebrow);
   margin: 0;
 }
 
@@ -34,15 +34,35 @@
   gap: var(--space-md);
 }
 
+.aboutHeadlineSlot {
+  position: relative;
+  height: var(--height-about-headline);
+  min-height: var(--height-about-headline);
+  max-height: var(--height-about-headline);
+  width: 100%;
+  min-width: 0;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
 .aboutHeadline {
-  font-family: var(--font-heading);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-handwritten);
   font-size: var(--size-lg); /* overridden by JS fitText */
   font-weight: var(--font-weight-body-regular);
-  line-height: var(--line-height-tight);
+  line-height: 1;
   color: var(--color-accent);
   white-space: nowrap;
   margin: 0;
 }
+
+.aboutHeadline--0 { font-family: var(--font-handwritten); }
+.aboutHeadline--1 { font-family: var(--font-handwritten2); }
+.aboutHeadline--2 { font-family: var(--font-handwritten5); }
 
 /* Row: bio text block left, photo stack right */
 .aboutBioRow {
@@ -205,7 +225,8 @@
   padding-block: var(--space-sm); /* vertical breathing room for rotation */
 }
 
-.aboutPhotoRow--drinks {
+.aboutPhotoRow--drinks,
+.aboutPhotoRow--places {
   justify-content: space-between;
 }
 
@@ -229,29 +250,16 @@
   background-color: var(--color-accent);
   color: var(--color-bg);
   font-family: var(--font-ui);
-  font-size: var(--size-xs);
+  text-transform: var(--text-transform-ui);
+  font-size: var(--size-xxs);
   font-weight: var(--font-weight-ui);
   letter-spacing: var(--letter-spacing-ui);
-  text-transform: uppercase;
   line-height: var(--line-height-snug);
   padding: 10px 15px;
   border-radius: 0;
   white-space: nowrap;
 }
 
-/* Triangle pointing upper-left toward the cursor */
-.aboutTooltip::before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: -8px;
-  width: 0;
-  height: 0;
-  border-top: 8px solid var(--color-accent);
-  border-left: 8px solid var(--color-accent);
-  border-right: 8px solid transparent;
-  border-bottom: 8px solid transparent;
-}
 
 /* ── Standalone About page shell ─────────────────────────────────── */
 .appShellMain--about {

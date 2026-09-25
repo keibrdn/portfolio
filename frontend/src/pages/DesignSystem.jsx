@@ -1,13 +1,14 @@
 import './DesignSystem.css'
 
 const COLOR_TOKENS = [
-  { token: '--color-bg', label: 'Background', hex: '#fffcf4' },
+  { token: '--color-bg', label: 'Background', hex: '#fcfcfc' },
   { token: '--color-surface', label: 'Surface', hex: '#dad9c4' },
   { token: '--color-surface-neutral', label: 'Surface neutral', hex: '#f2f2f2' },
   { token: '--color-text-heading', label: 'Text heading', hex: '#474747' },
   { token: '--color-text-primary', label: 'Text primary', hex: '#676767' },
   { token: '--color-text-muted', label: 'Text muted', hex: '#b9b9b9' },
   { token: '--color-accent', label: 'Accent', hex: '#9e9a36' },
+  { token: '--color-eyebrow', label: 'Eyebrow', hex: '#ff4500' },
   { token: '--color-border', label: 'Border', hex: '#d8d4cc' },
   { token: '--color-focus-ring', label: 'Focus ring', hex: '#9e9a36' },
 ]
@@ -33,16 +34,17 @@ const FONT_TOKENS = [
   },
   {
     token: '--font-ui',
-    label: 'DM Mono',
+    label: 'Roboto Mono',
     role: 'UI / Eyebrow',
     weightVar: '--font-weight-ui',
-    sizeVar: '--size-xs',
+    sizeVar: '--size-xxs',
     trackingVar: '--letter-spacing-ui',
     lineHeightVar: '--line-height-snug',
   },
 ]
 
 const SIZE_TOKENS = [
+  '--size-xxs',
   '--size-xs',
   '--size-sm',
   '--size-base',

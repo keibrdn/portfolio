@@ -1,5 +1,8 @@
 .videoFigure {
   margin: 0;
+  background-color: var(--color-surface-neutral);
+  border-radius: var(--radius-md);
+  padding: var(--space-media-frame-pad);
 }
 
 .videoFigurePlayer {
@@ -17,7 +20,8 @@
 
 .videoFigureMissing {
   font-family: var(--font-ui);
-  font-size: var(--size-sm);
+  text-transform: var(--text-transform-ui);
+  font-size: var(--size-xxs);
   color: var(--color-text-muted);
   padding: var(--space-lg);
   border-radius: var(--radius-md);
@@ -25,11 +29,10 @@
 }
 
 .videoFigureCaption {
-  font-family: var(--font-ui);
-  font-weight: var(--font-weight-ui);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body-regular);
   font-size: var(--size-xs);
-  letter-spacing: var(--letter-spacing-ui);
-  color: var(--color-text-muted);
-  margin-top: var(--space-sm);
+  color: var(--color-text-primary);
+  margin-top: var(--space-media-frame-pad);
   line-height: var(--line-height-snug);
 }

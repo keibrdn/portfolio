@@ -25,7 +25,8 @@
 
 .workLoading {
   font-family: var(--font-ui);
-  font-size: var(--size-xs);
+  text-transform: var(--text-transform-ui);
+  font-size: var(--size-xxs);
   color: var(--color-text-muted);
   margin: 0;
 }

@@ -1,4 +1,4 @@
-/* Fonts loaded in index.html: PT Serif · Manrope · DM Mono */
+/* Fonts loaded in index.html: PT Serif · Manrope · Roboto Mono */
 
 :root {
   /* -------------------------------------------------------------------------
@@ -6,7 +6,7 @@
      ------------------------------------------------------------------------- */
 
   /* Base palette (Figma grey/400) */
-  --color-bg: #fffefd;
+  --color-bg: #fcfcfc;
 
   /* Darkest text + UI chrome (Figma grey/100) */
   --color-ink: #474747;
@@ -22,6 +22,8 @@
   /* Accent — Figma green/100 (primary / page/primary alias) */
   --color-accent: #9e9a36;
   --color-accent-light: rgba(158, 154, 54, 0.6); /* Figma green/200 */
+  /* Eyebrows + active nav section */
+  --color-eyebrow: #ff4500;
 
   /* Interaction */
   --color-focus-ring: #9e9a36;
@@ -37,12 +39,12 @@
 
   /* -------------------------------------------------------------------------
      TYPOGRAPHY — Figma "font family" collection
-     heading: PT Serif · body: Manrope · ui/link/eyebrow: DM Mono
+     heading: PT Serif · body: Manrope · ui/link/eyebrow: Roboto Mono
      ------------------------------------------------------------------------- */
 
   --font-heading: "PT Serif", Georgia, serif;
-  --font-body: "PT Serif", Georgia, serif;
-  --font-ui: "DM Mono", ui-monospace, monospace;
+  --font-body: "Manrope", system-ui, sans-serif;
+  --font-ui: "Roboto Mono", ui-monospace, monospace;
   /* Handwritten display fonts — files live in frontend/public/fonts/ */
   --font-handwritten: "Handwritten3", cursive;
   --font-handwritten2: "Handwritten2", cursive;
@@ -61,10 +63,12 @@
   --line-height-loose: 1.85;  /* pull-quotes, long labels */
 
   --letter-spacing-tight: -0.02em;
-  --letter-spacing-ui: 0.06em; /* DM Mono nav / eyebrow / tags */
+  --letter-spacing-ui: 0.02em; /* Roboto Mono — slight tracking, still compact */
+  --text-transform-ui: uppercase;
 
   /* Type scale — Figma "responsive" font-size collection
-     xs   12px · sm  16px · md  24px · lg  32px · xl  40px · 2xl  48px  */
+     xxs  10px · xs  12px · sm  16px · md  24px · lg  32px · xl  40px · 2xl  48px  */
+  --size-xxs: 0.625rem; /* 10px — compact UI labels */
   --size-xs:  0.75rem; /* 12px — captions, tags, toc, meta */
   --size-sm:  1rem;    /* 16px — body copy */
   --size-md:  1.5rem;  /* 24px — lead text, h4-level */
@@ -74,6 +78,9 @@
 
   /* Landing sidebar hero name (fixed small label) */
   --size-hero-name: 1.25rem;
+  /* Reserved boxes so handwritten font cycle cannot shift siblings */
+  --height-home-hero-name: 3rem;
+  --height-about-headline: 4rem;
 
   /* About page headline (Figma node) */
   --size-about-headline: 2.9375rem;
@@ -111,6 +118,9 @@
   --transition-color: color var(--transition-default);
   --transition-opacity: opacity var(--transition-default);
   --transition-transform: transform 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  /* Hover scale bounce — used by about photos, nav links, etc. */
+  --ease-bounce: cubic-bezier(0.34, 1.82, 0.64, 1);
+  --transition-bounce: transform 500ms var(--ease-bounce);
   --transition-case-card-media: transform 300ms ease-in-out;
   --scale-case-card-media-hover: 0.987;
 
@@ -147,6 +157,8 @@
   --space-card-stack: var(--space-md);
   --space-card-info-gap: var(--space-xs);
   --aspect-case-media: 511 / 341;
+  /* Home covers match Reddit featured image (750×500) */
+  --aspect-home-cover: 3 / 2;
 
   /* Tag pills */
   --space-tag-gap: var(--space-xs);
@@ -164,8 +176,11 @@
   --space-case-study-sidebar-stack: var(--space-lg);
   --space-case-study-eyebrow-gap: var(--space-xs);
   --space-case-study-toc-gap: var(--space-xs);
+  --space-media-frame-pad: var(--space-xl);
   --space-case-study-meta-gap: var(--space-xs);
   --space-nav-content-gap: 1.25rem; /* gap between sticky nav and page content */
+  --space-nav-to-content: var(--space-xl); /* horizontal gap from side nav to content */
+  --width-home-content: calc(var(--width-case-study-stack) + var(--space-xl) * 2);
   --space-case-study-page-block: var(--space-nav-content-gap);
   --scroll-margin-case-study-anchor: 6rem;
   --scroll-case-study-toc-fudge: 0.75rem;
@@ -186,7 +201,10 @@
   --about-portrait-tape-two-top: 126;
 
   /* z-index */
+  --z-cover-summary: 2;
   --z-back-to-top: 20;
+  --z-sticky-nav: 50;
+  --space-sticky-nav-top: var(--space-md);
 
   /* Back-to-top button */
   --border-width-back-to-top: 0.0625rem;

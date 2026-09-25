@@ -26,8 +26,9 @@
 
 .designSystemMeta {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-sm);
+  font-size: var(--size-xxs);
   letter-spacing: var(--letter-spacing-ui);
   color: var(--color-text-muted);
   margin: 0;
@@ -70,23 +71,26 @@
 
 .colorSwatchLabel {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-sm);
+  font-size: var(--size-xxs);
   color: var(--color-text-primary);
   letter-spacing: var(--letter-spacing-ui);
 }
 
 .colorSwatchVar {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-xxs);
   color: var(--color-text-muted);
 }
 
 .colorSwatchHex {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-xxs);
   color: var(--color-text-muted);
   letter-spacing: var(--letter-spacing-ui);
 }
@@ -122,16 +126,18 @@
 
 .typefaceRole {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-xxs);
   color: var(--color-text-primary);
   letter-spacing: var(--letter-spacing-ui);
 }
 
 .typefaceVar {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-xxs);
   color: var(--color-text-muted);
 }
 
@@ -150,8 +156,9 @@
 
 .typeScaleToken {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-xxs);
   color: var(--color-text-muted);
   letter-spacing: var(--letter-spacing-ui);
   padding-top: var(--space-xs);
@@ -201,8 +208,9 @@
 
 .spacingLabel {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-xxs);
   color: var(--color-text-muted);
   letter-spacing: var(--letter-spacing-ui);
   text-align: center;
@@ -230,8 +238,9 @@
 
 .radiusStripMeta {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-xxs);
   color: var(--color-text-muted);
   letter-spacing: var(--letter-spacing-ui);
 }

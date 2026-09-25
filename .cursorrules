@@ -16,9 +16,9 @@
 ## Design system rules — the most important rules in this file
 - NEVER hardcode color values, font names, font sizes, spacing, or border-radius values directly in components or CSS files.
 - ALWAYS use CSS custom properties from frontend/src/styles/tokens.css
-- Colors: var(--color-accent)=#9e9a36 · var(--color-bg)=#fffefd · var(--color-ink)=#474747 · var(--color-text-primary)=#676767 · var(--color-text-muted)=#b9b9b9 · var(--color-surface-neutral)=#f2f2f2
-- Fonts: var(--font-heading)="PT Serif" · var(--font-body)="Manrope" · var(--font-ui)="DM Mono"
-- Font sizes: xs=12px · sm=16px · md=24px · lg=32px · xl=40px · 2xl=48px — use e.g. var(--size-lg), never 2rem directly
+- Colors: var(--color-accent)=#9e9a36 · var(--color-eyebrow)=#ff4500 · var(--color-bg)=#fcfcfc · var(--color-ink)=#474747 · var(--color-text-primary)=#676767 · var(--color-text-muted)=#b9b9b9 · var(--color-surface-neutral)=#f2f2f2
+- Fonts: var(--font-heading)="PT Serif" · var(--font-body)="Manrope" · var(--font-ui)="Roboto Mono"
+- Font sizes: xxs=10px · xs=12px · sm=16px · md=24px · lg=32px · xl=40px · 2xl=48px — use e.g. var(--size-lg), never 2rem directly
 - Spacing: 2xs=4px · xs=8px · sm=16px · md=24px · lg=32px · xl=40px · 2xl=72px — use e.g. var(--space-md), never 24px directly
 - Radii: use var(--radius-md)=12px, not 12px
 - When in doubt, add a new token to tokens.css rather than hardcoding a one-off value.

@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useState} from 'react'
-import {client} from '../lib/sanity.js'
+import {fetchSanity} from '../lib/sanity.js'
 import {caseStudyListQuery} from '../lib/queries.js'
 
 /** Placeholder cards when the dataset is empty or fetch fails (UI development). */
@@ -62,7 +62,7 @@ export function useCaseStudies() {
     setError(null)
     const allowMocks = import.meta.env.DEV
     try {
-      const rows = await client.fetch(caseStudyListQuery)
+      const rows = await fetchSanity(caseStudyListQuery)
       if (Array.isArray(rows) && rows.length > 0) {
         setCaseStudies(rows)
         setUsedMock(false)

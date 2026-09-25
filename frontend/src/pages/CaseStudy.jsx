@@ -1,8 +1,9 @@
-import { useLayoutEffect, useMemo, useState } from 'react'
+import { useLayoutEffect, useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import AppShell from '../components/layout/AppShell.jsx'
 import CaseStudySection from '../components/CaseStudySection.jsx'
 import { useCaseStudy } from '../hooks/useCaseStudy.js'
+import { useImageLoaded } from '../hooks/useImageLoaded.js'
 import { useCaseStudyTocActive } from '../hooks/useCaseStudyTocActive.js'
 import { scrollToCaseStudySection } from '../lib/caseStudyScroll.js'
 import { urlFor } from '../lib/sanity.js'
@@ -23,16 +24,79 @@ function tocAnchorClick(e, sectionKey) {
   scrollToCaseStudySection(sectionKey)
 }
 
+const REDDIT_COVER_SUMMARY = {
+  tldr: 'Designing a low-stakes posting format and a real-time presence indicator to help Reddit’s lurkers participate without fear of judgment',
+  did: [
+    'Owned stakeholder relationships with client advisor, subject-matter experts, and research participants',
+    'Shaped product direction and led design of key interaction concepts',
+    'Leading the project’s next phase: engineering the core feature as a real, functioning developer tool on Reddit’s platform',
+  ],
+  timeline: 'February 2026 - Present',
+  role: 'Product designer',
+  team: '2 product designers, 2 user researchers',
+}
+
+function CoverSummary({ summary }) {
+  if (!summary) return null
+  const skills = Array.isArray(summary.skills) ? summary.skills : []
+  return (
+    <div className="caseStudyCoverSummary">
+      <div className="caseStudyCoverSummaryInner">
+        <div className="caseStudyCoverSummaryMain">
+          <p className="caseStudyCoverEyebrow">TLDR;</p>
+          <h3 className="caseStudyCoverTitle">{summary.tldr}</h3>
+          <p className="caseStudyCoverEyebrow">what i did</p>
+          <ul className="caseStudyCoverList">
+            {summary.did.map((item) => (
+              <li key={item} className="caseStudyCoverListItem">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <dl className="caseStudyCoverMeta">
+          <div className="caseStudyCoverMetaGroup">
+            <dt className="caseStudyCoverEyebrow">timeline</dt>
+            <dd className="caseStudyCoverBody">{summary.timeline}</dd>
+          </div>
+          <div className="caseStudyCoverMetaGroup">
+            <dt className="caseStudyCoverEyebrow">role</dt>
+            <dd className="caseStudyCoverBody">{summary.role}</dd>
+          </div>
+          <div className="caseStudyCoverMetaGroup">
+            <dt className="caseStudyCoverEyebrow">Team</dt>
+            <dd className="caseStudyCoverBody">{summary.team}</dd>
+          </div>
+          {skills.length > 0 ? (
+            <div className="caseStudyCoverMetaGroup">
+              <dt className="caseStudyCoverEyebrow">skills</dt>
+              <dd className="caseStudyCoverBody">
+                {skills.map((skill) => (
+                  <p key={skill} className="caseStudyCoverBody">
+                    {skill}
+                  </p>
+                ))}
+              </dd>
+            </div>
+          ) : null}
+        </dl>
+      </div>
+    </div>
+  )
+}
+
 function HeroCover({ src, alt }) {
-  const [loaded, setLoaded] = useState(false)
+  const { loaded, onLoad, onError, ref } = useImageLoaded(src)
   return (
     <div className={`caseStudyHeroMedia${loaded ? ' caseStudyHeroMedia--loaded' : ''}`}>
       <img
+        ref={ref}
         className="caseStudyHeroImg"
         src={src}
         alt={alt}
         loading="eager"
-        onLoad={() => setLoaded(true)}
+        onLoad={onLoad}
+        onError={onError}
       />
     </div>
   )
@@ -44,7 +108,7 @@ export default function CaseStudy() {
 
   const heroImg =
     doc?.featuredImage &&
-    urlFor(doc.featuredImage).width(1800).fit('max').auto('format').quality(88).url()
+    urlFor(doc.featuredImage).width(2880).fit('max').auto('format').quality(88).url()
 
   const sections = Array.isArray(doc?.sections) ? doc.sections : []
   const tocSections = useMemo(
@@ -66,6 +130,10 @@ export default function CaseStudy() {
 
   const skillsLines = doc ? skillsFromLine(doc.skillsLine) : []
   const heroHeadline = doc?.subtitle?.trim() ? doc.subtitle.trim() : (doc?.title ?? '')
+  const coverSummary =
+    String(doc?.slug ?? slug ?? '').toLowerCase() === 'reddit'
+      ? { ...REDDIT_COVER_SUMMARY, skills: skillsLines }
+      : null
 
   if (error) {
     return (
@@ -106,8 +174,29 @@ export default function CaseStudy() {
   }
 
   return (
-    <AppShell fullBleed mainClassName="appShellMain--caseStudy" showNav={false}>
+      <AppShell fullBleed noPadding mainClassName="appShellMain--caseStudy" showNav={false}>
       <article className="caseStudyArticle">
+        {doc ? (
+          <header className="caseStudyHero">
+            <h1
+              className={
+                coverSummary ? 'caseStudyHeroTitle caseStudyHeroTitle--hidden' : 'caseStudyHeroTitle'
+              }
+            >
+              {heroHeadline}
+            </h1>
+            <CoverSummary summary={coverSummary} />
+            {heroImg ? (
+              <HeroCover
+                key={heroImg}
+                src={heroImg}
+                alt={doc.title ? `${doc.title} cover` : 'Case study cover'}
+              />
+            ) : (
+              <div className="caseStudyHeroPlaceholder" aria-hidden="true" />
+            )}
+          </header>
+        ) : null}
         <div className="caseStudyPage">
           <div className="caseStudyPageWhole">
             <aside className="caseStudyPageSidebar" aria-label="Case study navigation">
@@ -162,19 +251,8 @@ export default function CaseStudy() {
             <div className="caseStudyPageMain">
               {doc && (
                 <div className="caseStudyStack">
-                  <h1 className="caseStudyHeroTitle">{heroHeadline}</h1>
-
-                  {heroImg ? (
-                    <HeroCover
-                      key={heroImg}
-                      src={heroImg}
-                      alt={doc.title ? `${doc.title} cover` : 'Case study cover'}
-                    />
-                  ) : (
-                    <div className="caseStudyHeroPlaceholder" aria-hidden="true" />
-                  )}
-
-                  {skillsLines.length > 0 || doc.role || doc.timeline || doc.team ? (
+                  {!coverSummary &&
+                  (skillsLines.length > 0 || doc.role || doc.timeline || doc.team) ? (
                     <dl className="caseStudyMeta">
                       {skillsLines.length > 0 ? (
                         <div className="caseStudyMetaGroup">

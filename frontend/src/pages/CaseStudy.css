@@ -1,6 +1,7 @@
 .appShellMain--caseStudy {
   padding-top: var(--space-case-study-page-block);
   padding-bottom: var(--space-case-study-content-pad-y);
+  overflow-x: clip;
 }
 
 /* TOC items — slide in from left when they mount, staggered */
@@ -52,12 +53,15 @@
 
 .caseStudyMissingSlug {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
+  font-size: var(--size-xxs);
   color: var(--color-text-primary);
 }
 
 .caseStudyMissingLink {
   font-family: var(--font-ui);
-  font-size: var(--size-xs);
+  text-transform: var(--text-transform-ui);
+  font-size: var(--size-xxs);
   color: var(--color-accent);
   text-decoration: underline;
   text-underline-offset: var(--space-2xs);
@@ -78,7 +82,8 @@
 
 .caseStudyMissingRetry {
   font-family: var(--font-ui);
-  font-size: var(--size-xs);
+  text-transform: var(--text-transform-ui);
+  font-size: var(--size-xxs);
   letter-spacing: var(--letter-spacing-ui);
   color: var(--color-bg);
   background-color: var(--color-accent);
@@ -99,6 +104,16 @@
 
 .caseStudyArticle {
   width: 100%;
+  overflow-x: clip;
+}
+
+.caseStudyHero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .caseStudyPage {
@@ -117,8 +132,8 @@
   grid-column: 1;
   justify-self: end;
   position: sticky;
-  top: 5rem;
-  z-index: 1;
+  top: var(--space-sticky-nav-top);
+  z-index: var(--z-sticky-nav);
   box-sizing: border-box;
   width: var(--width-case-study-toc);
   display: flex;
@@ -126,7 +141,7 @@
   align-items: flex-end;
   gap: var(--space-case-study-sidebar-stack);
   padding-block: var(--space-case-study-content-pad-y);
-  padding-right: var(--space-xl);
+  padding-right: var(--space-nav-to-content);
 }
 
 .caseStudyBack {
@@ -152,8 +167,9 @@
 
 .caseStudyBackLabel {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-xxs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
   color: var(--color-text-primary);
@@ -180,11 +196,11 @@
 .caseStudyTocLink {
   display: block;
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-xxs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
-  text-transform: uppercase;
   text-align: right;
   white-space: nowrap;
   color: var(--color-text-muted);
@@ -203,7 +219,7 @@
 
 .caseStudyTocLink--active {
   font-weight: var(--font-weight-heading);
-  color: var(--color-ink);
+  color: var(--color-eyebrow);
 }
 
 .caseStudyPageMain {
@@ -238,9 +254,24 @@
   text-align: center;
   width: 100%;
   max-width: min(100%, 45rem);
+  padding-inline: var(--space-xl);
+  box-sizing: border-box;
 }
 
-.caseStudyHeroMedia {
+.caseStudyHeroTitle--hidden {
+  position: absolute;
+  width: var(--space-2xs);
+  height: var(--space-2xs);
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.caseStudyHeroMedia,
+.caseStudyHeroPlaceholder {
   position: relative;
   width: 100%;
   box-sizing: border-box;
@@ -296,6 +327,91 @@
   background-color: var(--color-media-placeholder);
 }
 
+.caseStudyCoverSummary {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-inline: var(--space-xl);
+  box-sizing: border-box;
+}
+
+.caseStudyCoverSummaryInner {
+  width: var(--width-case-study-stack);
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.caseStudyCoverSummaryMain {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.caseStudyCoverMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin: 0;
+  min-width: 0;
+}
+
+.caseStudyCoverMetaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: 0;
+}
+
+.caseStudyCoverEyebrow {
+  font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
+  font-weight: var(--font-weight-ui);
+  font-size: var(--size-xxs);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-ui);
+  color: var(--color-eyebrow);
+  margin: 0;
+}
+
+.caseStudyCoverTitle {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-heading-medium);
+  font-size: var(--size-md);
+  line-height: var(--line-height-snug);
+  color: var(--color-text-heading);
+  margin: 0;
+}
+
+.caseStudyCoverBody {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-sm);
+  line-height: var(--line-height-body);
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.caseStudyCoverList {
+  margin: 0;
+  padding-inline-start: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.caseStudyCoverListItem {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-sm);
+  line-height: var(--line-height-body);
+  color: var(--color-ink);
+}
+
 .caseStudyMeta {
   display: flex;
   flex-wrap: wrap;
@@ -319,12 +435,12 @@
 
 .caseStudyMetaLabel {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
-  font-size: var(--size-xs);
+  font-size: var(--size-xxs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
-  color: var(--color-text-muted);
-  text-transform: uppercase;
+  color: var(--color-text-heading);
   margin: 0;
 }
 
@@ -397,7 +513,7 @@
 }
 
 .caseStudyPageMain .mediaFigureImg {
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-md);
 }
 
 .caseStudySections .mediaFigureCaption {
@@ -405,11 +521,11 @@
 }
 
 .caseStudyPageMain .videoFigurePlayer {
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-md);
 }
 
 .caseStudyPageMain .videoFigurePlayer mux-player {
-  --media-border-radius: var(--radius-none);
+  --media-border-radius: var(--radius-md);
 }
 
 @media (max-width: 56rem) {
@@ -462,6 +578,11 @@
   .caseStudyHeroMedia,
   .caseStudyHeroPlaceholder {
     width: 100%;
+  }
+
+  .caseStudyCoverSummaryInner {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
   }
 
   .caseStudyMeta {

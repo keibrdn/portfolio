@@ -11,9 +11,9 @@
   margin-bottom: 0;
 }
 
-/* H2-level heading inside portable text */
+/* H4 heading inside portable text */
 .ptH4 {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: var(--font-weight-heading);
   font-size: var(--size-md);
   line-height: var(--line-height-snug);
@@ -57,7 +57,9 @@
 
 .ptLink {
   font-family: var(--font-ui);
+  text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
+  font-size: var(--size-xxs);
   color: var(--color-accent);
   text-decoration: underline;
   text-underline-offset: var(--space-2xs);

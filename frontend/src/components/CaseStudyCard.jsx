@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { urlFor } from '../lib/sanity.js'
+import { useImageLoaded } from '../hooks/useImageLoaded.js'
 import './CaseStudyCard.css'
 
 function tagsFromProps(tags, skillsLine) {
@@ -31,35 +31,41 @@ export default function CaseStudyCard({
     urlFor(featuredImage).width(1800).fit('max').auto('format').quality(85).url()
 
   const tagList = tagsFromProps(tags, skillsLine)
-  const [imgLoaded, setImgLoaded] = useState(false)
+  const { loaded: imgLoaded, onLoad, onError, ref: imgRef } = useImageLoaded(imgUrl)
 
   if (layout === 'horizontal') {
     return (
       <article className="caseStudyCard caseStudyCard--horizontal">
         <Link className="caseStudyCardLink caseStudyCardLink--horizontal" to={href}>
-          {/* Left: text info */}
-          <div className="caseStudyCardInfo">
-            <h2 className="caseStudyCardTitle--h">{title}</h2>
-            {excerpt ? <p className="caseStudyCardExcerpt--h">{excerpt}</p> : null}
-            {tagList.length > 0 && (
-              <p className="caseStudyCardTags--h" aria-label="Tags">
-                {tagList.join(' / ')}
-              </p>
-            )}
-          </div>
-          {/* Right: cover image */}
           <div className={`caseStudyCardMedia caseStudyCardMedia--h${imgLoaded ? ' caseStudyCardMedia--loaded' : ''}`}>
             {imgUrl ? (
               <img
                 className="caseStudyCardImg caseStudyCardImg--h"
                 src={imgUrl}
                 alt={title ? `${title} preview` : 'Project preview'}
+                ref={imgRef}
                 loading="lazy"
-                onLoad={() => setImgLoaded(true)}
+                onLoad={onLoad}
+                onError={onError}
               />
             ) : (
               <div className="caseStudyCardPlaceholder caseStudyCardPlaceholder--h" aria-hidden="true" />
             )}
+          </div>
+          <div className="caseStudyCardBody--h">
+            {title ? <h3 className="caseStudyCardName--h">{title}</h3> : null}
+            {excerpt?.trim() ? (
+              <p className="caseStudyCardTitle--h">{excerpt.trim()}</p>
+            ) : null}
+            {tagList.length > 0 ? (
+              <ul className="caseStudyCardTagList" aria-label="Tags">
+                {tagList.map((tag) => (
+                  <li key={tag} className="caseStudyCardTag">
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         </Link>
       </article>
@@ -76,8 +82,10 @@ export default function CaseStudyCard({
               className="caseStudyCardImg"
               src={imgUrl}
               alt={title ? `${title} preview` : 'Project preview'}
+              ref={imgRef}
               loading="lazy"
-              onLoad={() => setImgLoaded(true)}
+              onLoad={onLoad}
+              onError={onError}
             />
           ) : (
             <div className="caseStudyCardPlaceholder" aria-hidden="true" />
@@ -89,7 +97,7 @@ export default function CaseStudyCard({
           </p>
         ) : null}
         <div className="caseStudyCardBody">
-          <h2 className="caseStudyCardTitle">{title}</h2>
+          <h4 className="caseStudyCardTitle">{title}</h4>
           {excerpt ? <p className="caseStudyCardExcerpt">{excerpt}</p> : null}
         </div>
       </Link>
