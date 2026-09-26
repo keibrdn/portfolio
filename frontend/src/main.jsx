@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom'
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom'
 import './styles/tokens.css'
 import './index.css'
 import Home from './pages/Home.jsx'
@@ -11,26 +11,35 @@ import DesignSystem from './pages/DesignSystem.jsx'
 import BackToTop from './components/BackToTop.jsx'
 import ScrollRevealProvider from './components/ScrollRevealProvider.jsx'
 
-function App() {
+function AppLayout() {
   return (
     <div className="rootStretch">
-      <BrowserRouter>
-        <div className="rootStretchRouter">
-          <ScrollRevealProvider />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/work" element={<Work />} />
-            <Route path="/work/:slug" element={<CaseStudy />} />
-            <Route path="/about" element={<Navigate to="/#about" replace />} />
-            <Route path="/resume" element={<Resume />} />
-            <Route path="/fun" element={<Navigate to="/#play" replace />} />
-            <Route path="/design" element={<DesignSystem />} />
-          </Routes>
-          <BackToTop />
-        </div>
-      </BrowserRouter>
+      <div className="rootStretchRouter">
+        <ScrollRevealProvider />
+        <Outlet />
+        <BackToTop />
+      </div>
     </div>
   )
+}
+
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    children: [
+      { path: '/', element: <Home /> },
+      { path: '/work', element: <Work /> },
+      { path: '/work/:slug', element: <CaseStudy /> },
+      { path: '/about', element: <Navigate to="/#about" replace /> },
+      { path: '/resume', element: <Resume /> },
+      { path: '/fun', element: <Navigate to="/#play" replace /> },
+      { path: '/design', element: <DesignSystem /> },
+    ],
+  },
+])
+
+function App() {
+  return <RouterProvider router={router} />
 }
 
 createRoot(document.getElementById('root')).render(

@@ -13,10 +13,10 @@ export const caseStudyListQuery = /* groq */ `
 `
 
 /**
- * Case study “shell” (no heavy blocks) — small request, case-insensitive slug.
- * Paired with `caseStudySectionsByIdQuery` in `useCaseStudy`.
+ * Full case study for `/work/:slug` — one request so the page can wait,
+ * then slide in only after document + cover are ready.
  */
-export const caseStudyMetaBySlugQuery = /* groq */ `
+export const caseStudyBySlugQuery = /* groq */ `
   *[_type == "caseStudy" && defined(slug.current) && lower(slug.current) == lower($slug)][0] {
     _id,
     title,
@@ -29,15 +29,7 @@ export const caseStudyMetaBySlugQuery = /* groq */ `
     role,
     team,
     timeline,
-    publishedAt
-  }
-`
-
-/**
- * Section blocks for a case study document — fetch by `_id` after meta resolves.
- */
-export const caseStudySectionsByIdQuery = /* groq */ `
-  *[_id == $id][0] {
+    publishedAt,
     sections[] {
       _key,
       heading,
@@ -57,6 +49,8 @@ export const caseStudySectionsByIdQuery = /* groq */ `
         },
         _type == "caseStudyVideoFigure" => {
           caption,
+          clip { asset->{ url, mimeType } },
+          clipHevc { asset->{ url, mimeType } },
           video {
             asset-> {
               playbackId,
@@ -67,6 +61,18 @@ export const caseStudySectionsByIdQuery = /* groq */ `
                 }
               }
             }
+          }
+        },
+        _type == "caseStudyDemoPair" => {
+          left {
+            caption,
+            clip { asset->{ url, mimeType } },
+            clipHevc { asset->{ url, mimeType } }
+          },
+          right {
+            caption,
+            clip { asset->{ url, mimeType } },
+            clipHevc { asset->{ url, mimeType } }
           }
         },
         _type == "caseStudyStatGrid" => {

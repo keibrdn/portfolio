@@ -33,6 +33,21 @@
   border-inline-start: 2px solid var(--color-accent);
 }
 
+.ptPullquote {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-sm);
+  line-height: var(--line-height-body);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-xs);
+  padding-inline-start: var(--space-sm);
+  border-inline-start: var(--border-width-pullquote) solid var(--color-reddit-orange);
+}
+
+.ptPullquote:last-child {
+  margin-bottom: 0;
+}
+
 .ptUl,
 .ptOl {
   margin: 0 0 var(--space-sm);

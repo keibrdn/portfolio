@@ -22,8 +22,7 @@
   /* Accent — Figma green/100 (primary / page/primary alias) */
   --color-accent: #9e9a36;
   --color-accent-light: rgba(158, 154, 54, 0.6); /* Figma green/200 */
-  /* Eyebrows + active nav section */
-  --color-eyebrow: #ff4500;
+  --color-reddit-orange: #ff4500;
 
   /* Interaction */
   --color-focus-ring: #9e9a36;
@@ -65,6 +64,8 @@
   --letter-spacing-tight: -0.02em;
   --letter-spacing-ui: 0.02em; /* Roboto Mono — slight tracking, still compact */
   --text-transform-ui: uppercase;
+  --text-wrap-body: pretty;
+  --text-wrap-heading: balance;
 
   /* Type scale — Figma "responsive" font-size collection
      xxs  10px · xs  12px · sm  16px · md  24px · lg  32px · xl  40px · 2xl  48px  */
@@ -81,6 +82,7 @@
   /* Reserved boxes so handwritten font cycle cannot shift siblings */
   --height-home-hero-name: 3rem;
   --height-about-headline: 4rem;
+  --height-demo-clip: 31.25rem; /* 500px — Remotion phone demos */
 
   /* About page headline (Figma node) */
   --size-about-headline: 2.9375rem;
@@ -115,6 +117,12 @@
   --radius-about-photo: 10px;
 
   --transition-default: 140ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  --duration-page-slide: 480ms;
+  --opacity-page-slide-from: 0;
+  --opacity-page-slide-to: 1;
+  --opacity-card-pending: 0.72;
+  --ease-page-slide: cubic-bezier(0.22, 1, 0.36, 1);
+  --distance-page-slide: 100%;
   --transition-color: color var(--transition-default);
   --transition-opacity: opacity var(--transition-default);
   --transition-transform: transform 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -176,7 +184,8 @@
   --space-case-study-sidebar-stack: var(--space-lg);
   --space-case-study-eyebrow-gap: var(--space-xs);
   --space-case-study-toc-gap: var(--space-xs);
-  --space-media-frame-pad: var(--space-xl);
+  --space-surface-pad: var(--space-xl);
+  --space-media-frame-pad: var(--space-surface-pad);
   --space-case-study-meta-gap: var(--space-xs);
   --space-nav-content-gap: 1.25rem; /* gap between sticky nav and page content */
   --space-nav-to-content: var(--space-xl); /* horizontal gap from side nav to content */
@@ -205,6 +214,8 @@
   --z-back-to-top: 20;
   --z-sticky-nav: 50;
   --space-sticky-nav-top: var(--space-md);
+
+  --border-width-pullquote: 0.125rem;
 
   /* Back-to-top button */
   --border-width-back-to-top: 0.0625rem;

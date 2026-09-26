@@ -3,11 +3,23 @@ import { Link, useParams } from 'react-router-dom'
 import AppShell from '../components/layout/AppShell.jsx'
 import CaseStudySection from '../components/CaseStudySection.jsx'
 import { useCaseStudy } from '../hooks/useCaseStudy.js'
+import { useCaseStudySlide } from '../hooks/useCaseStudySlide.js'
 import { useImageLoaded } from '../hooks/useImageLoaded.js'
 import { useCaseStudyTocActive } from '../hooks/useCaseStudyTocActive.js'
 import { scrollToCaseStudySection } from '../lib/caseStudyScroll.js'
-import { urlFor } from '../lib/sanity.js'
+import { caseStudyHeroUrl } from '../lib/caseStudyLoad.js'
 import './CaseStudy.css'
+
+function CaseStudySlide({ children }) {
+  const { className, onAnimationEnd } = useCaseStudySlide()
+  return (
+    <div className="caseStudySlideViewport">
+      <div className={className} onAnimationEnd={onAnimationEnd}>
+        {children}
+      </div>
+    </div>
+  )
+}
 
 function skillsFromLine(line) {
   if (!line || typeof line !== 'string') return []
@@ -15,6 +27,13 @@ function skillsFromLine(line) {
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean)
+}
+
+function capitalizeFirstWord(line) {
+  const text = String(line)
+  const i = text.search(/\S/)
+  if (i === -1) return text
+  return text.slice(0, i) + text.charAt(i).toUpperCase() + text.slice(i + 1)
 }
 
 function tocAnchorClick(e, sectionKey) {
@@ -43,8 +62,10 @@ function CoverSummary({ summary }) {
     <div className="caseStudyCoverSummary">
       <div className="caseStudyCoverSummaryInner">
         <div className="caseStudyCoverSummaryMain">
-          <p className="caseStudyCoverEyebrow">TLDR;</p>
-          <h3 className="caseStudyCoverTitle">{summary.tldr}</h3>
+          <div className="caseStudyCoverBlock">
+            <p className="caseStudyCoverEyebrow">TLDR;</p>
+            <h3 className="caseStudyCoverTitle">{summary.tldr}</h3>
+          </div>
           <p className="caseStudyCoverEyebrow">what i did</p>
           <ul className="caseStudyCoverList">
             {summary.did.map((item) => (
@@ -73,7 +94,7 @@ function CoverSummary({ summary }) {
               <dd className="caseStudyCoverBody">
                 {skills.map((skill) => (
                   <p key={skill} className="caseStudyCoverBody">
-                    {skill}
+                    {capitalizeFirstWord(skill)}
                   </p>
                 ))}
               </dd>
@@ -106,9 +127,7 @@ export default function CaseStudy() {
   const { slug } = useParams()
   const { doc, isLoading, error, retry } = useCaseStudy(slug)
 
-  const heroImg =
-    doc?.featuredImage &&
-    urlFor(doc.featuredImage).width(2880).fit('max').auto('format').quality(88).url()
+  const heroImg = caseStudyHeroUrl(doc)
 
   const sections = Array.isArray(doc?.sections) ? doc.sections : []
   const tocSections = useMemo(
@@ -118,14 +137,17 @@ export default function CaseStudy() {
   const activeTocKey = useCaseStudyTocActive(tocSections)
 
   useLayoutEffect(() => {
-    if (isLoading || error || !doc) return
     const m = window.location.hash.match(/^#section-(.+)$/)
-    if (!m) return
-    const id = `section-${m[1]}`
-    if (!document.getElementById(id)) return
-    requestAnimationFrame(() => {
-      scrollToCaseStudySection(m[1])
-    })
+    if (m) {
+      if (isLoading || error || !doc) return
+      const id = `section-${m[1]}`
+      if (!document.getElementById(id)) return
+      requestAnimationFrame(() => {
+        scrollToCaseStudySection(m[1])
+      })
+      return
+    }
+    window.scrollTo(0, 0)
   }, [doc, slug, isLoading, error])
 
   const skillsLines = doc ? skillsFromLine(doc.skillsLine) : []
@@ -135,45 +157,62 @@ export default function CaseStudy() {
       ? { ...REDDIT_COVER_SUMMARY, skills: skillsLines }
       : null
 
+  if (isLoading) {
+    return (
+      <div
+        className="caseStudySlideViewport"
+        aria-busy="true"
+        aria-live="polite"
+      >
+        <span className="caseStudyHeroTitle--hidden">Loading case study</span>
+      </div>
+    )
+  }
+
   if (error) {
     return (
-      <AppShell fullBleed mainClassName="appShellMain--caseStudy">
-        <div className="caseStudyMissing">
-          <h1 className="caseStudyMissingTitle">Couldn&apos;t load this case study</h1>
-          <p className="caseStudyMissingText">
-            {error instanceof Error ? error.message : String(error)}
-          </p>
-          <p className="caseStudyMissingActions">
-            <button type="button" className="caseStudyMissingRetry" onClick={retry}>
-              Try again
-            </button>
-            <Link className="caseStudyMissingLink" to="/">
-              Back to home
-            </Link>
-          </p>
-        </div>
-      </AppShell>
+      <CaseStudySlide>
+        <AppShell fullBleed mainClassName="appShellMain--caseStudy">
+          <div className="caseStudyMissing">
+            <h1 className="caseStudyMissingTitle">Couldn&apos;t load this case study</h1>
+            <p className="caseStudyMissingText">
+              {error instanceof Error ? error.message : String(error)}
+            </p>
+            <p className="caseStudyMissingActions">
+              <button type="button" className="caseStudyMissingRetry" onClick={retry}>
+                Try again
+              </button>
+              <Link className="caseStudyMissingLink" to="/">
+                Back to home
+              </Link>
+            </p>
+          </div>
+        </AppShell>
+      </CaseStudySlide>
     )
   }
 
   if (!doc && !isLoading) {
     return (
-      <AppShell fullBleed mainClassName="appShellMain--caseStudy">
-        <div className="caseStudyMissing">
-          <h1 className="caseStudyMissingTitle">Case study not found</h1>
-          <p className="caseStudyMissingText">
-            There isn&apos;t published content for{' '}
-            <span className="caseStudyMissingSlug">{slug}</span> yet.
-          </p>
-          <Link className="caseStudyMissingLink" to="/">
-            Back to home
-          </Link>
-        </div>
-      </AppShell>
+      <CaseStudySlide>
+        <AppShell fullBleed mainClassName="appShellMain--caseStudy">
+          <div className="caseStudyMissing">
+            <h1 className="caseStudyMissingTitle">Case study not found</h1>
+            <p className="caseStudyMissingText">
+              There isn&apos;t published content for{' '}
+              <span className="caseStudyMissingSlug">{slug}</span> yet.
+            </p>
+            <Link className="caseStudyMissingLink" to="/">
+              Back to home
+            </Link>
+          </div>
+        </AppShell>
+      </CaseStudySlide>
     )
   }
 
   return (
+    <CaseStudySlide>
       <AppShell fullBleed noPadding mainClassName="appShellMain--caseStudy" showNav={false}>
       <article className="caseStudyArticle">
         {doc ? (
@@ -309,5 +348,6 @@ export default function CaseStudy() {
         </div>
       </article>
     </AppShell>
+    </CaseStudySlide>
   )
 }

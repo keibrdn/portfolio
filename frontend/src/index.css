@@ -112,6 +112,16 @@ body {
   font-family: var(--font-body);
   font-weight: var(--font-weight-body);
   line-height: var(--line-height-body);
+  text-wrap: var(--text-wrap-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: var(--text-wrap-heading);
 }
 
 h4 {
@@ -119,7 +129,7 @@ h4 {
 }
 
 p {
-  text-wrap: pretty;
+  text-wrap: var(--text-wrap-body);
 }
 
 #root {

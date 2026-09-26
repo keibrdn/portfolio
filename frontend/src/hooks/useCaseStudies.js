@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useState} from 'react'
+import {prefetchCaseStudy} from '../lib/caseStudyLoad.js'
 import {fetchSanity} from '../lib/sanity.js'
 import {caseStudyListQuery} from '../lib/queries.js'
 
@@ -66,6 +67,9 @@ export function useCaseStudies() {
       if (Array.isArray(rows) && rows.length > 0) {
         setCaseStudies(rows)
         setUsedMock(false)
+        rows.forEach((row) => {
+          if (row?.slug) prefetchCaseStudy(row.slug)
+        })
       } else if (allowMocks) {
         setCaseStudies(MOCK_CASE_STUDIES)
         setUsedMock(true)

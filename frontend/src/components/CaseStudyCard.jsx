@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { prefetchCaseStudy, readCaseStudyCache } from '../lib/caseStudyLoad.js'
 import { urlFor } from '../lib/sanity.js'
 import { useImageLoaded } from '../hooks/useImageLoaded.js'
 import './CaseStudyCard.css'
@@ -26,6 +28,8 @@ export default function CaseStudyCard({
   layout = 'vertical', // 'vertical' | 'horizontal'
 }) {
   const href = `/work/${slug}`
+  const navigate = useNavigate()
+  const [pending, setPending] = useState(false)
   const imgUrl =
     featuredImage &&
     urlFor(featuredImage).width(1800).fit('max').auto('format').quality(85).url()
@@ -33,10 +37,38 @@ export default function CaseStudyCard({
   const tagList = tagsFromProps(tags, skillsLine)
   const { loaded: imgLoaded, onLoad, onError, ref: imgRef } = useImageLoaded(imgUrl)
 
+  function warm() {
+    if (slug) prefetchCaseStudy(slug)
+  }
+
+  function onOpen(e) {
+    if (!slug) return
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+    if (e.button != null && e.button !== 0) return
+    if (readCaseStudyCache(slug)?.doc) return
+    e.preventDefault()
+    setPending(true)
+    prefetchCaseStudy(slug)
+      .catch(() => {})
+      .finally(() => {
+        setPending(false)
+        navigate(href)
+      })
+  }
+
+  const linkBusy = pending ? { 'aria-busy': true } : null
+
   if (layout === 'horizontal') {
     return (
       <article className="caseStudyCard caseStudyCard--horizontal">
-        <Link className="caseStudyCardLink caseStudyCardLink--horizontal" to={href}>
+        <Link
+          className="caseStudyCardLink caseStudyCardLink--horizontal"
+          to={href}
+          onMouseEnter={warm}
+          onFocus={warm}
+          onClick={onOpen}
+          {...linkBusy}
+        >
           <div className={`caseStudyCardMedia caseStudyCardMedia--h${imgLoaded ? ' caseStudyCardMedia--loaded' : ''}`}>
             {imgUrl ? (
               <img
@@ -75,7 +107,14 @@ export default function CaseStudyCard({
   // Default vertical layout (used on other pages)
   return (
     <article className="caseStudyCard">
-      <Link className="caseStudyCardLink" to={href}>
+      <Link
+        className="caseStudyCardLink"
+        to={href}
+        onMouseEnter={warm}
+        onFocus={warm}
+        onClick={onOpen}
+        {...linkBusy}
+      >
         <div className={`caseStudyCardMedia${imgLoaded ? ' caseStudyCardMedia--loaded' : ''}`}>
           {imgUrl ? (
             <img

@@ -28,6 +28,7 @@ export default defineType({
             {title: 'Normal', value: 'normal'},
             {title: 'H4', value: 'h4'},
             {title: 'Quote', value: 'blockquote'},
+            {title: 'Pull quote', value: 'pullquote'},
           ],
           lists: [
             {title: 'Bullet', value: 'bullet'},

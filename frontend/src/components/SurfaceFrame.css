@@ -1,0 +1,23 @@
+.surfaceFrame {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background-color: var(--color-surface-neutral);
+  border-radius: var(--radius-md);
+  padding: var(--space-surface-pad);
+}
+
+.surfaceFrame--fit {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.surfaceFrameCaption {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-body-regular);
+  font-size: var(--size-xs);
+  color: var(--color-text-primary);
+  margin-top: var(--space-surface-pad);
+  line-height: var(--line-height-snug);
+  text-align: center;
+}

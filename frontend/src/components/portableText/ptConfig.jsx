@@ -8,6 +8,7 @@ const ptComponents = {
     blockquote: ({ children }) => (
       <blockquote className="ptQuote">{children}</blockquote>
     ),
+    pullquote: ({ children }) => <p className="ptPullquote">{children}</p>,
   },
   list: {
     bullet: ({ children }) => <ul className="ptUl">{children}</ul>,

@@ -4,33 +4,52 @@
   overflow-x: clip;
 }
 
-/* TOC items — slide in from left when they mount, staggered */
-.caseStudyTocItem {
-  animation: slideInLeft 360ms ease-in-out both;
-  animation-delay: calc(var(--i, 0) * 80ms);
+.caseStudySlideViewport {
+  overflow-x: clip;
+  width: 100%;
+  min-height: var(--layout-viewport-min-height);
 }
 
-/* Hero content — cascade down the page */
-.caseStudyHeroTitle {
-  animation: fadeIn 450ms ease-in-out both;
-  animation-delay: 60ms;
+.caseStudySlide {
+  width: 100%;
+  min-height: var(--layout-viewport-min-height);
 }
 
-.caseStudyHeroMedia,
-.caseStudyHeroPlaceholder {
-  animation: fadeIn 500ms ease-in-out both;
-  animation-delay: 220ms;
+.caseStudySlide--enter {
+  animation: caseStudySlideIn var(--duration-page-slide) var(--ease-page-slide) both;
 }
 
-.caseStudyMeta {
-  animation: fadeIn 450ms ease-in-out both;
-  animation-delay: 400ms;
+.caseStudySlide--exit {
+  animation: caseStudySlideOut var(--duration-page-slide) var(--ease-page-slide) both;
 }
 
-/* Sections — each one fades in 160ms after the previous */
-.caseStudySection {
-  animation: fadeIn 500ms ease-in-out both;
-  animation-delay: calc(560ms + var(--i, 0) * 160ms);
+@keyframes caseStudySlideIn {
+  from {
+    transform: translateX(var(--distance-page-slide));
+    opacity: var(--opacity-page-slide-from);
+  }
+  to {
+    transform: translateX(0);
+    opacity: var(--opacity-page-slide-to);
+  }
+}
+
+@keyframes caseStudySlideOut {
+  from {
+    transform: translateX(0);
+    opacity: var(--opacity-page-slide-to);
+  }
+  to {
+    transform: translateX(var(--distance-page-slide));
+    opacity: var(--opacity-page-slide-from);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caseStudySlide--enter,
+  .caseStudySlide--exit {
+    animation: none;
+  }
 }
 
 .caseStudyMissing {
@@ -219,7 +238,7 @@
 
 .caseStudyTocLink--active {
   font-weight: var(--font-weight-heading);
-  color: var(--color-eyebrow);
+  color: var(--color-reddit-orange);
 }
 
 .caseStudyPageMain {
@@ -360,6 +379,7 @@
   min-width: 0;
 }
 
+.caseStudyCoverBlock,
 .caseStudyCoverMetaGroup {
   display: flex;
   flex-direction: column;
@@ -374,7 +394,7 @@
   font-size: var(--size-xxs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
-  color: var(--color-eyebrow);
+  color: var(--color-reddit-orange);
   margin: 0;
 }
 
@@ -397,19 +417,24 @@
 }
 
 .caseStudyCoverList {
+  list-style: none;
   margin: 0;
-  padding-inline-start: var(--space-md);
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-md);
 }
 
 .caseStudyCoverListItem {
+  list-style: none;
   font-family: var(--font-body);
   font-weight: var(--font-weight-body-regular);
   font-size: var(--size-sm);
   line-height: var(--line-height-body);
   color: var(--color-ink);
+  background-color: var(--color-surface-neutral);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
 }
 
 .caseStudyMeta {
@@ -481,6 +506,7 @@
 }
 
 .caseStudyPageMain .ptP,
+.caseStudyPageMain .ptPullquote,
 .caseStudyPageMain .ptLi {
   font-family: var(--font-body);
   font-weight: var(--font-weight-body-regular);
@@ -489,7 +515,8 @@
   color: var(--color-text-primary);
 }
 
-.caseStudyPageMain .ptP {
+.caseStudyPageMain .ptP,
+.caseStudyPageMain .ptPullquote {
   margin: 0 0 var(--space-prose);
 }
 
@@ -516,7 +543,7 @@
   border-radius: var(--radius-md);
 }
 
-.caseStudySections .mediaFigureCaption {
+.caseStudySections .surfaceFrameCaption {
   text-align: center;
 }
 

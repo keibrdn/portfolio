@@ -8,7 +8,7 @@ const COLOR_TOKENS = [
   { token: '--color-text-primary', label: 'Text primary', hex: '#676767' },
   { token: '--color-text-muted', label: 'Text muted', hex: '#b9b9b9' },
   { token: '--color-accent', label: 'Accent', hex: '#9e9a36' },
-  { token: '--color-eyebrow', label: 'Eyebrow', hex: '#ff4500' },
+  { token: '--color-reddit-orange', label: 'Reddit orange', hex: '#ff4500' },
   { token: '--color-border', label: 'Border', hex: '#d8d4cc' },
   { token: '--color-focus-ring', label: 'Focus ring', hex: '#9e9a36' },
 ]

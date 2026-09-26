@@ -1,5 +1,6 @@
 import { urlFor } from '../../lib/sanity.js'
 import { useImageLoaded } from '../../hooks/useImageLoaded.js'
+import SurfaceFrame from '../SurfaceFrame.jsx'
 import './MediaFigureBlock.css'
 
 export default function MediaFigureBlock({ media, caption, alt, size }) {
@@ -13,7 +14,7 @@ export default function MediaFigureBlock({ media, caption, alt, size }) {
   const sizeClass = size === 'small' ? ' mediaFigure--small' : size === 'medium' ? ' mediaFigure--medium' : ''
 
   return (
-    <figure className={`mediaFigure${sizeClass}`}>
+    <SurfaceFrame className={`mediaFigure${sizeClass}`} caption={caption}>
       <div className={`mediaFigureMain${loaded ? ' mediaFigureMain--loaded' : ''}`}>
         {src ? (
           <img
@@ -29,9 +30,6 @@ export default function MediaFigureBlock({ media, caption, alt, size }) {
           <div className="mediaFigureFallback" role="img" aria-label={altText} />
         )}
       </div>
-      {caption ? (
-        <figcaption className="mediaFigureCaption">{caption}</figcaption>
-      ) : null}
-    </figure>
+    </SurfaceFrame>
   )
 }

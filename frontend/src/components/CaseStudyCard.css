@@ -16,6 +16,10 @@
   opacity: 0.88;
 }
 
+.caseStudyCardLink[aria-busy="true"] {
+  opacity: var(--opacity-card-pending);
+}
+
 .caseStudyCardTags {
   font-family: var(--font-ui);
   text-transform: var(--text-transform-ui);

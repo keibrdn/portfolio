@@ -6,6 +6,7 @@
 import RichTextBlock from './blocks/RichTextBlock.jsx'
 import MediaFigureBlock from './blocks/MediaFigureBlock.jsx'
 import VideoFigureBlock from './blocks/VideoFigureBlock.jsx'
+import DemoPairBlock from './blocks/DemoPairBlock.jsx'
 import StatGridBlock from './blocks/StatGridBlock.jsx'
 import QuoteBlock from './blocks/QuoteBlock.jsx'
 import CalloutBlock from './blocks/CalloutBlock.jsx'
@@ -31,8 +32,16 @@ export default function BlockRenderer({ block }) {
 
     case 'caseStudyVideoFigure':
       return (
-        <VideoFigureBlock video={block.video} caption={block.caption} />
+        <VideoFigureBlock
+          video={block.video}
+          clip={block.clip}
+          clipHevc={block.clipHevc}
+          caption={block.caption}
+        />
       )
+
+    case 'caseStudyDemoPair':
+      return <DemoPairBlock left={block.left} right={block.right} />
 
     case 'caseStudyStatGrid':
       return <StatGridBlock intro={block.intro} stats={block.stats} />

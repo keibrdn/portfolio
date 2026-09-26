@@ -28,6 +28,7 @@ export default defineType({
         defineArrayMember({type: 'caseStudyRichText'}),
         defineArrayMember({type: 'caseStudyMediaFigure'}),
         defineArrayMember({type: 'caseStudyVideoFigure'}),
+        defineArrayMember({type: 'caseStudyDemoPair'}),
         defineArrayMember({type: 'caseStudyStatGrid'}),
         defineArrayMember({type: 'caseStudyQuote'}),
         defineArrayMember({type: 'caseStudyCallout'}),
