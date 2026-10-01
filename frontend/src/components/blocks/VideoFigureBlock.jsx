@@ -10,9 +10,9 @@ export default function VideoFigureBlock({ video, clip, clipHevc, caption }) {
   const playbackId = getPlaybackIdFromMuxField(video)
 
   return (
-    <SurfaceFrame className="videoFigure" caption={caption}>
+    <SurfaceFrame className="videoFigure" caption={caption} fit={Boolean(clipUrl)}>
       {clipUrl ? (
-        <div className="videoFigurePlayer">
+        <div className="videoFigurePlayer videoFigurePlayer--clip">
           <AlphaLoopVideo src={clipUrl} hevcSrc={hevcUrl} label={caption} />
         </div>
       ) : playbackId ? (

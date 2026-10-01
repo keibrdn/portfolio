@@ -64,6 +64,18 @@ function AboutEyebrow({ children }) {
   return <p className="aboutEyebrow">{children}</p>
 }
 
+const HEADLINE_FONTS = [
+  { className: 'aboutHeadline aboutHeadline--0', family: 'Handwritten3' },
+  { className: 'aboutHeadline aboutHeadline--1', family: 'Handwritten2' },
+  { className: 'aboutHeadline aboutHeadline--2', family: 'Handwritten5' },
+]
+
+function headlineInk(el) {
+  const range = document.createRange()
+  range.selectNodeContents(el)
+  return range.getBoundingClientRect()
+}
+
 export function AboutContent() {
   const [tooltip, setTooltip]   = useState(null) // { text, x, y } | null
   const [activeId, setActiveId] = useState(null) // currently hovered
@@ -84,30 +96,56 @@ export function AboutContent() {
     const bioText  = bioTextRef.current
     if (!headline || !bioText) return
 
-    function measure() {
+    let cancelled = false
+
+    async function measure() {
       const text = headline.textContent
       const width = bioText.offsetWidth
       if (!text || !width) return
 
-      const sizes = [0, 1, 2].map((i) => {
+      try {
+        await Promise.all(
+          HEADLINE_FONTS.map(({ family }) =>
+            document.fonts.load(`400 1em "${family}"`),
+          ),
+        )
+      } catch {
+        /* measure with whatever is available */
+      }
+      if (cancelled) return
+
+      const metrics = HEADLINE_FONTS.map(({ className }) => {
         const probe = document.createElement('span')
-        probe.className = `aboutHeadline aboutHeadline--${i}`
+        probe.className = className
         probe.textContent = text
         probe.style.cssText =
-          'position:absolute;visibility:hidden;left:0;top:0;white-space:nowrap;font-size:100px;pointer-events:none'
+          'position:absolute;visibility:hidden;left:0;top:0;right:auto;width:max-content;white-space:nowrap;font-size:var(--size-lg);line-height:1;pointer-events:none'
         document.body.appendChild(probe)
-        const size = 100 * (width / probe.scrollWidth)
+        const probePx = parseFloat(getComputedStyle(probe).fontSize) || 32
+        const ink = headlineInk(probe)
         probe.remove()
-        return `${size}px`
+        return { probePx, width: ink.width, height: ink.height }
       })
-      setFontSizes(sizes)
+
+      const probePx = metrics[0]?.probePx || 32
+      const maxInkH = Math.max(...metrics.map((m) => m.height), 1)
+      const optical = metrics.map((m) => maxInkH / Math.max(m.height, 1))
+      const scaledW = metrics.map((m, i) => m.width * optical[i])
+      const maxW = Math.max(...scaledW, 1)
+      const base = probePx * (width / maxW)
+      setFontSizes(optical.map((scale) => `${base * scale}px`))
     }
 
     measure()
-    document.fonts?.ready?.then(measure)
+    document.fonts?.ready?.then(() => {
+      if (!cancelled) measure()
+    })
     const observer = new ResizeObserver(measure)
     observer.observe(bioText)
-    return () => observer.disconnect()
+    return () => {
+      cancelled = true
+      observer.disconnect()
+    }
   }, [])
 
   /* Returns merged style + event handlers for any hoverable photo */

@@ -22,7 +22,7 @@
   /* Accent — Figma green/100 (primary / page/primary alias) */
   --color-accent: #9e9a36;
   --color-accent-light: rgba(158, 154, 54, 0.6); /* Figma green/200 */
-  --color-reddit-orange: #ff4500;
+  --color-reddit-orange: #ff723e;
 
   /* Interaction */
   --color-focus-ring: #9e9a36;
@@ -83,6 +83,13 @@
   --height-home-hero-name: 3rem;
   --height-about-headline: 4rem;
   --height-demo-clip: 31.25rem; /* 500px — Remotion phone demos */
+  --size-side-media: 18.75rem; /* 300px — framed stills beside copy */
+  --width-finding-strip: 3rem;
+  --height-finding-strip: 3rem;
+  --duration-finding: 500ms;
+  --ease-finding: var(--ease-page-slide);
+  --scale-finding-from: 0.96;
+  --scale-finding-strip-hover: 1.12;
 
   /* About page headline (Figma node) */
   --size-about-headline: 2.9375rem;
@@ -115,6 +122,14 @@
   --radius-md: 12px;
   --radius-lg: 999px;
   --radius-about-photo: 10px;
+  --radius-search-bar: 1.5rem;
+  --width-search-bar: 35rem;
+  --size-search-icon: 1.25rem;
+  --size-media-control-icon: 1rem;
+  --width-search-cursor: 0.0625rem;
+  --shadow-search-bar: 0 0.0625rem 0.375rem color-mix(in srgb, var(--color-ink) 8%, transparent);
+  --shadow-media: 0.1875rem 0.25rem 0.375rem color-mix(in srgb, var(--color-ink) 20%, transparent);
+  --duration-search-cursor: 0.9s;
 
   --transition-default: 140ms cubic-bezier(0.25, 0.1, 0.25, 1);
   --duration-page-slide: 480ms;
@@ -186,11 +201,13 @@
   --space-case-study-toc-gap: var(--space-xs);
   --space-surface-pad: var(--space-xl);
   --space-media-frame-pad: var(--space-surface-pad);
+  --space-media-control-gap: var(--space-sm);
+  --space-media-control-y: var(--space-sm);
   --space-case-study-meta-gap: var(--space-xs);
   --space-nav-content-gap: 1.25rem; /* gap between sticky nav and page content */
   --space-nav-to-content: var(--space-xl); /* horizontal gap from side nav to content */
   --width-home-content: calc(var(--width-case-study-stack) + var(--space-xl) * 2);
-  --space-case-study-page-block: var(--space-nav-content-gap);
+  --space-case-study-page-block: var(--space-xl);
   --scroll-margin-case-study-anchor: 6rem;
   --scroll-case-study-toc-fudge: 0.75rem;
 

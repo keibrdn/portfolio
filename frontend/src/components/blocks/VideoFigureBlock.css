@@ -1,7 +1,18 @@
 .videoFigurePlayer {
   width: 100%;
   border-radius: var(--radius-md);
-  overflow: hidden;
+}
+
+.videoFigurePlayer--clip {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.videoFigurePlayer--clip .alphaLoopVideo {
+  width: auto;
+  height: var(--height-demo-clip);
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .videoFigurePlayer mux-player {

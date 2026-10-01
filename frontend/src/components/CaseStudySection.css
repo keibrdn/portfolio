@@ -43,7 +43,7 @@
   font-weight: var(--font-weight-heading-medium);
   font-size: var(--size-md);
   line-height: var(--line-height-snug);
-  color: var(--color-text-primary);
+  color: var(--color-text-heading);
   margin: 0;
   max-width: 100%;
 }
@@ -51,8 +51,69 @@
 .caseStudySectionBlocks {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xl);
+  gap: var(--space-case-study-section-inner);
   width: 100%;
+}
+
+.caseStudySectionBreak {
+  margin-top: var(--space-case-study-section-inner);
+}
+
+.caseStudyDemoCompose {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: max-content;
+  gap: var(--space-case-study-section-inner);
+  align-items: stretch;
+  width: 100%;
+}
+
+.caseStudyDemoCompose .demoPair,
+.caseStudyDemoCompose .videoFigure {
+  align-self: start;
+}
+
+.caseStudyDemoCompose .caseStudyMediaStack {
+  min-height: 0;
+  height: var(--demo-compose-height, 100%);
+}
+
+.caseStudyMediaStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-case-study-section-inner);
+  min-height: 0;
+  height: 100%;
+}
+
+.caseStudyDemoCompose .caseStudyMediaStack .mediaFigure,
+.caseStudyMediaStack .mediaFigure {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.caseStudyMediaStack .mediaFigureMain {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caseStudyMediaStack .mediaFigureImg {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.caseStudyMediaStack .surfaceFrameCaption {
+  flex-shrink: 0;
 }
 
 .caseStudyMediaRow {
@@ -78,10 +139,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
 .caseStudyMediaRow .mediaFigureImg {
+  width: 100%;
+  height: auto;
+}
+
+.caseStudyMediaRow--equalHeight .mediaFigureImg {
+  width: auto;
+  max-width: 100%;
+  height: var(--media-row-img-height, auto);
+  object-fit: contain;
+}
+
+.caseStudyMediaRow--equalHeight .mediaFigure:has(img[alt='After' i]) .mediaFigureImg {
   width: 100%;
   height: auto;
 }
@@ -91,6 +163,18 @@
 }
 
 @media (max-width: 56rem) {
+  .caseStudyDemoCompose {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .caseStudyMediaStack {
+    height: auto;
+  }
+
+  .caseStudyMediaStack .mediaFigure {
+    flex: 0 0 auto;
+  }
+
   .caseStudyMediaRow {
     grid-template-columns: 1fr;
   }

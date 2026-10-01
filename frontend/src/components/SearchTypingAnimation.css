@@ -1,0 +1,92 @@
+.searchTyping {
+  --search-typing-scale: 1;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.searchTypingMeasure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.searchTypingScaled {
+  width: calc(var(--search-typing-width, auto) * var(--search-typing-scale));
+  height: calc(var(--search-typing-height, auto) * var(--search-typing-scale));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchTypingBar {
+  width: max-content;
+  max-width: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background-color: var(--color-bg);
+  border: var(--border-width-back-to-top) solid var(--color-border);
+  border-radius: var(--radius-search-bar);
+  padding: var(--space-sm) var(--space-md);
+  box-shadow: var(--shadow-search-bar);
+  box-sizing: border-box;
+}
+
+.searchTypingScaled .searchTypingBar {
+  width: var(--search-typing-width, max-content);
+  transform: scale(var(--search-typing-scale));
+  transform-origin: center center;
+}
+
+.searchTypingIcon {
+  flex-shrink: 0;
+  width: var(--size-search-icon);
+  height: var(--size-search-icon);
+  color: var(--color-text-muted);
+}
+
+.searchTypingText {
+  font-size: var(--size-sm);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+
+.searchTypingHighlight {
+  color: var(--color-reddit-orange);
+}
+
+.searchTypingCursor {
+  display: inline-block;
+  width: var(--width-search-cursor);
+  height: 1.1em;
+  background-color: var(--color-ink);
+  margin-left: var(--space-2xs);
+  vertical-align: middle;
+  animation: searchTypingCursorBlink var(--duration-search-cursor) step-end infinite;
+}
+
+.searchTypingCursor--static {
+  animation: none;
+  opacity: 0;
+}
+
+@keyframes searchTypingCursorBlink {
+  0%,
+  100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .searchTypingCursor {
+    animation: none;
+    opacity: 0;
+  }
+}

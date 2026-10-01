@@ -67,6 +67,7 @@ export default function CaseStudyCard({
           onMouseEnter={warm}
           onFocus={warm}
           onClick={onOpen}
+          data-cuelume-toggle="loading"
           {...linkBusy}
         >
           <div className={`caseStudyCardMedia caseStudyCardMedia--h${imgLoaded ? ' caseStudyCardMedia--loaded' : ''}`}>
@@ -113,6 +114,7 @@ export default function CaseStudyCard({
         onMouseEnter={warm}
         onFocus={warm}
         onClick={onOpen}
+        data-cuelume-toggle="loading"
         {...linkBusy}
       >
         <div className={`caseStudyCardMedia${imgLoaded ? ' caseStudyCardMedia--loaded' : ''}`}>

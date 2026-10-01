@@ -2,18 +2,22 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--space-md);
+  width: 100%;
 }
 
 .demoPair--single {
   grid-template-columns: minmax(0, max-content);
 }
 
+.demoPair:not(.demoPair--single) .surfaceFrame {
+  width: 100%;
+}
+
 .demoPairStage {
-  height: var(--height-demo-clip);
-  width: fit-content;
+  display: flex;
+  justify-content: center;
+  width: 100%;
   max-width: 100%;
-  border-radius: var(--radius-md);
-  overflow: hidden;
   background-color: transparent;
 }
 

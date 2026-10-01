@@ -12,6 +12,12 @@
   max-width: 100%;
 }
 
+.surfaceFrame img,
+.surfaceFrame video,
+.surfaceFrame mux-player {
+  filter: drop-shadow(var(--shadow-media));
+}
+
 .surfaceFrameCaption {
   font-family: var(--font-body);
   font-weight: var(--font-weight-body-regular);

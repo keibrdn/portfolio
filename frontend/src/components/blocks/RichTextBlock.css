@@ -1,3 +1,52 @@
+.richTextBlock--withFrame {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-md);
+  align-items: start;
+}
+
+.richTextBlock--sideFit {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.richTextSideSlot,
+.richTextSideEmbed {
+  width: 100%;
+  aspect-ratio: var(--aspect-home-cover);
+}
+
+.richTextSideEmbed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.richTextSideEmbed--fit {
+  aspect-ratio: auto;
+  width: 100%;
+  height: auto;
+}
+
+.richTextBlock--sideFit .richTextSideImg {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: var(--size-side-media);
+}
+
+.richTextSideImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  opacity: 0;
+  transition: var(--transition-opacity);
+}
+
+.richTextSideImg--loaded {
+  opacity: 1;
+}
 
 .richTextBlockEyebrow {
   font-family: var(--font-ui);
@@ -7,14 +56,25 @@
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
   color: var(--color-reddit-orange);
-  margin: 0 0 var(--space-md);
+  margin: 0 0 var(--space-xs);
 }
 
 .richTextBlockTitle {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-heading-medium);
-  font-size: var(--size-lg);
+  font-size: var(--size-md);
   line-height: var(--line-height-snug);
   color: var(--color-text-heading);
   margin: 0 0 var(--space-xs);
+}
+
+.richTextBlockCopy > .richTextBlockTitle:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 56rem) {
+  .richTextBlock--withFrame,
+  .richTextBlock--sideFit {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

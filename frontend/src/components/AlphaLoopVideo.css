@@ -1,3 +1,10 @@
+.alphaLoop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 .alphaLoopVideo {
   display: block;
   width: 100%;
@@ -9,4 +16,39 @@
 
 .alphaLoopVideo::-webkit-media-controls {
   display: none;
+}
+
+.alphaLoopControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-media-control-gap);
+  margin-bottom: var(--space-media-control-y);
+}
+
+.alphaLoopControl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: var(--space-2xs);
+  border: none;
+  background-color: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.alphaLoopControlIcon {
+  display: block;
+  width: var(--size-media-control-icon);
+  height: var(--size-media-control-icon);
+}
+
+.alphaLoopControl:hover {
+  color: var(--color-ink);
+}
+
+.alphaLoopControl:focus-visible {
+  outline: var(--border-width-back-to-top) solid var(--color-focus-ring);
+  outline-offset: var(--space-2xs);
 }

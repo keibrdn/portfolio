@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useLayoutEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import AppShell from '../components/layout/AppShell.jsx'
 import CaseStudyGrid from '../components/CaseStudyGrid.jsx'
 import Footer from '../components/layout/Footer.jsx'
@@ -22,6 +23,14 @@ function IconCopy() {
     <svg className="homeSocialIcon" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
       <rect x="4.5" y="4.5" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5" />
       <path d="M3 7.5H2C1.44772 7.5 1 7.05228 1 6.5V2C1 1.44772 1.44772 1 2 1H6.5C7.05228 1 7.5 1.44772 7.5 2V3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function IconLink() {
+  return (
+    <svg className="homeSocialIcon" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+      <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -184,6 +193,8 @@ function HomeFixedNav({ leadRef }) {
       aria-label={menuOpen ? 'Close menu' : 'Open menu'}
       aria-expanded={menuOpen}
       aria-controls="home-site-nav"
+      data-cuelume-hover="tick"
+      data-cuelume-toggle
       onClick={() => setMenuOpen((open) => !open)}
     >
       <span className="homeHamburgerBar" />
@@ -220,6 +231,8 @@ function HomeFixedNav({ leadRef }) {
                 ? 'homeFixedNavLink homeFixedNavLink--active'
                 : 'homeFixedNavLink'
             }
+            data-cuelume-hover="tick"
+            data-cuelume-toggle
             onClick={() => goTo(item.id)}
           >
             {item.label}
@@ -243,6 +256,7 @@ function landingCaseStudies(caseStudies) {
 }
 
 export default function Home() {
+  const { pathname, hash, key } = useLocation()
   const { caseStudies, isLoading, error, retry } = useCaseStudies()
   const [emailCopied, setEmailCopied] = useState(false)
   const copyTimer = useRef(null)
@@ -255,11 +269,14 @@ export default function Home() {
     return () => clearInterval(id)
   }, [])
 
-  useEffect(() => {
-    const hash = window.location.hash.replace('#', '')
-    if (!hash) return
-    requestAnimationFrame(() => scrollToSection(hash))
-  }, [])
+  useLayoutEffect(() => {
+    const sectionId = hash.replace('#', '')
+    if (sectionId) {
+      requestAnimationFrame(() => scrollToSection(sectionId))
+      return
+    }
+    window.scrollTo(0, 0)
+  }, [pathname, hash, key])
 
   function handleCopyEmail() {
     navigator.clipboard.writeText('keilabraden@gmail.com').then(() => {
@@ -298,13 +315,29 @@ export default function Home() {
                 className="homeSocialLink homeSocialLink--copy"
                 onClick={handleCopyEmail}
                 aria-label="Copy email address"
+                data-cuelume-toggle="scan"
               >
                 <span className="homeCopyTooltip" aria-live="polite">
                   {emailCopied ? 'copied!' : 'email'}
                 </span>
                 <IconCopy />
               </button>
-              <a className="homeSocialLink" href="/resume.pdf" target="_blank" rel="noreferrer noopener">
+              <a
+                className="homeSocialLink"
+                href="https://www.linkedin.com/in/keila-braden/"
+                target="_blank"
+                rel="noreferrer noopener"
+                data-cuelume-toggle="loading"
+              >
+                linkedin<IconLink />
+              </a>
+              <a
+                className="homeSocialLink"
+                href="/resume.pdf"
+                target="_blank"
+                rel="noreferrer noopener"
+                data-cuelume-toggle="loading"
+              >
                 resume<IconDownload />
               </a>
             </div>

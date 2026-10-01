@@ -7,7 +7,7 @@
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
   color: var(--color-reddit-orange);
-  margin: 0 0 var(--space-md);
+  margin: 0 0 var(--space-xs);
 }
 
 .calloutTitle {

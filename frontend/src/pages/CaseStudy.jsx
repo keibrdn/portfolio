@@ -6,7 +6,12 @@ import { useCaseStudy } from '../hooks/useCaseStudy.js'
 import { useCaseStudySlide } from '../hooks/useCaseStudySlide.js'
 import { useImageLoaded } from '../hooks/useImageLoaded.js'
 import { useCaseStudyTocActive } from '../hooks/useCaseStudyTocActive.js'
+import { usePersistWindowScroll } from '../hooks/usePersistWindowScroll.js'
 import { scrollToCaseStudySection } from '../lib/caseStudyScroll.js'
+import {
+  isReloadNavigation,
+  readPersistedWindowScroll,
+} from '../lib/scrollRestore.js'
 import { caseStudyHeroUrl } from '../lib/caseStudyLoad.js'
 import './CaseStudy.css'
 
@@ -43,6 +48,45 @@ function tocAnchorClick(e, sectionKey) {
   scrollToCaseStudySection(sectionKey)
 }
 
+function findThoughtsDemoPair(sections) {
+  for (const section of sections) {
+    for (const block of section.blocks ?? []) {
+      if (
+        block?._type === 'caseStudyDemoPair' &&
+        String(block.left?.caption ?? '').trim() === 'Thoughts'
+      ) {
+        return block
+      }
+    }
+  }
+  return null
+}
+
+function withRedditThoughtsDemoUnderHeading(sections) {
+  const demo = findThoughtsDemoPair(sections)
+  if (!demo) return sections
+
+  return sections.map((section) => {
+    const blocks = Array.isArray(section.blocks) ? section.blocks : []
+    const thoughtsAt = blocks.findIndex(
+      (block) =>
+        block?._type === 'caseStudyRichText' &&
+        String(block.title ?? '').trim() === 'Thoughts',
+    )
+    if (thoughtsAt === -1) return section
+    if (blocks[thoughtsAt + 1]?._type === 'caseStudyDemoPair') return section
+
+    return {
+      ...section,
+      blocks: [
+        ...blocks.slice(0, thoughtsAt + 1),
+        { ...demo, right: null, _key: `${blocks[thoughtsAt]._key}-thoughts-demo` },
+        ...blocks.slice(thoughtsAt + 1),
+      ],
+    }
+  })
+}
+
 const REDDIT_COVER_SUMMARY = {
   tldr: 'Designing a low-stakes posting format and a real-time presence indicator to help Reddit’s lurkers participate without fear of judgment',
   did: [
@@ -61,11 +105,9 @@ function CoverSummary({ summary }) {
   return (
     <div className="caseStudyCoverSummary">
       <div className="caseStudyCoverSummaryInner">
+        <p className="caseStudyCoverEyebrow caseStudyCoverEyebrow--tldr">TLDR;</p>
+        <h3 className="caseStudyCoverTitle">{summary.tldr}</h3>
         <div className="caseStudyCoverSummaryMain">
-          <div className="caseStudyCoverBlock">
-            <p className="caseStudyCoverEyebrow">TLDR;</p>
-            <h3 className="caseStudyCoverTitle">{summary.tldr}</h3>
-          </div>
           <p className="caseStudyCoverEyebrow">what i did</p>
           <ul className="caseStudyCoverList">
             {summary.did.map((item) => (
@@ -129,17 +171,31 @@ export default function CaseStudy() {
 
   const heroImg = caseStudyHeroUrl(doc)
 
-  const sections = Array.isArray(doc?.sections) ? doc.sections : []
+  const isReddit = String(doc?.slug ?? slug ?? '').toLowerCase() === 'reddit'
+  const sections = useMemo(() => {
+    const raw = Array.isArray(doc?.sections) ? doc.sections : []
+    return isReddit ? withRedditThoughtsDemoUnderHeading(raw) : raw
+  }, [doc, isReddit])
   const tocSections = useMemo(
     () => sections.filter((s) => s?.heading && String(s.heading).trim()),
     [sections],
   )
   const activeTocKey = useCaseStudyTocActive(tocSections)
+  usePersistWindowScroll(Boolean(doc) && !isLoading)
 
   useLayoutEffect(() => {
+    if (isLoading || error || !doc) return
+
+    if (isReloadNavigation()) {
+      const y = readPersistedWindowScroll(window.location.pathname)
+      if (typeof y === 'number') {
+        window.scrollTo(0, y)
+        return
+      }
+    }
+
     const m = window.location.hash.match(/^#section-(.+)$/)
     if (m) {
-      if (isLoading || error || !doc) return
       const id = `section-${m[1]}`
       if (!document.getElementById(id)) return
       requestAnimationFrame(() => {
@@ -147,15 +203,13 @@ export default function CaseStudy() {
       })
       return
     }
+
     window.scrollTo(0, 0)
   }, [doc, slug, isLoading, error])
 
   const skillsLines = doc ? skillsFromLine(doc.skillsLine) : []
   const heroHeadline = doc?.subtitle?.trim() ? doc.subtitle.trim() : (doc?.title ?? '')
-  const coverSummary =
-    String(doc?.slug ?? slug ?? '').toLowerCase() === 'reddit'
-      ? { ...REDDIT_COVER_SUMMARY, skills: skillsLines }
-      : null
+  const coverSummary = isReddit ? { ...REDDIT_COVER_SUMMARY, skills: skillsLines } : null
 
   if (isLoading) {
     return (
@@ -239,7 +293,12 @@ export default function CaseStudy() {
         <div className="caseStudyPage">
           <div className="caseStudyPageWhole">
             <aside className="caseStudyPageSidebar" aria-label="Case study navigation">
-              <Link className="caseStudyBack" to="/">
+              <Link
+                className="caseStudyBack"
+                to="/"
+                data-cuelume-hover="tick"
+                data-cuelume-toggle
+              >
                 <svg
                   className="caseStudyBackIcon"
                   viewBox="0 0 24 24"
@@ -273,6 +332,8 @@ export default function CaseStudy() {
                               }
                               aria-current={section._key === activeTocKey ? 'location' : undefined}
                               onClick={(e) => tocAnchorClick(e, section._key)}
+                              data-cuelume-hover="tick"
+                              data-cuelume-toggle
                             >
                               {title}
                             </a>

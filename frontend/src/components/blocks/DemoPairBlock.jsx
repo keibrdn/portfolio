@@ -6,14 +6,14 @@ function clipUrl(file) {
   return file?.asset?.url || null
 }
 
-function DemoCard({ item }) {
+function DemoCard({ item, fit }) {
   const src = clipUrl(item?.clip)
   const hevcSrc = clipUrl(item?.clipHevc)
   const caption = item?.caption?.trim() || ''
   if (!src) return null
 
   return (
-    <SurfaceFrame fit caption={caption}>
+    <SurfaceFrame fit={fit} caption={caption}>
       <div className="demoPairStage">
         <AlphaLoopVideo src={src} hevcSrc={hevcSrc} label={caption} />
       </div>
@@ -24,14 +24,15 @@ function DemoCard({ item }) {
 export default function DemoPairBlock({ left, right }) {
   const items = [left, right].filter((item) => clipUrl(item?.clip))
   if (items.length === 0) return null
+  const single = items.length === 1
 
   return (
     <div
-      className={items.length === 1 ? 'demoPair demoPair--single' : 'demoPair'}
+      className={single ? 'demoPair demoPair--single' : 'demoPair'}
       role="group"
     >
       {items.map((item, index) => (
-        <DemoCard key={item.caption || `demo-${index}`} item={item} />
+        <DemoCard key={item.caption || `demo-${index}`} item={item} fit={single} />
       ))}
     </div>
   )

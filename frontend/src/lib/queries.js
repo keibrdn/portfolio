@@ -40,7 +40,13 @@ export const caseStudyBySlugQuery = /* groq */ `
         _type == "caseStudyRichText" => {
           eyebrow,
           title,
-          body
+          body,
+          framed,
+          sideFrame,
+          sideMedia,
+          sideCaption,
+          sideEmbed,
+          sideFit
         },
         _type == "caseStudyMediaFigure" => {
           media,

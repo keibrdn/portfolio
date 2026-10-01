@@ -31,7 +31,6 @@
   display: flex;
   justify-content: center;
   border-radius: var(--radius-md);
-  overflow: hidden;
 }
 
 /* Reserve space while image is downloading */
@@ -44,6 +43,7 @@
   content: '';
   position: absolute;
   inset: 0;
+  border-radius: var(--radius-md);
   background: linear-gradient(
     90deg,
     var(--color-media-placeholder) 25%,
