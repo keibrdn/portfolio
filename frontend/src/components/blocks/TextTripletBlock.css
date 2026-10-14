@@ -4,9 +4,14 @@
 
 .textTripletGrid {
   display: grid;
-  grid-template-columns: repeat(var(--text-triplet-cols, 1), minmax(0, 1fr));
-  gap: var(--space-xl);
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-case-study-section-inner);
+  align-items: stretch;
+}
+
+.textTripletCol {
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .textTripletTitle {
@@ -28,9 +33,3 @@
   margin: 0;
 }
 
-@media (max-width: 56rem) {
-  .textTripletGrid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-md);
-  }
-}

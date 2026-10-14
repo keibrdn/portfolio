@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import AppShell from '../components/layout/AppShell.jsx'
 import CaseStudySection from '../components/CaseStudySection.jsx'
@@ -6,11 +6,10 @@ import { useCaseStudy } from '../hooks/useCaseStudy.js'
 import { useCaseStudySlide } from '../hooks/useCaseStudySlide.js'
 import { useImageLoaded } from '../hooks/useImageLoaded.js'
 import { useCaseStudyTocActive } from '../hooks/useCaseStudyTocActive.js'
-import { usePersistWindowScroll } from '../hooks/usePersistWindowScroll.js'
 import { scrollToCaseStudySection } from '../lib/caseStudyScroll.js'
 import {
-  isReloadNavigation,
   readPersistedWindowScroll,
+  shouldRestoreScrollOnReload,
 } from '../lib/scrollRestore.js'
 import { caseStudyHeroUrl } from '../lib/caseStudyLoad.js'
 import './CaseStudy.css'
@@ -46,6 +45,115 @@ function tocAnchorClick(e, sectionKey) {
   if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
   e.preventDefault()
   scrollToCaseStudySection(sectionKey)
+}
+
+function CaseStudyToc({ sections, activeKey }) {
+  const navRef = useRef(null)
+  const itemRefs = useRef({})
+  const hopTimer = useRef(null)
+  const lockedTarget = useRef(null)
+  const dotKey = useRef(activeKey)
+  const [dot, setDot] = useState({ top: 0, ready: false })
+  const [hopping, setHopping] = useState(false)
+
+  function measure(key) {
+    const nav = navRef.current
+    const el = itemRefs.current[key]
+    const dotEl = nav?.querySelector('.caseStudyTocDot')
+    if (!nav || !el) return
+    const size = dotEl?.offsetHeight ?? 0
+    const top = el.getBoundingClientRect().top - nav.getBoundingClientRect().top
+    setDot({
+      top: top + (el.offsetHeight - size) / 2,
+      ready: true,
+    })
+  }
+
+  function hopTo(key) {
+    if (key == null) return
+    dotKey.current = key
+    measure(key)
+    setHopping(false)
+    requestAnimationFrame(() => {
+      setHopping(true)
+      clearTimeout(hopTimer.current)
+      const raw = getComputedStyle(navRef.current).getPropertyValue('--duration-nav-dot')
+      const ms = raw.includes('s') && !raw.includes('ms') ? parseFloat(raw) * 1000 : parseFloat(raw)
+      hopTimer.current = setTimeout(() => setHopping(false), Number.isFinite(ms) ? ms : 420)
+    })
+  }
+
+  useLayoutEffect(() => {
+    if (activeKey == null) return
+    if (lockedTarget.current) {
+      if (activeKey === lockedTarget.current) lockedTarget.current = null
+      else return
+    }
+    if (activeKey !== dotKey.current) hopTo(activeKey)
+    else measure(activeKey)
+  }, [activeKey])
+
+  useEffect(() => {
+    const onResize = () => measure(dotKey.current)
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+      clearTimeout(hopTimer.current)
+    }
+  }, [])
+
+  function onItemClick(e, key) {
+    lockedTarget.current = key
+    hopTo(key)
+    tocAnchorClick(e, key)
+  }
+
+  return (
+    <nav ref={navRef} className="caseStudyToc" aria-label="Table of contents">
+      <span
+        className={
+          hopping
+            ? 'caseStudyTocDot caseStudyTocDot--ready caseStudyTocDot--hop'
+            : `caseStudyTocDot${dot.ready ? ' caseStudyTocDot--ready' : ''}`
+        }
+        style={{ top: dot.top }}
+        aria-hidden="true"
+      />
+      <ul className="caseStudyTocList">
+        {sections.map((section, index) => {
+          const anchor = section._key != null ? `#section-${section._key}` : undefined
+          const title = String(section.heading).trim()
+          return (
+            <li
+              key={section._key || `toc-${index}`}
+              className="caseStudyTocItem"
+              style={{ '--i': index }}
+              ref={(node) => {
+                if (section._key != null) itemRefs.current[section._key] = node
+              }}
+            >
+              {anchor ? (
+                <a
+                  href={anchor}
+                  className={
+                    section._key === activeKey
+                      ? 'caseStudyTocLink caseStudyTocLink--active'
+                      : 'caseStudyTocLink'
+                  }
+                  aria-current={section._key === activeKey ? 'location' : undefined}
+                  onClick={(e) => onItemClick(e, section._key)}
+                >
+                  {title}
+                </a>
+              ) : (
+                <span className="caseStudyTocLink">{title}</span>
+              )}
+            </li>
+          )
+        })}
+      </ul>
+    </nav>
+  )
 }
 
 function findThoughtsDemoPair(sections) {
@@ -181,12 +289,11 @@ export default function CaseStudy() {
     [sections],
   )
   const activeTocKey = useCaseStudyTocActive(tocSections)
-  usePersistWindowScroll(Boolean(doc) && !isLoading)
 
   useLayoutEffect(() => {
     if (isLoading || error || !doc) return
 
-    if (isReloadNavigation()) {
+    if (shouldRestoreScrollOnReload(window.location.pathname)) {
       const y = readPersistedWindowScroll(window.location.pathname)
       if (typeof y === 'number') {
         window.scrollTo(0, y)
@@ -296,8 +403,6 @@ export default function CaseStudy() {
               <Link
                 className="caseStudyBack"
                 to="/"
-                data-cuelume-hover="tick"
-                data-cuelume-toggle
               >
                 <svg
                   className="caseStudyBackIcon"
@@ -310,41 +415,7 @@ export default function CaseStudy() {
                 <span className="caseStudyBackLabel">home</span>
               </Link>
               {tocSections.length > 0 ? (
-                <nav className="caseStudyToc" aria-label="Table of contents">
-                  <ul className="caseStudyTocList">
-                    {tocSections.map((section, index) => {
-                      const anchor =
-                        section._key != null ? `#section-${section._key}` : undefined
-                      const title = String(section.heading).trim()
-                      return (
-                        <li
-                          key={section._key || `toc-${index}`}
-                          className="caseStudyTocItem"
-                          style={{ '--i': index }}
-                        >
-                          {anchor ? (
-                            <a
-                              href={anchor}
-                              className={
-                                section._key === activeTocKey
-                                  ? 'caseStudyTocLink caseStudyTocLink--active'
-                                  : 'caseStudyTocLink'
-                              }
-                              aria-current={section._key === activeTocKey ? 'location' : undefined}
-                              onClick={(e) => tocAnchorClick(e, section._key)}
-                              data-cuelume-hover="tick"
-                              data-cuelume-toggle
-                            >
-                              {title}
-                            </a>
-                          ) : (
-                            <span className="caseStudyTocLink">{title}</span>
-                          )}
-                        </li>
-                      )
-                    })}
-                  </ul>
-                </nav>
+                <CaseStudyToc sections={tocSections} activeKey={activeTocKey} />
               ) : null}
             </aside>
 

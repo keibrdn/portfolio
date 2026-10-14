@@ -6,7 +6,6 @@ export function usePersistWindowScroll(enabled = true) {
   useEffect(() => {
     if (!enabled) return undefined
 
-    const previous = history.scrollRestoration
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
 
     const persist = () => persistWindowScroll()
@@ -27,7 +26,6 @@ export function usePersistWindowScroll(enabled = true) {
     window.addEventListener('pagehide', persist)
     document.addEventListener('visibilitychange', onVisibility)
     return () => {
-      if ('scrollRestoration' in history) history.scrollRestoration = previous || 'auto'
       window.cancelAnimationFrame(frame)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('pagehide', persist)

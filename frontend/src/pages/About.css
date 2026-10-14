@@ -24,7 +24,7 @@
   font-weight: var(--font-weight-ui);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
-  color: var(--color-reddit-orange);
+  color: var(--color-accent);
   margin: 0;
 }
 
@@ -51,6 +51,7 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+  transform-origin: left center;
   font-family: var(--font-handwritten);
   font-size: var(--size-lg); /* overridden by JS fitText */
   font-weight: var(--font-weight-body-regular);

@@ -1,7 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom'
-import { bind, play } from 'cuelume'
 import './styles/tokens.css'
 import './index.css'
 import Home from './pages/Home.jsx'
@@ -11,8 +10,14 @@ import Resume from './pages/Resume.jsx'
 import DesignSystem from './pages/DesignSystem.jsx'
 import BackToTop from './components/BackToTop.jsx'
 import ScrollRevealProvider from './components/ScrollRevealProvider.jsx'
+import { usePersistWindowScroll } from './hooks/usePersistWindowScroll.js'
+
+if (typeof history !== 'undefined' && 'scrollRestoration' in history) {
+  history.scrollRestoration = 'manual'
+}
 
 function AppLayout() {
+  usePersistWindowScroll(true)
   return (
     <div className="rootStretch">
       <div className="rootStretchRouter">
@@ -48,15 +53,3 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 )
-
-bind()
-
-function unlockCuelume() {
-  if (navigator.userActivation?.hasBeenActive === false) return
-  play('tick', { volume: 0.001 })
-  window.removeEventListener('pointerdown', unlockCuelume, true)
-  window.removeEventListener('keydown', unlockCuelume, true)
-}
-
-window.addEventListener('pointerdown', unlockCuelume, true)
-window.addEventListener('keydown', unlockCuelume, true)

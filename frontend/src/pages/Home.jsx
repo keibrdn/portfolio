@@ -5,6 +5,10 @@ import CaseStudyGrid from '../components/CaseStudyGrid.jsx'
 import Footer from '../components/layout/Footer.jsx'
 import { useCaseStudies } from '../hooks/useCaseStudies.js'
 import { AboutContent } from './About.jsx'
+import {
+  readPersistedWindowScroll,
+  shouldRestoreScrollOnReload,
+} from '../lib/scrollRestore.js'
 import './About.css'
 import './Home.css'
 
@@ -193,8 +197,6 @@ function HomeFixedNav({ leadRef }) {
       aria-label={menuOpen ? 'Close menu' : 'Open menu'}
       aria-expanded={menuOpen}
       aria-controls="home-site-nav"
-      data-cuelume-hover="tick"
-      data-cuelume-toggle
       onClick={() => setMenuOpen((open) => !open)}
     >
       <span className="homeHamburgerBar" />
@@ -231,8 +233,6 @@ function HomeFixedNav({ leadRef }) {
                 ? 'homeFixedNavLink homeFixedNavLink--active'
                 : 'homeFixedNavLink'
             }
-            data-cuelume-hover="tick"
-            data-cuelume-toggle
             onClick={() => goTo(item.id)}
           >
             {item.label}
@@ -270,6 +270,13 @@ export default function Home() {
   }, [])
 
   useLayoutEffect(() => {
+    if (shouldRestoreScrollOnReload(pathname)) {
+      const y = readPersistedWindowScroll(pathname)
+      if (typeof y === 'number') {
+        window.scrollTo(0, y)
+        return
+      }
+    }
     const sectionId = hash.replace('#', '')
     if (sectionId) {
       requestAnimationFrame(() => scrollToSection(sectionId))
@@ -315,7 +322,6 @@ export default function Home() {
                 className="homeSocialLink homeSocialLink--copy"
                 onClick={handleCopyEmail}
                 aria-label="Copy email address"
-                data-cuelume-toggle="scan"
               >
                 <span className="homeCopyTooltip" aria-live="polite">
                   {emailCopied ? 'copied!' : 'email'}
@@ -327,7 +333,6 @@ export default function Home() {
                 href="https://www.linkedin.com/in/keila-braden/"
                 target="_blank"
                 rel="noreferrer noopener"
-                data-cuelume-toggle="loading"
               >
                 linkedin<IconLink />
               </a>
@@ -336,7 +341,6 @@ export default function Home() {
                 href="/resume.pdf"
                 target="_blank"
                 rel="noreferrer noopener"
-                data-cuelume-toggle="loading"
               >
                 resume<IconDownload />
               </a>

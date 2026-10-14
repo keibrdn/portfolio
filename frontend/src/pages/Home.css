@@ -15,24 +15,24 @@
   top: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 10px;
   z-index: 50;
-  padding-right: var(--space-sm);
+  padding-left: calc(var(--size-nav-dot) + var(--space-xs));
 }
 
 .homeFixedNavRow {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   height: 12px;
 }
 
 .homeFixedNavDot {
   position: absolute;
-  right: 0;
-  width: 10px;
-  height: 10px;
+  left: 0;
+  width: var(--size-nav-dot);
+  height: var(--size-nav-dot);
   border-radius: 50%;
   background: var(--color-accent);
   pointer-events: none;
@@ -52,9 +52,9 @@
 
 @keyframes homeNavDotHop {
   0%   { transform: scale(1) translateX(0); }
-  18%  { transform: scale(0.7, 0.82) translateX(2px); }
-  48%  { transform: scale(1.14) translateX(8px); }
-  78%  { transform: scale(0.86, 1.06) translateX(1px); }
+  18%  { transform: scale(0.7, 0.82) translateX(calc(-1 * var(--space-2xs))); }
+  48%  { transform: scale(1.14) translateX(calc(-1 * var(--space-xs))); }
+  78%  { transform: scale(0.86, 1.06) translateX(calc(-1 * var(--space-2xs))); }
   100% { transform: scale(1) translateX(0); }
 }
 
@@ -79,14 +79,14 @@
   line-height: 12px;
   height: 12px;
   color: var(--color-text-primary);
-  text-align: right;
+  text-align: left;
   text-decoration: none;
   cursor: pointer;
   background: none;
   border: none;
   padding: 0;
   transform: scale(1);
-  transform-origin: right center;
+  transform-origin: left center;
   transition:
     color var(--transition-default),
     var(--transition-bounce);
@@ -169,7 +169,7 @@
     padding: var(--space-sm) var(--space-md);
     background-color: var(--color-bg);
     gap: var(--space-sm);
-    align-items: flex-end;
+    align-items: flex-start;
   }
 
   .homeFixedNav--open {
@@ -352,9 +352,9 @@
   text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
   font-size: var(--size-xxs);
-  line-height: var(--line-height-snug);
+  line-height: normal;
   letter-spacing: var(--letter-spacing-ui);
-  color: var(--color-reddit-orange);
+  color: var(--color-accent);
   margin: 0 0 var(--space-md);
   align-self: flex-start;
 }

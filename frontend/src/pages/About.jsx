@@ -84,7 +84,7 @@ export function AboutContent() {
   const headlineRef = useRef(null)
   const bioTextRef  = useRef(null)
   const [fontIdx, setFontIdx] = useState(0)
-  const [fontSizes, setFontSizes] = useState(['', '', ''])
+  const [fontFits, setFontFits] = useState([{}, {}, {}])
 
   useEffect(() => {
     const id = setInterval(() => setFontIdx((i) => (i + 1) % 3), 300)
@@ -133,7 +133,32 @@ export function AboutContent() {
       const scaledW = metrics.map((m, i) => m.width * optical[i])
       const maxW = Math.max(...scaledW, 1)
       const base = probePx * (width / maxW)
-      setFontSizes(optical.map((scale) => `${base * scale}px`))
+      const sizes = optical.map((scale) => base * scale)
+      const inkWidths = metrics.map((m, i) => m.width * (sizes[i] / m.probePx))
+      const targetW = Math.max(...inkWidths)
+      const gaps = Math.max(text.length - 1, 1)
+
+      const fits = HEADLINE_FONTS.map(({ className }, i) => {
+        const probe = document.createElement('span')
+        probe.className = className
+        probe.textContent = text
+        probe.style.cssText =
+          'position:absolute;visibility:hidden;left:0;top:0;right:auto;width:max-content;white-space:nowrap;line-height:1;pointer-events:none'
+        probe.style.fontSize = `${sizes[i]}px`
+        document.body.appendChild(probe)
+        const rawW = headlineInk(probe).width || inkWidths[i]
+        const guessed = (targetW - rawW) / gaps
+        probe.style.letterSpacing = `${guessed}px`
+        const fittedW = headlineInk(probe).width
+        probe.remove()
+        const delta = fittedW - rawW
+        const tracking = Math.abs(delta) > 0.25 ? guessed * ((targetW - rawW) / delta) : guessed
+        return {
+          fontSize: `${sizes[i]}px`,
+          letterSpacing: `${tracking}px`,
+        }
+      })
+      setFontFits(fits)
     }
 
     measure()
@@ -180,7 +205,7 @@ export function AboutContent() {
             <h2
               className={`aboutHeadline aboutHeadline--${fontIdx}`}
               ref={headlineRef}
-              style={{ fontSize: fontSizes[fontIdx] || undefined }}
+              style={fontFits[fontIdx]}
             >
               designer, tinkerer, caffeine enthusiast
             </h2>

@@ -195,7 +195,51 @@
 }
 
 .caseStudyToc {
-  width: 100%;
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+  padding-left: calc(var(--size-nav-dot) + var(--space-xs));
+  box-sizing: border-box;
+}
+
+.caseStudyTocDot {
+  position: absolute;
+  left: 0;
+  width: var(--size-nav-dot);
+  height: var(--size-nav-dot);
+  border-radius: 50%;
+  background: var(--color-reddit-orange);
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    top var(--duration-nav-dot) var(--ease-bounce),
+    opacity var(--transition-default);
+}
+
+.caseStudyTocDot--ready {
+  opacity: 1;
+}
+
+.caseStudyTocDot--hop {
+  animation: caseStudyTocDotHop var(--duration-nav-dot) var(--ease-bounce) both;
+}
+
+@keyframes caseStudyTocDotHop {
+  0%   { transform: scale(1) translateX(0); }
+  18%  { transform: scale(0.7, 0.82) translateX(calc(-1 * var(--space-2xs))); }
+  48%  { transform: scale(1.14) translateX(calc(-1 * var(--space-xs))); }
+  78%  { transform: scale(0.86, 1.06) translateX(calc(-1 * var(--space-2xs))); }
+  100% { transform: scale(1) translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caseStudyTocDot {
+    transition: none;
+  }
+
+  .caseStudyTocDot--hop {
+    animation: none;
+  }
 }
 
 .caseStudyTocList {
@@ -210,21 +254,35 @@
 
 .caseStudyTocItem {
   margin: 0;
+  height: var(--size-nav-row);
+  display: flex;
+  align-items: center;
 }
 
 .caseStudyTocLink {
-  display: block;
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-ui);
   text-transform: var(--text-transform-ui);
   font-weight: var(--font-weight-ui);
   font-size: var(--size-xxs);
-  line-height: var(--line-height-snug);
+  line-height: var(--size-nav-row);
+  height: var(--size-nav-row);
   letter-spacing: var(--letter-spacing-ui);
-  text-align: right;
+  text-align: left;
   white-space: nowrap;
   color: var(--color-text-muted);
   text-decoration: none;
-  transition: var(--transition-color);
+  transform: scale(1);
+  transform-origin: left center;
+  transition:
+    color var(--transition-default),
+    var(--transition-bounce);
+}
+
+.caseStudyTocLink:hover,
+.caseStudyTocLink--active {
+  transform: scale(var(--scale-nav-label));
 }
 
 .caseStudyTocLink:hover {
@@ -236,9 +294,20 @@
   outline-offset: var(--space-2xs);
 }
 
-.caseStudyTocLink--active {
-  font-weight: var(--font-weight-heading);
+.caseStudyTocLink--active,
+.caseStudyTocLink--active:hover {
   color: var(--color-reddit-orange);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caseStudyTocLink {
+    transition: var(--transition-color);
+  }
+
+  .caseStudyTocLink:hover,
+  .caseStudyTocLink--active {
+    transform: none;
+  }
 }
 
 .caseStudyPageMain {

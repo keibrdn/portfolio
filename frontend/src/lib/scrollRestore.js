@@ -29,3 +29,21 @@ export function isReloadNavigation() {
   const nav = performance.getEntriesByType?.('navigation')?.[0]
   return nav?.type === 'reload'
 }
+
+const RELOAD_RESTORE_KEY = 'portfolio:reload-restore'
+
+/** True only for the first route after a full refresh (Strict remounts included). */
+export function shouldRestoreScrollOnReload(path) {
+  if (!isReloadNavigation()) return false
+  const origin = String(performance.timeOrigin)
+  try {
+    const data = JSON.parse(sessionStorage.getItem(RELOAD_RESTORE_KEY) || 'null')
+    if (data?.origin !== origin) {
+      sessionStorage.setItem(RELOAD_RESTORE_KEY, JSON.stringify({ origin, path }))
+      return true
+    }
+    return data.path === path
+  } catch {
+    return true
+  }
+}
