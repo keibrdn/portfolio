@@ -1,12 +1,23 @@
 import { useCallback, useEffect, useState } from 'react'
 import { getCaseStudyTocSpyLinePx } from '../lib/caseStudyScroll.js'
 
+function flattenTocItems(tocSections) {
+  const items = []
+  for (const section of tocSections) {
+    if (!section) continue
+    items.push(section)
+    if (Array.isArray(section.children)) items.push(...section.children)
+  }
+  return items
+}
+
 function getActiveSectionKey(tocSections) {
-  if (!tocSections.length) return null
+  const items = flattenTocItems(tocSections)
+  if (!items.length) return null
   const line = getCaseStudyTocSpyLinePx()
-  let activeKey = tocSections[0]._key
-  for (let i = 0; i < tocSections.length; i++) {
-    const s = tocSections[i]
+  let activeKey = items[0]._key
+  for (let i = 0; i < items.length; i++) {
+    const s = items[i]
     const k = s._key
     if (k == null) continue
     const el = document.getElementById(`section-${k}`)

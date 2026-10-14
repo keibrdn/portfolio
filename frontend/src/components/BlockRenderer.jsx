@@ -20,6 +20,7 @@ export default function BlockRenderer({ block }) {
     case 'caseStudyRichText':
       return (
         <RichTextBlock
+          id={block._key ? `section-${block._key}` : undefined}
           eyebrow={block.eyebrow}
           title={block.title}
           body={block.body}

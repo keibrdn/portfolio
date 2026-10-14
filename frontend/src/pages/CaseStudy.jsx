@@ -40,6 +40,33 @@ function capitalizeFirstWord(line) {
   return text.slice(0, i) + text.charAt(i).toUpperCase() + text.slice(i + 1)
 }
 
+function TocRow({ item, activeKey, itemRefs, onItemClick }) {
+  const anchor = item._key != null ? `#section-${item._key}` : undefined
+  const title = String(item.heading).trim()
+  const isActive = item._key === activeKey
+  return (
+    <div
+      className="caseStudyTocRow"
+      ref={(node) => {
+        if (item._key != null) itemRefs.current[item._key] = node
+      }}
+    >
+      {anchor ? (
+        <a
+          href={anchor}
+          className={isActive ? 'caseStudyTocLink caseStudyTocLink--active' : 'caseStudyTocLink'}
+          aria-current={isActive ? 'location' : undefined}
+          onClick={(e) => onItemClick(e, item._key)}
+        >
+          {title}
+        </a>
+      ) : (
+        <span className="caseStudyTocLink">{title}</span>
+      )}
+    </div>
+  )
+}
+
 function tocAnchorClick(e, sectionKey) {
   if (sectionKey == null) return
   if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
@@ -47,64 +74,78 @@ function tocAnchorClick(e, sectionKey) {
   scrollToCaseStudySection(sectionKey)
 }
 
+const TOC_DOT_SIZE = 10
+const TOC_DOT_HOP_MS = 420
+const TOC_DOT_LOCK_MS = 1600
+
 function CaseStudyToc({ sections, activeKey }) {
   const navRef = useRef(null)
   const itemRefs = useRef({})
   const hopTimer = useRef(null)
+  const lockTimer = useRef(null)
   const lockedTarget = useRef(null)
   const dotKey = useRef(activeKey)
   const [dot, setDot] = useState({ top: 0, ready: false })
   const [hopping, setHopping] = useState(false)
 
-  function measure(key) {
+  function measureDot(key) {
     const nav = navRef.current
     const el = itemRefs.current[key]
-    const dotEl = nav?.querySelector('.caseStudyTocDot')
     if (!nav || !el) return
-    const size = dotEl?.offsetHeight ?? 0
     const top = el.getBoundingClientRect().top - nav.getBoundingClientRect().top
     setDot({
-      top: top + (el.offsetHeight - size) / 2,
+      top: top + (el.offsetHeight - TOC_DOT_SIZE) / 2,
       ready: true,
     })
   }
 
-  function hopTo(key) {
+  function placeDot(key, animate) {
     if (key == null) return
     dotKey.current = key
-    measure(key)
+    measureDot(key)
+    if (!animate) return
     setHopping(false)
     requestAnimationFrame(() => {
       setHopping(true)
       clearTimeout(hopTimer.current)
-      const raw = getComputedStyle(navRef.current).getPropertyValue('--duration-nav-dot')
-      const ms = raw.includes('s') && !raw.includes('ms') ? parseFloat(raw) * 1000 : parseFloat(raw)
-      hopTimer.current = setTimeout(() => setHopping(false), Number.isFinite(ms) ? ms : 420)
+      hopTimer.current = setTimeout(() => setHopping(false), TOC_DOT_HOP_MS)
     })
+  }
+
+  function lockTo(key) {
+    lockedTarget.current = key
+    clearTimeout(lockTimer.current)
+    lockTimer.current = setTimeout(() => {
+      lockedTarget.current = null
+    }, TOC_DOT_LOCK_MS)
   }
 
   useLayoutEffect(() => {
     if (activeKey == null) return
     if (lockedTarget.current) {
-      if (activeKey === lockedTarget.current) lockedTarget.current = null
-      else return
+      if (activeKey === lockedTarget.current) {
+        lockedTarget.current = null
+        clearTimeout(lockTimer.current)
+      }
+      return
     }
-    if (activeKey !== dotKey.current) hopTo(activeKey)
-    else measure(activeKey)
+    if (activeKey !== dotKey.current) placeDot(activeKey, false)
+    else measureDot(activeKey)
   }, [activeKey])
 
   useEffect(() => {
-    const onResize = () => measure(dotKey.current)
+    const onResize = () => measureDot(dotKey.current)
     window.addEventListener('resize', onResize)
     return () => {
       window.removeEventListener('resize', onResize)
       clearTimeout(hopTimer.current)
+      clearTimeout(lockTimer.current)
     }
   }, [])
 
   function onItemClick(e, key) {
-    lockedTarget.current = key
-    hopTo(key)
+    lockTo(key)
+    placeDot(key, true)
     tocAnchorClick(e, key)
   }
 
@@ -121,33 +162,36 @@ function CaseStudyToc({ sections, activeKey }) {
       />
       <ul className="caseStudyTocList">
         {sections.map((section, index) => {
-          const anchor = section._key != null ? `#section-${section._key}` : undefined
-          const title = String(section.heading).trim()
+          const children = Array.isArray(section.children) ? section.children : []
           return (
             <li
               key={section._key || `toc-${index}`}
               className="caseStudyTocItem"
               style={{ '--i': index }}
-              ref={(node) => {
-                if (section._key != null) itemRefs.current[section._key] = node
-              }}
             >
-              {anchor ? (
-                <a
-                  href={anchor}
-                  className={
-                    section._key === activeKey
-                      ? 'caseStudyTocLink caseStudyTocLink--active'
-                      : 'caseStudyTocLink'
-                  }
-                  aria-current={section._key === activeKey ? 'location' : undefined}
-                  onClick={(e) => onItemClick(e, section._key)}
-                >
-                  {title}
-                </a>
-              ) : (
-                <span className="caseStudyTocLink">{title}</span>
-              )}
+              <TocRow
+                item={section}
+                activeKey={activeKey}
+                itemRefs={itemRefs}
+                onItemClick={onItemClick}
+              />
+              {children.length > 0 ? (
+                <ul className="caseStudyTocSubList">
+                  {children.map((child, childIndex) => (
+                    <li
+                      key={child._key || `toc-sub-${index}-${childIndex}`}
+                      className="caseStudyTocItem"
+                    >
+                      <TocRow
+                        item={child}
+                        activeKey={activeKey}
+                        itemRefs={itemRefs}
+                        onItemClick={onItemClick}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </li>
           )
         })}
@@ -193,6 +237,20 @@ function withRedditThoughtsDemoUnderHeading(sections) {
       ],
     }
   })
+}
+
+const DESIGN_TOC_SUBS = ['thoughts', 'felt presence']
+
+function tocChildrenFor(section) {
+  if (String(section.heading ?? '').trim().toLowerCase() !== 'design') return undefined
+  const children = []
+  for (const block of section.blocks ?? []) {
+    const title = String(block?.title ?? '').trim()
+    if (!title || !block._key) continue
+    if (!DESIGN_TOC_SUBS.includes(title.toLowerCase())) continue
+    children.push({ _key: block._key, heading: title })
+  }
+  return children.length ? children : undefined
 }
 
 const REDDIT_COVER_SUMMARY = {
@@ -285,7 +343,13 @@ export default function CaseStudy() {
     return isReddit ? withRedditThoughtsDemoUnderHeading(raw) : raw
   }, [doc, isReddit])
   const tocSections = useMemo(
-    () => sections.filter((s) => s?.heading && String(s.heading).trim()),
+    () =>
+      sections
+        .filter((s) => s?.heading && String(s.heading).trim())
+        .map((s) => {
+          const children = tocChildrenFor(s)
+          return children ? { ...s, children } : s
+        }),
     [sections],
   )
   const activeTocKey = useCaseStudyTocActive(tocSections)

@@ -40,6 +40,7 @@ function SideFrame({ media, caption, embed, fit }) {
 
 /** Sanity `caseStudyRichText` — optional eyebrow + title + portable text body */
 export default function RichTextBlock({
+  id,
   eyebrow,
   title,
   body,
@@ -53,7 +54,11 @@ export default function RichTextBlock({
   const copy = (
     <div className="richTextBlockCopy">
       {eyebrow ? <p className="richTextBlockEyebrow">{eyebrow}</p> : null}
-      {title ? <h2 className="richTextBlockTitle">{title}</h2> : null}
+      {title ? (
+        <h2 id={id} className="richTextBlockTitle">
+          {title}
+        </h2>
+      ) : null}
       {body && body.length > 0 ? <RichText value={body} /> : null}
     </div>
   )

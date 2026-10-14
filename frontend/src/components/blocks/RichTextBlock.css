@@ -66,6 +66,7 @@
   line-height: var(--line-height-snug);
   color: var(--color-text-heading);
   margin: 0 0 var(--space-xs);
+  scroll-margin-top: var(--scroll-margin-case-study-anchor);
 }
 
 .richTextBlockCopy > .richTextBlockTitle:last-child {

@@ -38,7 +38,7 @@
   pointer-events: none;
   opacity: 0;
   transition:
-    top 420ms cubic-bezier(0.22, 1.45, 0.36, 1),
+    top var(--duration-nav-dot) var(--ease-nav-dot-slide),
     opacity var(--transition-default);
 }
 
@@ -47,7 +47,7 @@
 }
 
 .homeFixedNavDot--hop {
-  animation: homeNavDotHop 420ms cubic-bezier(0.22, 1.2, 0.36, 1) both;
+  animation: homeNavDotHop var(--duration-nav-dot) var(--ease-nav-dot-hop) both;
 }
 
 @keyframes homeNavDotHop {

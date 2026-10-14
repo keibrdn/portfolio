@@ -212,7 +212,7 @@
   pointer-events: none;
   opacity: 0;
   transition:
-    top var(--duration-nav-dot) var(--ease-bounce),
+    top var(--duration-nav-dot) var(--ease-nav-dot-slide),
     opacity var(--transition-default);
 }
 
@@ -221,7 +221,7 @@
 }
 
 .caseStudyTocDot--hop {
-  animation: caseStudyTocDotHop var(--duration-nav-dot) var(--ease-bounce) both;
+  animation: caseStudyTocDotHop var(--duration-nav-dot) var(--ease-nav-dot-hop) both;
 }
 
 @keyframes caseStudyTocDotHop {
@@ -254,9 +254,25 @@
 
 .caseStudyTocItem {
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-case-study-toc-gap);
+}
+
+.caseStudyTocRow {
   height: var(--size-nav-row);
   display: flex;
   align-items: center;
+}
+
+.caseStudyTocSubList {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 var(--space-case-study-toc-indent);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-case-study-toc-gap);
 }
 
 .caseStudyTocLink {
