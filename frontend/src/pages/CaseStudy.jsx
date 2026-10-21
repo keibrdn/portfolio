@@ -4,14 +4,12 @@ import AppShell from '../components/layout/AppShell.jsx'
 import CaseStudySection from '../components/CaseStudySection.jsx'
 import { useCaseStudy } from '../hooks/useCaseStudy.js'
 import { useCaseStudySlide } from '../hooks/useCaseStudySlide.js'
-import { useImageLoaded } from '../hooks/useImageLoaded.js'
 import { useCaseStudyTocActive } from '../hooks/useCaseStudyTocActive.js'
 import { scrollToCaseStudySection } from '../lib/caseStudyScroll.js'
 import {
   readPersistedWindowScroll,
   shouldRestoreScrollOnReload,
 } from '../lib/scrollRestore.js'
-import { caseStudyHeroUrl } from '../lib/caseStudyLoad.js'
 import './CaseStudy.css'
 
 function CaseStudySlide({ children }) {
@@ -314,28 +312,9 @@ function CoverSummary({ summary }) {
   )
 }
 
-function HeroCover({ src, alt }) {
-  const { loaded, onLoad, onError, ref } = useImageLoaded(src)
-  return (
-    <div className={`caseStudyHeroMedia${loaded ? ' caseStudyHeroMedia--loaded' : ''}`}>
-      <img
-        ref={ref}
-        className="caseStudyHeroImg"
-        src={src}
-        alt={alt}
-        loading="eager"
-        onLoad={onLoad}
-        onError={onError}
-      />
-    </div>
-  )
-}
-
 export default function CaseStudy() {
   const { slug } = useParams()
   const { doc, isLoading, error, retry } = useCaseStudy(slug)
-
-  const heroImg = caseStudyHeroUrl(doc)
 
   const isReddit = String(doc?.slug ?? slug ?? '').toLowerCase() === 'reddit'
   const sections = useMemo(() => {
@@ -450,15 +429,6 @@ export default function CaseStudy() {
               {heroHeadline}
             </h1>
             <CoverSummary summary={coverSummary} />
-            {heroImg ? (
-              <HeroCover
-                key={heroImg}
-                src={heroImg}
-                alt={doc.title ? `${doc.title} cover` : 'Case study cover'}
-              />
-            ) : (
-              <div className="caseStudyHeroPlaceholder" aria-hidden="true" />
-            )}
           </header>
         ) : null}
         <div className="caseStudyPage">
