@@ -294,7 +294,7 @@ export default function Home() {
   }
 
   return (
-    <AppShell fullBleed noPadding mainClassName="appShellMain--landing" showNav={false} showFooter={false}>
+    <AppShell fullBleed noPadding mainClassName="appShellMain--landing" showNav={false}>
       <div className="homeLanding">
 
         <HomeFixedNav leadRef={leadRef} />
