@@ -35,7 +35,9 @@ function SideFrame({ media, caption, embed, fit }) {
     )
   }
 
-  return <SurfaceFrame caption={caption}>{inner}</SurfaceFrame>
+  const frameCaption = caption || (embed === 'searchTyping' ? 'Common Reddit usage' : undefined)
+
+  return <SurfaceFrame caption={frameCaption}>{inner}</SurfaceFrame>
 }
 
 /** Sanity `caseStudyRichText` — optional eyebrow + title + portable text body */

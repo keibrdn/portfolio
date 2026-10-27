@@ -1,0 +1,28 @@
+.siteMark {
+  position: fixed;
+  top: var(--space-sm);
+  left: var(--space-sm);
+  z-index: var(--z-site-mark);
+  display: block;
+  width: var(--size-site-mark);
+  height: var(--size-site-mark);
+  line-height: 0;
+  transition: var(--transition-opacity);
+}
+
+.siteMark:hover {
+  opacity: 0.8;
+}
+
+.siteMark:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: var(--space-2xs);
+  border-radius: 50%;
+}
+
+.siteMarkImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

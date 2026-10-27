@@ -41,7 +41,7 @@
   color: var(--color-text-primary);
   margin: 0 0 var(--space-xs);
   padding-inline-start: var(--space-sm);
-  border-inline-start: var(--border-width-pullquote) solid var(--color-reddit-orange);
+  border-inline-start: var(--border-width-pullquote) solid var(--color-accent);
 }
 
 .ptPullquote:last-child {

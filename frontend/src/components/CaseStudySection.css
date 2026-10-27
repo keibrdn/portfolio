@@ -22,7 +22,7 @@
   font-size: var(--size-xxs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
-  color: var(--color-reddit-orange);
+  color: var(--color-accent);
   margin: 0;
 }
 

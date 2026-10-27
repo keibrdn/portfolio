@@ -6,6 +6,9 @@ function clipUrl(file) {
   return file?.asset?.url || null
 }
 
+/** Demos that wait for the user to press play, keyed by caption. */
+const START_PAUSED = new Set(['Felt Presence'])
+
 function DemoCard({ item, fit }) {
   const src = clipUrl(item?.clip)
   const hevcSrc = clipUrl(item?.clipHevc)
@@ -15,7 +18,12 @@ function DemoCard({ item, fit }) {
   return (
     <SurfaceFrame fit={fit} caption={caption}>
       <div className="demoPairStage">
-        <AlphaLoopVideo src={src} hevcSrc={hevcSrc} label={caption} />
+        <AlphaLoopVideo
+          src={src}
+          hevcSrc={hevcSrc}
+          label={caption}
+          startPaused={START_PAUSED.has(caption)}
+        />
       </div>
     </SurfaceFrame>
   )

@@ -14,11 +14,6 @@ const ASSETS = {
   lighthouseRoasters: { _type: 'reference', _ref: 'image-0478886e1310b946795651cc62155c5db2f50e1a-1742x3324-png' },
   moment:             { _type: 'reference', _ref: 'image-b39f224a164156b490351e78d63b34d8e13d7c02-832x1095-png' },
   subject5:           { _type: 'reference', _ref: 'image-358adb5da1ecede036fd6481f2b3032a2f4be65f-1675x2301-png' },
-  mexicoCity:         { _type: 'reference', _ref: 'image-f5df3811854318a85ccbfc6f62ffa7aa47b18f60-2374x1696-jpg' },
-  uji:                { _type: 'reference', _ref: 'image-7c4789d7135f7fc66dd191981dc0f7974bb33ab9-3130x2075-jpg' },
-  oaxaca:             { _type: 'reference', _ref: 'image-122682a4dd5e3fb6cf55be0706bb1c33fc791820-2955x2111-jpg' },
-  la:                 { _type: 'reference', _ref: 'image-ed7daf4755fa01e896412eedf5f0a8202e664ab8-1713x1136-jpg' },
-  forest:             { _type: 'reference', _ref: 'image-6a4c8870bc93c1c1182914d55263f0969eea7a83-3130x2075-jpg' },
 }
 
 // Pre-build optimised CDN URLs — auto WebP/AVIF, capped to display size @2x
@@ -37,11 +32,6 @@ const A = {
   lighthouseRoasters: img('lighthouseRoasters', 200),
   moment:             img('moment',             300),
   subject5:           img('subject5',           300),
-  mexicoCity:         img('mexicoCity',         500),
-  uji:                img('uji',                500),
-  oaxaca:             img('oaxaca',             500),
-  la:                 img('la',                 500),
-  forest:             img('forest',             500),
 }
 
 const TIPS = {
@@ -53,11 +43,6 @@ const TIPS = {
   lighthouseRoasters: 'Lighthouse Roasters, Seattle',
   moment:             'Moment Coffee, Seattle',
   subject5:           'Hoji, Redlands, CA',
-  mexicoCity:         'Mexico City',
-  uji:                'Uji, Japan',
-  oaxaca:             'Monte Albán, Oaxaca',
-  la:                 'LA (SoCal is home!)',
-  forest:             'Sequoia National Park',
 }
 
 function AboutEyebrow({ children }) {
@@ -213,9 +198,6 @@ export function AboutContent() {
 
           <div className="aboutBioRow">
             <div className="aboutBioBlock">
-              <p className="aboutEyebrow" data-reveal style={{ '--reveal-delay': '100ms' }}>
-                Who am I?
-              </p>
               <div className="aboutBioText" ref={bioTextRef}>
                 <p data-reveal style={{ '--reveal-delay': '200ms' }}>
                   I&apos;m Keila, a current student within the{' '}
@@ -293,23 +275,6 @@ export function AboutContent() {
               {...ph('moment',             'rotate(16.8deg)',  { width:  95, height: 124 }, 1.5)} />
             <img src={A.subject5}           alt="Subject 5"           className="aboutDrinkPhoto"
               {...ph('subject5',           null,               { width:  90, height: 124 }, 1.5)} />
-          </div>
-        </section>
-
-        {/* ── 5. Places ────────────────────────────────────────── */}
-        <section className="aboutSection" data-reveal style={{ '--reveal-delay': '400ms' }}>
-          <AboutEyebrow>Places I&apos;ve been</AboutEyebrow>
-          <div className="aboutPhotoRow aboutPhotoRow--places">
-            <img src={A.mexicoCity} alt="Mexico City" className="aboutPlacePhoto"
-              {...ph('mexicoCity', 'rotate(-10deg)', {}, 1.5)} />
-            <img src={A.uji}        alt="Uji"         className="aboutPlacePhoto"
-              {...ph('uji',        'rotate(10deg)',  {}, 1.5)} />
-            <img src={A.oaxaca}     alt="Oaxaca"      className="aboutPlacePhoto"
-              {...ph('oaxaca',     'rotate(-10deg)', {}, 1.5)} />
-            <img src={A.la}         alt="LA"          className="aboutPlacePhoto"
-              {...ph('la',         'rotate(10deg)',  {}, 1.5)} />
-            <img src={A.forest}     alt="Forest"      className="aboutPlacePhoto"
-              {...ph('forest',     'rotate(-10deg)', {}, 1.5)} />
           </div>
         </section>
 

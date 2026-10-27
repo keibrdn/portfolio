@@ -9,6 +9,7 @@ import CaseStudy from './pages/CaseStudy.jsx'
 import Resume from './pages/Resume.jsx'
 import DesignSystem from './pages/DesignSystem.jsx'
 import BackToTop from './components/BackToTop.jsx'
+import SiteMark from './components/layout/SiteMark.jsx'
 import ScrollRevealProvider from './components/ScrollRevealProvider.jsx'
 import { usePersistWindowScroll } from './hooks/usePersistWindowScroll.js'
 
@@ -22,6 +23,7 @@ function AppLayout() {
     <div className="rootStretch">
       <div className="rootStretchRouter">
         <ScrollRevealProvider />
+        <SiteMark />
         <Outlet />
         <BackToTop />
       </div>

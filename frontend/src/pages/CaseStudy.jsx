@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import AppShell from '../components/layout/AppShell.jsx'
 import CaseStudySection from '../components/CaseStudySection.jsx'
+import CoverVideo, { REDDIT_COVER_VIDEO } from '../components/CoverVideo.jsx'
 import { useCaseStudy } from '../hooks/useCaseStudy.js'
 import { useCaseStudySlide } from '../hooks/useCaseStudySlide.js'
 import { useCaseStudyTocActive } from '../hooks/useCaseStudyTocActive.js'
@@ -251,16 +252,29 @@ function tocChildrenFor(section) {
   return children.length ? children : undefined
 }
 
-const REDDIT_COVER_SUMMARY = {
-  tldr: 'Designing a low-stakes posting format and a real-time presence indicator to help Reddit’s lurkers participate without fear of judgment',
-  did: [
-    'Owned stakeholder relationships with client advisor, subject-matter experts, and research participants',
-    'Shaped product direction and led design of key interaction concepts',
-    'Leading the project’s next phase: engineering the core feature as a real, functioning developer tool on Reddit’s platform',
-  ],
-  timeline: 'February 2026 - Present',
-  role: 'Product designer',
-  team: '2 product designers, 2 user researchers',
+/**
+ * Per-case-study overrides for the TLDR / "what i did" cover block.
+ * Only `did` is required — any field left unset falls back to the doc's
+ * own `subtitle`/`title`/`role`/`team`/`timeline` (see `CoverSummary` usage below).
+ */
+const CASE_STUDY_COVER_SUMMARY = {
+  reddit: {
+    tldr: 'Designing a low-stakes posting format and a real-time presence indicator to help Reddit’s lurkers participate without fear of judgment',
+    did: [
+      'Owned stakeholder relationships with client advisor, subject-matter experts, and research participants',
+      'Shaped product direction and led design of key interaction concepts',
+      'Leading the project’s next phase: engineering the core feature as a real, functioning developer tool on Reddit’s platform',
+    ],
+    timeline: 'February 2026 - Present',
+    role: 'Product designer',
+    team: '2 product designers, 2 user researchers',
+  },
+  telefishin: {
+    did: [
+      'Led user research, crafting survey questions that garnered over 50 responses and moderating user interviews to learn more about the problem space',
+      'Prototyped initial interactive Telefishin app with Figma Make, bringing our idea to life',
+    ],
+  },
 }
 
 function CoverSummary({ summary }) {
@@ -359,7 +373,17 @@ export default function CaseStudy() {
 
   const skillsLines = doc ? skillsFromLine(doc.skillsLine) : []
   const heroHeadline = doc?.subtitle?.trim() ? doc.subtitle.trim() : (doc?.title ?? '')
-  const coverSummary = isReddit ? { ...REDDIT_COVER_SUMMARY, skills: skillsLines } : null
+  const coverConfig = CASE_STUDY_COVER_SUMMARY[String(doc?.slug ?? slug ?? '').toLowerCase()]
+  const coverSummary = coverConfig
+    ? {
+        tldr: coverConfig.tldr ?? heroHeadline,
+        did: coverConfig.did,
+        timeline: coverConfig.timeline ?? doc?.timeline,
+        role: coverConfig.role ?? doc?.role,
+        team: coverConfig.team ?? doc?.team,
+        skills: skillsLines,
+      }
+    : null
 
   if (isLoading) {
     return (
@@ -418,42 +442,37 @@ export default function CaseStudy() {
   return (
     <CaseStudySlide>
       <AppShell fullBleed noPadding mainClassName="appShellMain--caseStudy" showNav={false}>
-      <article className="caseStudyArticle">
-        {doc ? (
-          <header className="caseStudyHero">
-            <h1
-              className={
-                coverSummary ? 'caseStudyHeroTitle caseStudyHeroTitle--hidden' : 'caseStudyHeroTitle'
-              }
-            >
-              {heroHeadline}
-            </h1>
-            <CoverSummary summary={coverSummary} />
-          </header>
-        ) : null}
+      <article
+        className={
+          isReddit ? 'caseStudyArticle caseStudyArticle--reddit' : 'caseStudyArticle'
+        }
+      >
         <div className="caseStudyPage">
           <div className="caseStudyPageWhole">
             <aside className="caseStudyPageSidebar" aria-label="Case study navigation">
-              <Link
-                className="caseStudyBack"
-                to="/"
-              >
-                <svg
-                  className="caseStudyBackIcon"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-                </svg>
-                <span className="caseStudyBackLabel">home</span>
-              </Link>
               {tocSections.length > 0 ? (
                 <CaseStudyToc sections={tocSections} activeKey={activeTocKey} />
               ) : null}
             </aside>
 
             <div className="caseStudyPageMain">
+              {doc ? (
+                <header className="caseStudyHero">
+                  <h1
+                    className={
+                      coverSummary ? 'caseStudyHeroTitle caseStudyHeroTitle--hidden' : 'caseStudyHeroTitle'
+                    }
+                  >
+                    {heroHeadline}
+                  </h1>
+                  <CoverSummary summary={coverSummary} />
+                </header>
+              ) : null}
+              {doc && isReddit ? (
+                <div className="caseStudyCoverVideo">
+                  <CoverVideo src={REDDIT_COVER_VIDEO} title="Reddit" />
+                </div>
+              ) : null}
               {doc && (
                 <div className="caseStudyStack">
                   {!coverSummary &&

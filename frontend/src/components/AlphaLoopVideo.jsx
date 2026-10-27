@@ -44,7 +44,7 @@ function IconRestart() {
 }
 
 /** Muted looping native video — preserves WebM alpha (Mux cannot). */
-export default function AlphaLoopVideo({ src, hevcSrc, label }) {
+export default function AlphaLoopVideo({ src, hevcSrc, label, startPaused = false }) {
   const ref = useRef(null)
   const userPausedRef = useRef(false)
   const [playing, setPlaying] = useState(false)
@@ -56,7 +56,7 @@ export default function AlphaLoopVideo({ src, hevcSrc, label }) {
     const reduceMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
     ).matches
-    userPausedRef.current = reduceMotion
+    userPausedRef.current = reduceMotion || startPaused
 
     const onPlay = () => setPlaying(true)
     const onPause = () => setPlaying(false)
@@ -80,7 +80,7 @@ export default function AlphaLoopVideo({ src, hevcSrc, label }) {
       el.removeEventListener('pause', onPause)
       io.disconnect()
     }
-  }, [src])
+  }, [src, startPaused])
 
   const play = () => {
     const el = ref.current
@@ -131,12 +131,12 @@ export default function AlphaLoopVideo({ src, hevcSrc, label }) {
         muted
         loop
         playsInline
-        autoPlay
+        autoPlay={!startPaused}
         controls={false}
         disablePictureInPicture
         disableRemotePlayback
         controlsList="nodownload nofullscreen noremoteplayback"
-        preload="metadata"
+        preload={startPaused ? 'auto' : 'metadata'}
         aria-label={label || undefined}
       >
         {hevcSrc ? <source src={hevcSrc} type="video/mp4" /> : null}

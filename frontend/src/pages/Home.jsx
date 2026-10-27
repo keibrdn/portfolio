@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, useLayoutEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import AppShell from '../components/layout/AppShell.jsx'
 import CaseStudyGrid from '../components/CaseStudyGrid.jsx'
-import Footer from '../components/layout/Footer.jsx'
 import { useCaseStudies } from '../hooks/useCaseStudies.js'
 import { AboutContent } from './About.jsx'
 import {
@@ -41,9 +40,9 @@ function IconLink() {
 
 const NAV_ITEMS = [
   { id: 'work', label: 'work' },
-  { id: 'play', label: 'play' },
+  // Play section is hidden for now — uncomment with the section below to restore.
+  // { id: 'play', label: 'play' },
   { id: 'about', label: 'about' },
-  { id: 'contact', label: 'contact' },
 ]
 
 function scrollToSection(id) {
@@ -106,7 +105,7 @@ function HomeFixedNav({ leadRef }) {
   }
 
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     function isMobile() {
       return window.matchMedia('(max-width: 56rem)').matches
     }
@@ -114,44 +113,33 @@ function HomeFixedNav({ leadRef }) {
     function positionNav() {
       const nav = navRef.current
       const lead = leadRef?.current
-      const content = document.querySelector('.homeContent')
       if (!nav) return
       if (isMobile()) {
         nav.style.top = ''
-        nav.style.left = ''
-        nav.style.right = ''
         return
-      }
-      if (content) {
-        const box = content.getBoundingClientRect()
-        nav.style.right = 'auto'
-        nav.style.left = `max(var(--space-sm), calc(${box.left}px - ${nav.offsetWidth}px - var(--space-nav-to-content)))`
       }
       if (!lead) return
       const leadBox = lead.getBoundingClientRect()
-      const top = leadBox.top + leadBox.height / 2 - nav.offsetHeight / 2
-      nav.style.top = `${Math.max(top, 16)}px`
+      const top = leadBox.top + window.scrollY + leadBox.height / 2 - nav.offsetHeight / 2
+      nav.style.top = `${top}px`
     }
 
-    function alignToLead() {
+    function syncNav() {
       positionNav()
       if (!isMobile()) placeDot(activeId.current, false)
     }
 
     function onResize() {
       if (isMobile()) setMenuOpen(false)
-      alignToLead()
+      syncNav()
     }
 
-    alignToLead()
+    syncNav()
     window.addEventListener('resize', onResize)
-    window.addEventListener('scroll', positionNav, { passive: true })
     const lead = leadRef?.current
-    const content = document.querySelector('.homeContent')
-    const ro = new ResizeObserver(alignToLead)
+    const ro = new ResizeObserver(syncNav)
     if (lead) ro.observe(lead)
-    if (content) ro.observe(content)
-    document.fonts?.ready?.then(alignToLead)
+    document.fonts?.ready?.then(syncNav)
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -181,8 +169,7 @@ function HomeFixedNav({ leadRef }) {
 
     return () => {
       window.removeEventListener('resize', onResize)
-      window.removeEventListener('scroll', positionNav)
-      ro?.disconnect()
+      ro.disconnect()
       observer.disconnect()
       clearTimeout(hopTimer.current)
       clearTimeout(lockTimer.current)
@@ -379,6 +366,7 @@ export default function Home() {
             )}
           </section>
 
+          {/* Play section is hidden for now — uncomment with the NAV_ITEMS entry to restore.
           <section id="play" className="homePageSection" aria-label="Play">
             <p className="homeSectionEyebrow">play</p>
             <div className="homePlayStack">
@@ -386,16 +374,14 @@ export default function Home() {
               <div className="homePlayPlaceholder" aria-hidden="true" />
             </div>
           </section>
+          */}
 
           <section id="about" className="homePageSection homeAboutSection" aria-label="About">
             <p className="homeSectionEyebrow">about</p>
             <AboutContent />
           </section>
 
-          <section id="contact" className="homePageSection" aria-label="Contact">
-            <p className="homeSectionEyebrow">contact</p>
-            <Footer />
-          </section>
+          <section id="contact" className="homePageSection" aria-label="Contact" />
         </div>
 
       </div>

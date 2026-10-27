@@ -82,6 +82,7 @@
   --size-lg:  2rem;    /* 32px — section headings */
   --size-xl:  2.5rem;  /* 40px — page titles */
   --size-2xl: 3rem;    /* 48px — hero / h1 */
+  --size-site-mark: 2rem; /* 32px — fixed corner favicon mark */
 
   /* Landing sidebar hero name (fixed small label) */
   --size-hero-name: 1.25rem;
@@ -152,6 +153,10 @@
   --transition-bounce: transform 500ms var(--ease-bounce);
   --transition-case-card-media: transform 300ms ease-in-out;
   --scale-case-card-media-hover: 0.987;
+  /* Home work cards: whole card bounces up on hover (like nav labels) */
+  --scale-case-card-hover: 1.03;
+  /* Video cover is zoomed slightly inside its container */
+  --scale-case-card-video: 1;
 
   /* About collage / portrait hover */
   --transition-about-collage-hover: transform 300ms ease-in-out;
@@ -188,6 +193,7 @@
   --aspect-case-media: 511 / 341;
   /* Home covers match Reddit featured image (750×500) */
   --aspect-home-cover: 3 / 2;
+  --aspect-cover-video: 16 / 9;
 
   /* Tag pills */
   --space-tag-gap: var(--space-xs);
@@ -237,7 +243,8 @@
   --z-cover-summary: 2;
   --z-back-to-top: 20;
   --z-sticky-nav: 50;
-  --space-sticky-nav-top: var(--space-md);
+  --z-site-mark: 60;
+  --space-sticky-nav-top: calc(var(--space-case-study-page-block) + var(--space-case-study-content-pad-y));
 
   --border-width-pullquote: 0.125rem;
 

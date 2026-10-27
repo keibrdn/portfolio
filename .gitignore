@@ -1,0 +1,2 @@
+# Local-only stash — never commit
+.local/

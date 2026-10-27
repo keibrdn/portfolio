@@ -126,6 +126,10 @@
   overflow-x: clip;
 }
 
+.caseStudyArticle--reddit {
+  --color-accent: var(--color-reddit-orange);
+}
+
 .caseStudyHero {
   display: flex;
   flex-direction: column;
@@ -150,8 +154,10 @@
 .caseStudyPageSidebar {
   grid-column: 1;
   justify-self: end;
-  position: sticky;
+  position: fixed;
   top: var(--space-sticky-nav-top);
+  right: calc(50% + min(var(--width-home-content), 100%) / 2 + var(--space-nav-to-content));
+  left: auto;
   z-index: var(--z-sticky-nav);
   box-sizing: border-box;
   width: var(--width-case-study-toc);
@@ -159,8 +165,8 @@
   flex-direction: column;
   align-items: flex-end;
   gap: var(--space-case-study-sidebar-stack);
-  padding-block: var(--space-case-study-content-pad-y);
-  padding-right: var(--space-nav-to-content);
+  padding-block: 0;
+  padding-right: 0;
 }
 
 .caseStudyBack {
@@ -208,7 +214,7 @@
   width: var(--size-nav-dot);
   height: var(--size-nav-dot);
   border-radius: 50%;
-  background: var(--color-reddit-orange);
+  background: var(--color-accent);
   pointer-events: none;
   opacity: 0;
   transition:
@@ -312,7 +318,7 @@
 
 .caseStudyTocLink--active,
 .caseStudyTocLink--active:hover {
-  color: var(--color-reddit-orange);
+  color: var(--color-accent);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -335,6 +341,16 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-case-study-stack);
+}
+
+/* Reddit cover reel in a surface container, between cover summary and first section */
+.caseStudyCoverVideo {
+  align-self: center;
+  width: min(100%, var(--width-case-study-stack));
+  aspect-ratio: var(--aspect-cover-video);
+  overflow: hidden;
+  background: var(--color-surface-neutral);
+  border-radius: var(--radius-md);
 }
 
 /* Hero + meta column — centered, readable measure */
@@ -435,7 +451,6 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  padding-inline: var(--space-xl);
   box-sizing: border-box;
 }
 
@@ -491,7 +506,7 @@
   font-size: var(--size-xxs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
-  color: var(--color-reddit-orange);
+  color: var(--color-accent);
   margin: 0;
 }
 
@@ -564,7 +579,7 @@
   font-size: var(--size-xxs);
   line-height: var(--line-height-snug);
   letter-spacing: var(--letter-spacing-ui);
-  color: var(--color-text-heading);
+  color: var(--color-accent);
   margin: 0;
 }
 
@@ -657,6 +672,9 @@
     grid-column: 1;
     justify-self: stretch;
     position: static;
+    top: auto;
+    right: auto;
+    left: auto;
     width: 100%;
     flex-direction: row;
     flex-wrap: wrap;

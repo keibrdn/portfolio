@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { prefetchCaseStudy, readCaseStudyCache } from '../lib/caseStudyLoad.js'
 import { urlFor } from '../lib/sanity.js'
 import { useImageLoaded } from '../hooks/useImageLoaded.js'
+import CoverVideo, { REDDIT_COVER_VIDEO } from './CoverVideo.jsx'
 import './CaseStudyCard.css'
 
 function tagsFromProps(tags, skillsLine) {
@@ -16,6 +17,11 @@ function tagsFromProps(tags, skillsLine) {
       .filter(Boolean)
   }
   return []
+}
+
+/** Home cover video overrides, keyed by lowercase slug (replaces the Sanity featured image). */
+const COVER_VIDEO = {
+  reddit: REDDIT_COVER_VIDEO,
 }
 
 export default function CaseStudyCard({
@@ -58,6 +64,8 @@ export default function CaseStudyCard({
 
   const linkBusy = pending ? { 'aria-busy': true } : null
 
+  const coverVideo = COVER_VIDEO[String(slug ?? '').toLowerCase()]
+
   if (layout === 'horizontal') {
     return (
       <article className="caseStudyCard caseStudyCard--horizontal">
@@ -69,8 +77,18 @@ export default function CaseStudyCard({
           onClick={onOpen}
           {...linkBusy}
         >
-          <div className={`caseStudyCardMedia caseStudyCardMedia--h${imgLoaded ? ' caseStudyCardMedia--loaded' : ''}`}>
-            {imgUrl ? (
+          <div
+            className={[
+              'caseStudyCardMedia caseStudyCardMedia--h',
+              coverVideo ? 'caseStudyCardMedia--video caseStudyCardMedia--loaded' : '',
+              !coverVideo && imgLoaded ? 'caseStudyCardMedia--loaded' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
+            {coverVideo ? (
+              <CoverVideo className="caseStudyCardVideo" src={coverVideo} title={title} />
+            ) : imgUrl ? (
               <img
                 className="caseStudyCardImg caseStudyCardImg--h"
                 src={imgUrl}

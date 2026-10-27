@@ -60,7 +60,7 @@
 }
 
 .searchTypingHighlight {
-  color: var(--color-reddit-orange);
+  color: var(--color-accent);
 }
 
 .searchTypingCursor {

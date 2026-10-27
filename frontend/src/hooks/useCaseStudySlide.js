@@ -31,11 +31,27 @@ export function useCaseStudySlide() {
     return () => window.clearTimeout(timer)
   }, [blocker.state, proceed])
 
+  useEffect(() => {
+    if (phase !== 'enter') return
+    if (prefersReducedMotion()) {
+      setPhase('idle')
+      return
+    }
+    const timer = window.setTimeout(() => setPhase('idle'), SLIDE_FALLBACK_MS)
+    return () => window.clearTimeout(timer)
+  }, [phase])
+
   const onAnimationEnd = useCallback(
     (event) => {
       if (event.target !== event.currentTarget) return
-      if (!String(event.animationName).includes('caseStudySlideOut')) return
-      proceed()
+      const name = String(event.animationName)
+      if (name.includes('caseStudySlideOut')) {
+        proceed()
+        return
+      }
+      if (name.includes('caseStudySlideIn')) {
+        setPhase('idle')
+      }
     },
     [proceed],
   )
@@ -43,7 +59,9 @@ export function useCaseStudySlide() {
   const className =
     phase === 'exit'
       ? 'caseStudySlide caseStudySlide--exit'
-      : 'caseStudySlide caseStudySlide--enter'
+      : phase === 'enter'
+        ? 'caseStudySlide caseStudySlide--enter'
+        : 'caseStudySlide'
 
   return { className, onAnimationEnd }
 }

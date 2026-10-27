@@ -12,7 +12,7 @@
 .aboutSection {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: var(--space-md);
   width: 100%;
 }
 
@@ -212,7 +212,6 @@
   font-weight: var(--font-weight-body-regular);
   line-height: var(--line-height-snug);
   color: var(--color-text-primary);
-  text-decoration: underline;
   margin: 0;
 }
 
@@ -226,21 +225,14 @@
   padding-block: var(--space-sm); /* vertical breathing room for rotation */
 }
 
-.aboutPhotoRow--drinks,
-.aboutPhotoRow--places {
+.aboutPhotoRow--drinks {
   justify-content: space-between;
 }
 
-.aboutDrinkPhoto,
-.aboutPlacePhoto {
+.aboutDrinkPhoto {
   display: block;
   flex-shrink: 0;
   object-fit: cover;
-}
-
-.aboutPlacePhoto {
-  width: 167px;
-  height: 111px;
 }
 
 /* ── Cursor-following tooltip ────────────────────────────────────── */
