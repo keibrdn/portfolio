@@ -291,9 +291,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-tag-gap);
 }
 
+/* Pills match the case study card tags */
 .homeSocialLink {
   display: inline-flex;
   align-items: center;
@@ -303,11 +304,12 @@
   letter-spacing: var(--letter-spacing-ui);
   font-size: var(--size-xxs);
   font-weight: var(--font-weight-ui);
-  color: var(--color-text-primary);
-  text-decoration: underline;
-  text-decoration-color: var(--color-accent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.15em;
+  line-height: var(--line-height-snug);
+  color: var(--color-text-heading);
+  text-decoration: none;
+  background-color: var(--color-surface-neutral);
+  border-radius: var(--radius-lg);
+  padding: var(--space-tag-y) var(--space-tag-x);
   transition: var(--transition-opacity);
 }
 
@@ -327,9 +329,7 @@
 }
 
 .homeSocialLink--copy {
-  background: none;
   border: none;
-  padding: 0;
   cursor: pointer;
 }
 

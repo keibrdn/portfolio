@@ -100,11 +100,6 @@ export function AboutContent() {
           <div className="aboutBioRow">
             <div className="aboutBioBlock">
               <div className="aboutBioText">
-                <p data-reveal style={{ '--reveal-delay': '200ms' }}>
-                  I&apos;m Keila, a current student within the{' '}
-                  <strong>Master of Human-Computer Interaction and Design</strong>{' '}
-                  program at the <strong>University of Washington</strong>.
-                </p>
                 <p data-reveal style={{ '--reveal-delay': '300ms' }}>
                   I harness everything from code, research, storytelling, and design to make
                   complex ideas come to life.
@@ -129,10 +124,12 @@ export function AboutContent() {
                 <img className="aboutPhoto" src={A.adult} alt="Keila as an adult"
                   {...ph('adult', 'rotate(10deg)')} />
               </div>
+              {/* Baby photo hidden for now — uncomment to restore (asset + tooltip kept above).
               <div className="aboutPhotoReveal" data-reveal style={{ '--reveal-delay': '700ms' }}>
                 <img className="aboutPhoto" src={A.baby}  alt="Keila as a baby"
                   {...ph('baby', 'rotate(-10deg)')} />
               </div>
+              */}
             </div>
           </div>
         </section>
