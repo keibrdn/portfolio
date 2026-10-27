@@ -284,7 +284,8 @@ export default function Home() {
     <AppShell fullBleed noPadding mainClassName="appShellMain--landing" showNav={false}>
       <div className="homeLanding">
 
-        <HomeFixedNav leadRef={leadRef} />
+        {/* Home side nav is hidden for now — uncomment to restore (HomeFixedNav + its CSS are kept). */}
+        {/* <HomeFixedNav leadRef={leadRef} /> */}
 
         {/* ── Main scrollable content ───────────────────────── */}
         <div className="homeContent">
