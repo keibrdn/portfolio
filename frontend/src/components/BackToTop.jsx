@@ -2,22 +2,28 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import './BackToTop.css'
 
-const FOOTER_HEIGHT = 300
+const MOBILE_QUERY = '(max-width: 56rem)'
+
+/** Horizontal center of the page's side nav, or null when there isn't one on screen. */
+function sideNavCenterX() {
+  if (window.matchMedia(MOBILE_QUERY).matches) return null
+  const nav = document.querySelector('.caseStudyToc')
+  if (!nav) return null
+  const box = nav.getBoundingClientRect()
+  if (!box.width) return null
+  return box.left + box.width / 2
+}
 
 function BackToTopInner() {
   const { pathname } = useLocation()
   const [visible, setVisible] = useState(false)
-  const [footerOffset, setFooterOffset] = useState(0)
+  const [navCenterX, setNavCenterX] = useState(null)
 
   useEffect(() => {
     const update = () => {
       const threshold = window.innerHeight * 0.25
       setVisible(window.scrollY > threshold)
-
-      // How many px of the footer are currently visible in the viewport
-      const scrollBottom = window.scrollY + window.innerHeight
-      const docHeight = document.documentElement.scrollHeight
-      setFooterOffset(Math.max(0, scrollBottom - (docHeight - FOOTER_HEIGHT)))
+      setNavCenterX(sideNavCenterX())
     }
     update()
     window.addEventListener('scroll', update, { passive: true })
@@ -36,8 +42,14 @@ function BackToTopInner() {
   return (
     <button
       type="button"
-      className={['backToTop', visible ? 'backToTop--visible' : null].filter(Boolean).join(' ')}
-      style={footerOffset > 0 ? { bottom: `calc(var(--space-md) + var(--space-back-to-top-lift) + ${footerOffset}px)` } : undefined}
+      className={[
+        'backToTop',
+        visible ? 'backToTop--visible' : null,
+        navCenterX != null ? 'backToTop--underNav' : null,
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      style={navCenterX != null ? { left: `${navCenterX}px` } : undefined}
       onClick={handleClick}
       aria-label="Back to top"
     >

@@ -29,6 +29,16 @@
   transform: translateY(0);
 }
 
+/* Centered under the side nav (left set inline from the nav's measured center) */
+.backToTop--underNav {
+  right: auto;
+  transform: translate(-50%, var(--space-xs));
+}
+
+.backToTop--underNav.backToTop--visible {
+  transform: translate(-50%, 0);
+}
+
 .backToTop:hover {
   opacity: 0.7;
 }
@@ -40,6 +50,7 @@
 
 .backToTopIcon {
   display: block;
+  color: var(--color-text-muted);
   width: 30px;
   height: 30px;
 }
@@ -50,7 +61,7 @@
   font-size: var(--size-xxs);
   font-weight: var(--font-weight-ui);
   letter-spacing: var(--letter-spacing-ui);
-  color: var(--color-ink);
+  color: var(--color-text-muted);
   white-space: nowrap;
 }
 
@@ -58,5 +69,10 @@
   .backToTop {
     transition: var(--transition-opacity);
     transform: none;
+  }
+
+  .backToTop--underNav,
+  .backToTop--underNav.backToTop--visible {
+    transform: translateX(-50%);
   }
 }
