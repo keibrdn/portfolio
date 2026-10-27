@@ -1,7 +1,7 @@
 .siteMark {
   position: fixed;
-  top: var(--space-sm);
-  left: var(--space-sm);
+  top: var(--space-lg);
+  left: var(--space-lg);
   z-index: var(--z-site-mark);
   display: block;
   width: var(--size-site-mark);
