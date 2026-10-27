@@ -246,8 +246,8 @@
   top: 50%;
   transform: translateY(-50%);
   font-family: var(--font-handwritten);
-  font-size: 44px;
-  font-weight: 400;
+  font-size: var(--size-handwritten-0);
+  font-weight: var(--font-weight-body-regular);
   line-height: 1;
   color: var(--color-accent);
   margin: 0;
@@ -256,22 +256,21 @@
   pointer-events: none;
 }
 
-/* Font cycles every 300ms → wiggly effect.
-   --0 is the base (Handwritten3 @ 44px). Adjust font-size per variant to
-   compensate for any optical size differences between fonts. */
+/* Font cycles every 300ms → wiggly effect. Per-font sizes live in
+   --size-handwritten-* tokens (shared with the about headline). */
 .homeHeroName--0 {
   font-family: var(--font-handwritten);
-  font-size: 44px;
+  font-size: var(--size-handwritten-0);
 }
 
 .homeHeroName--1 {
   font-family: var(--font-handwritten2);
-  font-size: 43px; /* Handwritten2 renders slightly larger — nudge down 1px */
+  font-size: var(--size-handwritten-1);
 }
 
 .homeHeroName--2 {
   font-family: var(--font-handwritten5);
-  font-size: 48px;
+  font-size: var(--size-handwritten-2);
 }
 
 .homeHeroLead {

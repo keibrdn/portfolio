@@ -53,7 +53,7 @@
   transform: translateY(-50%);
   transform-origin: left center;
   font-family: var(--font-handwritten);
-  font-size: var(--size-lg); /* overridden by JS fitText */
+  font-size: var(--size-handwritten-0);
   font-weight: var(--font-weight-body-regular);
   line-height: 1;
   color: var(--color-accent);
@@ -61,9 +61,9 @@
   margin: 0;
 }
 
-.aboutHeadline--0 { font-family: var(--font-handwritten); }
-.aboutHeadline--1 { font-family: var(--font-handwritten2); }
-.aboutHeadline--2 { font-family: var(--font-handwritten5); }
+.aboutHeadline--0 { font-family: var(--font-handwritten);  font-size: var(--size-handwritten-0); }
+.aboutHeadline--1 { font-family: var(--font-handwritten2); font-size: var(--size-handwritten-1); }
+.aboutHeadline--2 { font-family: var(--font-handwritten5); font-size: var(--size-handwritten-2); }
 
 /* Row: bio text block left, photo stack right */
 .aboutBioRow {

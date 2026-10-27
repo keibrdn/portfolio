@@ -298,8 +298,8 @@ export default function Home() {
                 </h1>
               </div>
               <p className="homeHeroLead" ref={leadRef}>
-                I design and engineer human experiences that spark connection and belonging,
-                grounded in equal parts craft and curiosity.
+                I thrive on untangling wicked problems and bringing digital harmony to spaces
+                that serve connection and belonging.
               </p>
             </div>
 

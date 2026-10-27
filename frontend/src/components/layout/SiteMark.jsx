@@ -5,7 +5,7 @@ import './SiteMark.css'
 export default function SiteMark() {
   return (
     <Link to="/" className="siteMark" aria-label="Home">
-      <img src="/favicon.png" alt="" className="siteMarkImg" aria-hidden="true" />
+      <img src="/favicon.png?v=4" alt="" className="siteMarkImg" aria-hidden="true" />
     </Link>
   )
 }

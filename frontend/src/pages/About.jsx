@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import AppShell from '../components/layout/AppShell.jsx'
 import { urlFor } from '../lib/sanity.js'
 import './About.css'
@@ -49,113 +49,16 @@ function AboutEyebrow({ children }) {
   return <p className="aboutEyebrow">{children}</p>
 }
 
-const HEADLINE_FONTS = [
-  { className: 'aboutHeadline aboutHeadline--0', family: 'Handwritten3' },
-  { className: 'aboutHeadline aboutHeadline--1', family: 'Handwritten2' },
-  { className: 'aboutHeadline aboutHeadline--2', family: 'Handwritten5' },
-]
-
-function headlineInk(el) {
-  const range = document.createRange()
-  range.selectNodeContents(el)
-  return range.getBoundingClientRect()
-}
-
 export function AboutContent() {
   const [tooltip, setTooltip]   = useState(null) // { text, x, y } | null
   const [activeId, setActiveId] = useState(null) // currently hovered
   const [pinnedId, setPinnedId] = useState(null) // last hovered — stays elevated
 
-  const headlineRef = useRef(null)
-  const bioTextRef  = useRef(null)
   const [fontIdx, setFontIdx] = useState(0)
-  const [fontFits, setFontFits] = useState([{}, {}, {}])
 
   useEffect(() => {
     const id = setInterval(() => setFontIdx((i) => (i + 1) % 3), 300)
     return () => clearInterval(id)
-  }, [])
-
-  useEffect(() => {
-    const headline = headlineRef.current
-    const bioText  = bioTextRef.current
-    if (!headline || !bioText) return
-
-    let cancelled = false
-
-    async function measure() {
-      const text = headline.textContent
-      const width = bioText.offsetWidth
-      if (!text || !width) return
-
-      try {
-        await Promise.all(
-          HEADLINE_FONTS.map(({ family }) =>
-            document.fonts.load(`400 1em "${family}"`),
-          ),
-        )
-      } catch {
-        /* measure with whatever is available */
-      }
-      if (cancelled) return
-
-      const metrics = HEADLINE_FONTS.map(({ className }) => {
-        const probe = document.createElement('span')
-        probe.className = className
-        probe.textContent = text
-        probe.style.cssText =
-          'position:absolute;visibility:hidden;left:0;top:0;right:auto;width:max-content;white-space:nowrap;font-size:var(--size-lg);line-height:1;pointer-events:none'
-        document.body.appendChild(probe)
-        const probePx = parseFloat(getComputedStyle(probe).fontSize) || 32
-        const ink = headlineInk(probe)
-        probe.remove()
-        return { probePx, width: ink.width, height: ink.height }
-      })
-
-      const probePx = metrics[0]?.probePx || 32
-      const maxInkH = Math.max(...metrics.map((m) => m.height), 1)
-      const optical = metrics.map((m) => maxInkH / Math.max(m.height, 1))
-      const scaledW = metrics.map((m, i) => m.width * optical[i])
-      const maxW = Math.max(...scaledW, 1)
-      const base = probePx * (width / maxW)
-      const sizes = optical.map((scale) => base * scale)
-      const inkWidths = metrics.map((m, i) => m.width * (sizes[i] / m.probePx))
-      const targetW = Math.max(...inkWidths)
-      const gaps = Math.max(text.length - 1, 1)
-
-      const fits = HEADLINE_FONTS.map(({ className }, i) => {
-        const probe = document.createElement('span')
-        probe.className = className
-        probe.textContent = text
-        probe.style.cssText =
-          'position:absolute;visibility:hidden;left:0;top:0;right:auto;width:max-content;white-space:nowrap;line-height:1;pointer-events:none'
-        probe.style.fontSize = `${sizes[i]}px`
-        document.body.appendChild(probe)
-        const rawW = headlineInk(probe).width || inkWidths[i]
-        const guessed = (targetW - rawW) / gaps
-        probe.style.letterSpacing = `${guessed}px`
-        const fittedW = headlineInk(probe).width
-        probe.remove()
-        const delta = fittedW - rawW
-        const tracking = Math.abs(delta) > 0.25 ? guessed * ((targetW - rawW) / delta) : guessed
-        return {
-          fontSize: `${sizes[i]}px`,
-          letterSpacing: `${tracking}px`,
-        }
-      })
-      setFontFits(fits)
-    }
-
-    measure()
-    document.fonts?.ready?.then(() => {
-      if (!cancelled) measure()
-    })
-    const observer = new ResizeObserver(measure)
-    observer.observe(bioText)
-    return () => {
-      cancelled = true
-      observer.disconnect()
-    }
   }, [])
 
   /* Returns merged style + event handlers for any hoverable photo */
@@ -189,8 +92,6 @@ export function AboutContent() {
           <div className="aboutHeadlineSlot" data-reveal style={{ '--reveal-delay': '0ms' }}>
             <h2
               className={`aboutHeadline aboutHeadline--${fontIdx}`}
-              ref={headlineRef}
-              style={fontFits[fontIdx]}
             >
               designer, tinkerer, caffeine enthusiast
             </h2>
@@ -198,7 +99,7 @@ export function AboutContent() {
 
           <div className="aboutBioRow">
             <div className="aboutBioBlock">
-              <div className="aboutBioText" ref={bioTextRef}>
+              <div className="aboutBioText">
                 <p data-reveal style={{ '--reveal-delay': '200ms' }}>
                   I&apos;m Keila, a current student within the{' '}
                   <strong>Master of Human-Computer Interaction and Design</strong>{' '}

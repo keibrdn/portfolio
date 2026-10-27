@@ -86,6 +86,11 @@
 
   /* Landing sidebar hero name (fixed small label) */
   --size-hero-name: 1.25rem;
+  /* Handwritten display titles (home hero + about headline), per cycled font —
+     each nudged so the three fonts read at the same optical size */
+  --size-handwritten-0: 2.75rem;   /* 44px — Handwritten3 */
+  --size-handwritten-1: 2.6875rem; /* 43px — Handwritten2 */
+  --size-handwritten-2: 3rem;      /* 48px — Handwritten5 */
   /* Reserved boxes so handwritten font cycle cannot shift siblings */
   --height-home-hero-name: 3rem;
   --height-about-headline: 4rem;
