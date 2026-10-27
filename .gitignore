@@ -1,2 +1,27 @@
 # Local-only stash — never commit
 .local/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules/
+dist/
+
+# Logs
+*.log
+
+# Deploy / tooling
+.vercel/
+.claude/settings.local.json
+
+# Editors
+.vscode/*
+!.vscode/extensions.json
+.idea/
