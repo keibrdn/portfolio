@@ -146,10 +146,17 @@
   animation: none;
 }
 
-/* Only the cover bounces — hovering the title/tags does nothing */
+/* Only the cover bounces — hovering the title/tags does nothing.
+   isolation + inherited radius keep the corners clipped while scaling
+   (Chromium/WebKit drop overflow clipping on transformed layers otherwise). */
 .caseStudyCardMedia--h {
   transform: scale(1);
   transition: var(--transition-bounce);
+  isolation: isolate;
+}
+
+.caseStudyCardMedia--h > * {
+  border-radius: inherit;
 }
 
 .caseStudyCardMedia--h:hover,
